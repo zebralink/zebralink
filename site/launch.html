@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ZEBRALINK — the fish launches $ZEBRA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--display:'Silkscreen','JetBrains Mono',ui-monospace,monospace;--mono:'JetBrains Mono',ui-monospace,monospace;--cyan:#52e3e3;--pink:#ff5c8a;--lime:#c8ff3a}
+  html,body{margin:0;background:#07071a;height:100%;overflow:hidden;font-family:var(--mono)}
+  #gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(3,3,12,.75) 100%)}
+  .title{position:absolute;left:22px;top:22px;font-family:var(--display);font-weight:700;font-size:clamp(28px,5vw,52px);color:#fff;text-shadow:0 0 18px rgba(82,227,227,.25)}
+  .title .cur{color:var(--pink);animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .sub{position:absolute;right:22px;top:30px;font-family:var(--display);font-size:clamp(10px,1.6vw,14px);letter-spacing:.14em;color:#9aa2cc;text-align:right;line-height:1.6}
+  .sub b{color:var(--lime);font-weight:400}
+  .log{position:absolute;left:18px;bottom:18px;width:min(520px,calc(100vw - 36px));background:rgba(5,5,18,.86);border:1px solid rgba(255,255,255,.08);border-left:3px solid var(--lime);border-radius:4px;padding:12px 14px;font-family:var(--display);color:#cfd6ff;font-size:clamp(11px,1.7vw,15px);line-height:1.75;letter-spacing:.04em}
+  .log .h{display:flex;justify-content:space-between;color:#dfe6ff;margin-bottom:4px}
+  .log .h span:last-child{color:#8f97c4}
+  .log div.l{opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .25s}
+  .log div.l.on{opacity:1;transform:none}
+  .log .ok{color:var(--lime)}.log .c{color:var(--cyan)}.log .p{color:var(--pink)}
+  .stamp{position:absolute;left:50%;top:9%;transform:translateX(-50%) scale(.9);font-family:var(--display);font-weight:700;font-size:clamp(22px,4.6vw,54px);color:#fff;background:rgba(5,5,18,.7);border:2px solid var(--lime);padding:10px 22px;letter-spacing:.06em;opacity:0;transition:opacity .3s,transform .3s;text-align:center;white-space:nowrap}
+  .stamp.on{opacity:1;transform:translateX(-50%) scale(1)}
+  .stamp small{display:block;font-size:.42em;color:var(--lime);letter-spacing:.2em;margin-top:6px}
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div class="vignette"></div>
+<div class="title">ZEBRALINK<span class="cur">_</span></div>
+<div class="sub">DANIO RERIO · AT THE DESK<br>TASK <b>LAUNCH TOKEN</b><br>VENUE <b>PONS</b></div>
+<div class="stamp" id="stamp">$ZEBRA IS LIVE<small>PONS · PAIRED WITH GOOGL · 0x94b5…a124</small></div>
+<div class="log" id="log"><div class="h"><span>LAUNCH LOG</span><span id="clock">0.00 S</span></div>
+  <div class="l" data-t="1.6">&gt; name <span class="c">Zebra Fish</span></div>
+  <div class="l" data-t="3.1">&gt; ticker <span class="c">ZEBRA</span></div>
+  <div class="l" data-t="5.2">&gt; image <span class="ok">ipfs ✓</span></div>
+  <div class="l" data-t="6.3">&gt; x <span class="c">@ZebraFishlink</span></div>
+  <div class="l" data-t="7.6">&gt; paired asset <span class="ok">GOOGL</span></div>
+  <div class="l" data-t="9.2">&gt; launch tx <span class="p">sent by fish</span></div>
+  <div class="l" data-t="10.2">&gt; <span class="ok">$ZEBRA live</span> · 0x94b5d685…d628f7a124</div>
+</div>
+
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/addons/" } }</script>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPixelatedPass } from 'three/addons/postprocessing/RenderPixelatedPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const Q = new URLSearchParams(location.search); const SEEK = Q.has('t') ? parseFloat(Q.get('t')) : null; const LOOP = 13;
+const CA = '0x94b5d6857c39f8a5c77c6062bcce79d628f7a124';
+const canvas = document.getElementById('gl');
+const isMobile = matchMedia('(max-width:640px)').matches;
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, preserveDrawingBuffer: SEEK != null });
+renderer.setPixelRatio(1); renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x07071a); scene.fog = new THREE.Fog(0x07071a, 6, 14);
+const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 40); const camLook = new THREE.Vector3(0.6, 1.0, -0.3);
+scene.add(new THREE.HemisphereLight(0x2a2c5a, 0x08081a, 0.32));
+const key = new THREE.DirectionalLight(0xffd9e6, 0.45); key.position.set(-2.5, 4, 2.5); scene.add(key);
+const screenLight = new THREE.PointLight(0x4ea8ff, 6, 4.5, 1.7); screenLight.position.set(1.15, 1.35, 0.1); scene.add(screenLight);
+const rim = new THREE.PointLight(0xff5c8a, 2.2, 4, 1.8); rim.position.set(-2.4, 1.5, -0.8); scene.add(rim);
+const fill = new THREE.PointLight(0x2f6bff, 0.6, 3.2, 2); fill.position.set(0.3, 0.6, 1.6); scene.add(fill);
+const mDark = (c, r = 0.85) => new THREE.MeshStandardMaterial({ color: c, roughness: r, metalness: 0.05 });
+const mGlow = c => new THREE.MeshBasicMaterial({ color: c });
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), mDark(0x0a0a1e, 0.95)); floor.rotation.x = -Math.PI / 2; scene.add(floor);
+function wallRow(count, from, to, z, alongX) { const g = new THREE.Group(); let x = from, seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < count && x < to; i++) { const w = 0.35 + rnd() * 0.55, h = 2.4 + rnd() * 3.2, d = 0.25 + rnd() * 0.25; const shade = new THREE.Color().setHSL(0.66 + rnd() * 0.05, 0.45, 0.045 + rnd() * 0.05); const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mDark(shade, 1)); if (alongX) m.position.set(x + w / 2, h / 2, z - d / 2); else m.position.set(z + d / 2, h / 2, x + w / 2); g.add(m); x += w + 0.04 + rnd() * 0.08; } return g; }
+scene.add(wallRow(40, -9, 9, -2.4, true)); scene.add(wallRow(30, -6, 3, -4.2, false)); scene.add(wallRow(30, -6, 3, 4.6, false));
+const RAIN_N = isMobile ? 500 : 900; const rain = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.045, 0.09), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.85, side: THREE.DoubleSide }), RAIN_N);
+const rainState = []; const palette = [0x52e3e3, 0x52e3e3, 0x2f6bff, 0xff5c8a, 0x9ad4ff, 0xff9ac0]; const partyPal = [0xc8ff3a, 0xc8ff3a, 0xffd23f, 0x52e3e3, 0xffffff, 0xff9ac0];
+{ const d = new THREE.Object3D(), col = new THREE.Color(); let seed = 3; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < RAIN_N; i++) { const wall = rnd(); let x, y, z, ry = 0; if (wall < 0.55) { x = -9 + rnd() * 18; z = -2.1; } else if (wall < 0.8) { x = -4.05; z = -6 + rnd() * 9; ry = Math.PI / 2; } else { x = 4.45; z = -6 + rnd() * 9; ry = Math.PI / 2; } y = rnd() * 5.5; const pi = Math.floor(rnd() * 6); rainState.push({ x, y0: y, z, ry, vy: 0.25 + rnd() * 0.9, len: 1 + Math.floor(rnd() * 3), pi }); d.position.set(x, y, z); d.rotation.set(0, ry, 0); d.scale.set(1, rainState[i].len, 1); d.updateMatrix(); rain.setMatrixAt(i, d.matrix); rain.setColorAt(i, col.setHex(palette[pi])); } rain.instanceColor.needsUpdate = true; }
+scene.add(rain);
+const desk = new THREE.Group(); const top = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.12, 2.1), mDark(0x1b1a38, 0.8)); top.position.set(0.2, 0.78, -0.1); desk.add(top);
+for (const [lx, lz] of [[-1.95, -1.0], [2.35, -1.0], [-1.95, 0.8], [2.35, 0.8]]) { const leg = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.74, 0.16), mDark(0x14132c)); leg.position.set(lx, 0.37, lz); desk.add(leg); }
+const edgeC = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.025, 0.025), mGlow(0x52e3e3)); edgeC.position.set(0.2, 0.845, 0.95); desk.add(edgeC);
+const edgeP = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.025, 2.1), mGlow(0xff5c8a)); edgeP.position.set(-2.1, 0.845, -0.1); desk.add(edgeP);
+const edgeB = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.025, 0.025), mGlow(0x2f6bff)); edgeB.position.set(0.2, 0.845, -1.15); desk.add(edgeB); scene.add(desk);
+// monitor + Pons form texture
+const scr = document.createElement('canvas'); scr.width = 640; scr.height = 360; const sctx = scr.getContext('2d');
+const scrTex = new THREE.CanvasTexture(scr); scrTex.colorSpace = THREE.SRGBColorSpace; scrTex.magFilter = THREE.NearestFilter; scrTex.minFilter = THREE.LinearFilter;
+const monitor = new THREE.Group(); monitor.add(new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.12, 0.07), mDark(0x0d0d22, 0.6)));
+const screen = new THREE.Mesh(new THREE.PlaneGeometry(1.78, 1.0), new THREE.MeshBasicMaterial({ map: scrTex })); screen.position.z = 0.037; monitor.add(screen);
+const bezelGlow = new THREE.Mesh(new THREE.BoxGeometry(1.92, 0.02, 0.02), mGlow(0x52e3e3)); bezelGlow.position.set(0, -0.57, 0.02); monitor.add(bezelGlow);
+const stand = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.3, 0.12), mDark(0x12122a)); stand.position.set(0, -0.7, -0.05); monitor.add(stand);
+const foot = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.03, 0.35), mDark(0x12122a)); foot.position.set(0, -0.84, -0.02); monitor.add(foot);
+monitor.position.set(1.35, 1.7, -0.55); monitor.rotation.y = 0.42; scene.add(monitor);
+const kb = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.035, 0.36), mDark(0x15152e, 0.7)); kb.position.set(0.55, 0.86, 0.35); kb.rotation.y = 0.18; scene.add(kb);
+const kbGlow = new THREE.Mesh(new THREE.BoxGeometry(0.98, 0.006, 0.3), mGlow(0x0f3f52)); kbGlow.position.set(0.55, 0.879, 0.35); kbGlow.rotation.y = 0.18; scene.add(kbGlow);
+const mouse = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.05, 0.24), mDark(0x2a2a4a, 0.55)); mouse.position.set(1.45, 0.865, 0.55); mouse.rotation.y = -0.2; scene.add(mouse);
+const mouseDot = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.012, 0.03), mGlow(0xff5c8a)); mouseDot.position.set(1.45, 0.895, 0.5); scene.add(mouseDot);
+const mug = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.1, 0.24, 8), mDark(0x3a2440, 0.6)); mug.position.set(2.05, 0.96, 0.55); scene.add(mug);
+{ const pts = [new THREE.Vector3(1.45, 0.87, 0.65), new THREE.Vector3(1.9, 0.86, 0.6), new THREE.Vector3(2.2, 0.86, 0.0), new THREE.Vector3(1.6, 0.86, -0.5)]; scene.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 24, 0.012, 4, false), mGlow(0x1a1a44))); }
+
+/* ---- the Pons form, as a timeline ---- */
+const tokenImg = new Image(); tokenImg.src = 'assets/token.png';
+const typed = (s, t0, t1, t) => s.slice(0, Math.max(0, Math.min(s.length, Math.floor((t - t0) / (t1 - t0) * s.length))));
+function stage(t) {
+  return {
+    name: typed('Zebra Fish', 1.0, 1.7, t), ticker: typed('ZEBRA', 2.4, 3.0, t),
+    img: t < 4.0 ? 'none' : t < 5.2 ? 'up' : 'done', x: typed('ZebraFishlink', 5.6, 6.3, t),
+    pair: t < 7.0 ? 'ETH' : t < 7.5 ? 'open' : 'GOOGL', btn: t < 8.4 ? 'idle' : t < 9.0 ? 'hover' : t < 9.4 ? 'press' : 'done',
+    live: t >= 9.6, field: t < 2.4 ? 0 : t < 4.0 ? 1 : t < 5.6 ? 2 : t < 7.0 ? 3 : t < 8.4 ? 4 : 5,
+  };
+}
+function drawScreen(t) {
+  const s = stage(t), W = scr.width, H = scr.height, c = sctx; const lime = '#c8ff3a', dim = '#8b8f99', fg = '#f2f2f2', bg = '#0b0b0d', panel = '#151518', line = '#26262b';
+  c.fillStyle = bg; c.fillRect(0, 0, W, H);
+  if (s.live) { // live screen
+    c.fillStyle = '#0e1a08'; c.fillRect(0, 0, W, H); c.fillStyle = lime; c.font = 'bold 44px monospace'; c.fillText('$ZEBRA', 40, 96); c.fillStyle = fg; c.font = 'bold 30px monospace'; c.fillText('is live on Pons', 40, 140);
+    c.fillStyle = dim; c.font = '18px monospace'; c.fillText('Paired with GOOGL  ·  Liquidity locked', 40, 182); c.fillStyle = fg; c.font = '16px monospace'; c.fillText(CA, 40, 222);
+    if (tokenImg.complete) c.drawImage(tokenImg, 420, 40, 180, 82); c.fillStyle = lime; c.fillRect(40, 260, 560, 56); c.fillStyle = '#0b0b0d'; c.font = 'bold 22px monospace'; c.fillText('Trade ZEBRA / GOOGL', 200, 296);
+    const pulse = 0.5 + 0.5 * Math.sin(t * 8); c.fillStyle = `rgba(200,255,58,${0.15 + 0.2 * pulse})`; c.fillRect(0, 0, W, 6);
+  } else {
+    c.fillStyle = panel; c.fillRect(20, 16, 380, 328); c.fillStyle = panel; c.fillRect(416, 40, 204, 300);
+    c.fillStyle = fg; c.font = 'bold 22px sans-serif'; c.fillText('Launch token', 36, 46);
+    const field = (label, val, x, y, w, active, placeholder) => { c.fillStyle = dim; c.font = '11px sans-serif'; c.fillText(label, x, y); c.strokeStyle = active ? lime : line; c.lineWidth = active ? 2 : 1; c.fillStyle = '#0f0f12'; c.fillRect(x, y + 6, w, 28); c.strokeRect(x, y + 6, w, 28); c.font = '14px sans-serif'; c.fillStyle = val ? fg : '#5c5f66'; c.fillText(val || placeholder, x + 10, y + 25); if (active && Math.floor(t * 3) % 2 === 0) { const tw = c.measureText(val || '').width; c.fillStyle = lime; c.fillRect(x + 11 + (val ? tw : 0), y + 12, 2, 16); } };
+    field('Name', s.name, 36, 66, 170, s.field === 0, 'Token name'); field('Ticker', s.ticker, 220, 66, 165, s.field === 1, 'TICKER');
+    c.fillStyle = dim; c.font = '11px sans-serif'; c.fillText('Token image', 36, 118); c.strokeStyle = s.field === 2 ? lime : line; c.setLineDash([4, 3]); c.strokeRect(36, 124, 349, 44); c.setLineDash([]);
+    if (s.img === 'none') { c.fillStyle = '#5c5f66'; c.font = '13px sans-serif'; c.fillText('Drop an image', 48, 151); } else { c.fillStyle = '#1c1c22'; c.fillRect(44, 130, 60, 32); if (tokenImg.complete) c.drawImage(tokenImg, 46, 134, 56, 24); c.fillStyle = s.img === 'up' ? dim : lime; c.font = '13px sans-serif'; c.fillText(s.img === 'up' ? 'Uploading to ipfs' + '.'.repeat(1 + Math.floor(t * 3) % 3) : 'Uploaded to ipfs ✓', 116, 151); }
+    field('X profile', s.x ? 'x.com/' + s.x : '', 36, 182, 170, s.field === 3, 'x.com/handle'); field('Telegram', '', 220, 182, 165, false, 't.me/community');
+    c.fillStyle = dim; c.font = '11px sans-serif'; c.fillText('Paired asset', 36, 234); c.fillStyle = '#0f0f12'; c.fillRect(36, 240, 349, 28); c.strokeStyle = s.field === 4 ? lime : line; c.strokeRect(36, 240, 349, 28); c.fillStyle = fg; c.font = '14px sans-serif';
+    c.fillText(s.pair === 'open' ? 'ETH' : s.pair, 48, 259); c.fillStyle = dim; c.fillText('⌄', 368, 259);
+    if (s.pair === 'open') { c.fillStyle = '#1a1a20'; c.fillRect(36, 268, 349, 52); c.strokeStyle = line; c.strokeRect(36, 268, 349, 52); c.fillStyle = dim; c.font = '13px sans-serif'; c.fillText('ETH', 48, 287); c.fillStyle = lime; c.fillRect(38, 294, 345, 24); c.fillStyle = '#0b0b0d'; c.fillText('GOOGL  ·  tokenized stock', 48, 311); }
+    else { c.fillStyle = dim; c.font = '11px sans-serif'; c.fillText(s.pair === 'GOOGL' ? 'Graduates once the curve raises the GOOGL target.' : 'Graduates once the curve raises 4.2 ETH.', 36, 284); }
+    // button
+    const by = 300; c.fillStyle = s.btn === 'press' ? '#8fbf1f' : s.btn === 'hover' ? '#d4ff5c' : s.btn === 'done' ? '#3a4a12' : lime; c.fillRect(36, by, 349, 34); c.fillStyle = '#0b0b0d'; c.font = 'bold 15px sans-serif'; c.fillText(s.btn === 'done' ? 'Launching…' : 'Launch token', 150, by + 22);
+    // preview card
+    c.fillStyle = '#0f0f12'; c.fillRect(432, 56, 60, 60); if (tokenImg.complete && s.img !== 'none') c.drawImage(tokenImg, 434, 74, 56, 26);
+    c.fillStyle = fg; c.font = 'bold 18px sans-serif'; c.fillText(s.name || 'Token', 432, 140); c.fillStyle = dim; c.font = '13px sans-serif'; c.fillText(s.ticker || '—', 432, 160);
+    const rows = [['Launch fee', '0.0005 Ξ'], ['Paired with', s.pair === 'GOOGL' ? 'GOOGL' : 'ETH'], ['Trade fee', '1.00%'], ['Launch window', '99% snipe tax, 3s'], ['Liquidity', 'Locked']];
+    rows.forEach(([k, v], i) => { const y = 190 + i * 26; c.fillStyle = dim; c.font = '11px sans-serif'; c.fillText(k, 432, y); c.fillStyle = k === 'Paired with' && v === 'GOOGL' ? lime : fg; c.textAlign = 'right'; c.fillText(v, 606, y); c.textAlign = 'left'; c.fillStyle = line; c.fillRect(432, y + 8, 174, 1); });
+    // mouse cursor on screen: sits on the active field, then the button
+    const cur = [[100, 90], [280, 90], [200, 146], [120, 206], [200, 254], [210, 317]][s.field]; c.fillStyle = '#fff'; c.beginPath(); c.moveTo(cur[0], cur[1]); c.lineTo(cur[0], cur[1] + 14); c.lineTo(cur[0] + 4, cur[1] + 10); c.lineTo(cur[0] + 10, cur[1] + 10); c.closePath(); c.fill();
+  }
+  scrTex.needsUpdate = true;
+}
+
+/* ---- fish ---- */
+const fishRoot = new THREE.Group(); scene.add(fishRoot); const swayU = { value: 0 }; let fishReady = false;
+new GLTFLoader().load('assets/zebrafish.glb', g => { const o = g.scene; const box = new THREE.Box3().setFromObject(o); const size = box.getSize(new THREE.Vector3()); const s = 1.35 / Math.max(size.x, size.y, size.z); o.scale.setScalar(s); box.setFromObject(o); const c = box.getCenter(new THREE.Vector3()); o.position.sub(c); o.position.y += size.y * s * 0.5;
+  o.traverse(m => { if (!m.isMesh) return; m.frustumCulled = false; const mat = m.material; mat.roughness = 0.6; if (mat.map) { mat.map.magFilter = THREE.NearestFilter; mat.map.colorSpace = THREE.SRGBColorSpace; } mat.onBeforeCompile = sh => { sh.uniforms.uTime = swayU; sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nuniform float uTime;').replace('#include <begin_vertex>', '#include <begin_vertex>\n float w = smoothstep(-0.05, 0.55, position.x); transformed.z += sin(uTime * 6.5 - position.x * 7.0) * 0.045 * w * w;'); }; });
+  fishRoot.add(o); fishRoot.rotation.y = Math.PI; fishReady = true; });
+
+/* ---- composer ---- */
+const composer = new EffectComposer(renderer); composer.addPass(new RenderPixelatedPass(isMobile ? 2 : 3, scene, camera, { normalEdgeStrength: 0.25, depthEdgeStrength: 0.35 })); composer.addPass(new OutputPass());
+function resize() { const w = canvas.clientWidth || innerWidth, h = canvas.clientHeight || innerHeight; renderer.setSize(w, h, false); composer.setSize(w, h); camera.aspect = w / h; camera.fov = w / h < 0.9 ? 66 : 40; camera.updateProjectionMatrix(); }
+addEventListener('resize', resize); resize();
+
+const logLines = [...document.querySelectorAll('.log .l')], stamp = document.getElementById('stamp'), clockEl = document.getElementById('clock'); const dummy = new THREE.Object3D(); const col = new THREE.Color();
+function frame(t) {
+  const s = stage(t);
+  // rain: party palette after launch
+  for (let i = 0; i < RAIN_N; i++) { const r = rainState[i]; const speed = s.live ? r.vy * 2.4 : r.vy; const y = ((r.y0 - speed * t) % 5.8 + 5.8) % 5.8 - 0.2; dummy.position.set(r.x, y, r.z); dummy.rotation.set(0, r.ry, 0); dummy.scale.set(1, r.len, 1); dummy.updateMatrix(); rain.setMatrixAt(i, dummy.matrix); rain.setColorAt(i, col.setHex((s.live ? partyPal : palette)[r.pi])); }
+  rain.instanceMatrix.needsUpdate = true; rain.instanceColor.needsUpdate = true;
+  // fish: hovers by the mouse; nudges forward on each field, lunges on the click, loops after launch
+  swayU.value = t * (s.live ? 1.8 : 1) + (s.btn === 'press' ? 3 : 0);
+  const nudge = s.btn === 'press' ? 0.35 : s.btn === 'hover' ? 0.15 : 0; const loop = s.live ? Math.sin((t - 9.6) * 2.2) * 0.35 : 0;
+  fishRoot.position.set(-0.95 + nudge + loop, 0.84 + Math.sin(t * 1.6) * 0.025 + (s.live ? 0.25 + 0.15 * Math.sin((t - 9.6) * 4.4) : 0), 0.2 - nudge * 0.6);
+  fishRoot.rotation.set(0, Math.PI + Math.sin(t * 0.7) * 0.04 + (s.live ? Math.sin((t - 9.6) * 2.2) * 0.5 : 0), Math.sin(t * 1.1) * 0.03 + (s.live ? 0.3 : 0));
+  mouseDot.material.color.setHex(s.btn === 'press' ? 0xc8ff3a : 0xff5c8a);
+  screenLight.color.setHex(s.live ? 0xc8ff3a : 0x4ea8ff); screenLight.intensity = (s.live ? 7 : 5.4) + Math.sin(t * 9) * 0.35;
+  bezelGlow.material.color.setHex(s.live ? 0xc8ff3a : 0x52e3e3);
+  const k = Math.min(1, t / 13); camera.position.set(-1.35 + k * 1.1, 1.95 - k * 0.25, 3.4 - k * 1.0); camera.lookAt(0.6 + k * 0.5, 1.0 + k * 0.3, -0.3 - k * 0.15);
+  drawScreen(t);
+  logLines.forEach(l => l.classList.toggle('on', t >= parseFloat(l.dataset.t))); stamp.classList.toggle('on', s.live); clockEl.textContent = t.toFixed(2) + ' S';
+  composer.render();
+}
+if (SEEK != null) { const go = () => { if (!fishReady) return setTimeout(go, 100); frame(SEEK); frame(SEEK); window.__ready = true; }; go(); }
+else { const clock = new THREE.Clock(); (function tick() { requestAnimationFrame(tick); frame(clock.elapsedTime % LOOP); })(); }
+</script>
+</body>
+</html>
