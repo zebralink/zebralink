@@ -58,6 +58,7 @@
   .loading.off{display:none}
   footer{border-top:1px solid var(--line);padding:8px 14px calc(8px + var(--sab));font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--muted);line-height:1.5}
   footer b{color:#cfd6e2;font-weight:500}
+  footer a{color:var(--cyan);text-decoration:none}
   @media (max-width:760px){
     main{grid-template-columns:1fr 1fr;grid-template-rows:58fr 42fr}
     #world{grid-row:1;grid-column:1 / span 2}
@@ -107,7 +108,7 @@ import { Dog } from './dog.js';
 
 const TASK = new URLSearchParams(location.search).get('task') || 'tabletennis';
 document.querySelectorAll('#tabs a[data-task]').forEach(a => a.classList.toggle('on', a.dataset.task === TASK));
-const COMMON_FOOT = ` The scene is rendered at 320×180 and sampled at the positions of 256 light-responsive cells of a linear whole-brain model fitted to one real zebrafish (ZAPBench, one-step R² 0.94). 128 right minus 128 left turning-responsive hindbrain cells are the steering signal; 16 gate cells are the action signal. Success pulses 15 reward cells, failure pulses 2 aversive cells, and the same anti-Hebbian rule as the trading engine changes the light→readout edges. Each light cell is placed on the screen by the side of the readout it drives in the fitted model (a disclosed display adapter, the way the fly's retina map is) and sees a 9×9-pixel patch. Each readout side is z-scored against its own recorded mean and spread (the left group is twice as variable as the right in the recording), then the difference is centred on its own 30-second running average, so the recording's resting left bias does not pin the controls. Nothing is scripted. Model steps at 16 Hz, a compressed clock relative to the ~1 Hz recording.`;
+const COMMON_FOOT = ` The scene is rendered at 320×180 and sampled at the positions of 256 light-responsive cells of a linear whole-brain model fitted to one real zebrafish (ZAPBench, one-step R² 0.94). 128 right minus 128 left turning-responsive hindbrain cells are the steering signal; 16 gate cells are the action signal. Success pulses 15 reward cells, failure pulses 2 aversive cells, and the same anti-Hebbian rule as the trading engine changes the light→readout edges. Each light cell is placed on the screen by the side of the readout it drives in the fitted model (a disclosed display adapter, the way the fly's retina map is) and sees a 9×9-pixel patch. Each readout side is z-scored against its own recorded mean and spread (the left group is twice as variable as the right in the recording), then the difference is centred on its own 30-second running average, so the recording's resting left bias does not pin the controls. Nothing is scripted. Model steps at 16 Hz, a compressed clock relative to the ~1 Hz recording. Code: <a href="https://github.com/zebralink/zebralink" target="_blank" rel="noopener">github.com/zebralink/zebralink</a> · X: <a href="https://x.com/ZebraFishlink" target="_blank" rel="noopener">@ZebraFishlink</a>.`;
 
 /* ============================ BRAIN MODEL ============================ */
 const P = { frozen: false, stepHz: 16, inputGain: 0.6, pulseAmp: 0.5, pulseSteps: 2, thr: 0.02, gateLevel: 0.10, eta: 0.001, frameSeconds: 0.9,
