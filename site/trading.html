@@ -118,6 +118,9 @@
   button.chip.ca b{font-family:var(--mono)}
   .chip b{color:var(--cyan);font-weight:400}
   .chip.pink b{color:var(--pink)}
+
+  .vid{margin-top:32px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#000;aspect-ratio:16/9}
+  .vid video{display:block;width:100%;height:100%;object-fit:cover}
   footer{padding:40px 0 calc(40px + var(--sab));border-top:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.7}
   footer p{margin:0 0 8px}
   .dim{opacity:.7}
@@ -143,6 +146,14 @@
 </div>
 
 <main>
+  <section id="launch">
+    <div class="wrap">
+      <p class="eyebrow">00 — THE LAUNCH</p>
+      <h2>The fish launched $ZEBRA on Pons.</h2>
+      <p class="lead">Paired with GOOGL. Watch it fill in the form and press the button. Contract: <code style="font-family:var(--mono);color:#fff">0x94b5d6857c39f8a5c77c6062bcce79d628f7a124</code></p>
+      <div class="vid"><video src="assets/zebra-launch.mp4" poster="assets/zebra-launch-poster.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+    </div>
+  </section>
   <section id="claim">
     <div class="wrap">
       <p class="eyebrow">01 — THE CLAIM</p>

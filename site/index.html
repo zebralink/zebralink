@@ -141,6 +141,9 @@
   .card .k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--cyan)}
   @media (min-width:720px){.cards{grid-template-columns:repeat(3,1fr)}}
   .cta{display:inline-block;margin-top:22px;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:12px 16px;border:1px solid var(--cyan);border-radius:10px;color:var(--cyan);text-decoration:none}
+
+  .vid{margin-top:32px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#000;aspect-ratio:16/9}
+  .vid video{display:block;width:100%;height:100%;object-fit:cover}
   footer{padding:44px 0 calc(44px + var(--sab));border-top:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.7}
   footer p{margin:0 0 8px}
 </style>
@@ -170,6 +173,15 @@
 </div>
 
 <main>
+  <section id="launch">
+    <div class="wrap reveal">
+      <p class="eyebrow">00 — The launch</p>
+      <h2>The fish launched a coin.</h2>
+      <p class="lead"><b>$ZEBRA is live on Pons, paired with GOOGL.</b> The pairing is not a joke we chose: the brain behind this site is a model of one fish recorded by Google Research and Janelia. Below, the fish fills in the Pons form and presses the button. Contract: <code style="font-family:var(--mono);color:#fff">0x94b5d6857c39f8a5c77c6062bcce79d628f7a124</code></p>
+      <div class="vid"><video src="assets/zebra-launch.mp4" poster="assets/zebra-launch-poster.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+      <div class="chips"><a class="chip" href="launch.html">OPEN <b>THE FULL ANIMATION</b></a><a class="chip m" href="https://x.com/ZebraFishlink" target="_blank" rel="noopener">X <b>@ZebraFishlink</b></a></div>
+    </div>
+  </section>
   <section id="tasks">
     <div class="wrap reveal">
       <p class="eyebrow">01 — Everyday tasks · live</p>
