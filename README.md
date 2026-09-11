@@ -1,6 +1,6 @@
-![ZAPFISH: a zebrafish brain, wiring on the left, activity on the right](assets/zapfish.jpg)
+![ZEBRALINK: a zebrafish brain, wiring on the left, activity on the right](assets/zebralink.jpg)
 
-# ZAPFISH
+# ZEBRALINK
 
 A zebrafish whole-brain activity model that can operate a crypto trading account, play table tennis, ride a bike and walk a dog. Real recorded neurons, actual Coinbase integration, honest scoreboards. **Profitable learning has not been demonstrated. The fish returns about one ball in three.**
 
@@ -16,18 +16,18 @@ Python 3.11+, any OS. The public data subset is 257 files, about 260 MB.
 
 ```sh
 python -m pip install -e '.[test]'
-python -m zapfish prepare          # download + verify against sources.lock.json
-python -m zapfish train            # fit data/zapbench/model.npz (~1 min)
-python -m zapfish run --fixture --fast --steps 6 --out runs/fixture
-python -m zapfish run --steps 10   # real public prices, paper fills, $100 simulated
+python -m zebralink prepare          # download + verify against sources.lock.json
+python -m zebralink train            # fit data/zapbench/model.npz (~1 min)
+python -m zebralink run --fixture --fast --steps 6 --out runs/fixture
+python -m zebralink run --steps 10   # real public prices, paper fills, $100 simulated
 python -m pytest -q
 ```
 
 For real orders, first create a dedicated Coinbase Advanced portfolio with **at most 100 USDC** and a portfolio-scoped **ECDSA API key with View + Trade, no Transfer**. `pip install -e '.[live]'`, copy `.env.example` to `.env`, fill it in locally, then run these commands yourself:
 
 ```sh
-python -m zapfish run --live --preflight-only
-python -m zapfish run --live
+python -m zebralink run --live --preflight-only
+python -m zebralink run --live
 ```
 
 Defaults: $10 maximum order including reserved fees, 24 attempts/day, no shorts or leverage. A $20 drawdown stops new orders; **it does not liquidate holdings or cap further losses**. [Operation and recovery](docs/operations.md).

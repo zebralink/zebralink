@@ -30,7 +30,7 @@ def _lock(handle):
 
 
 def main():
-    p = argparse.ArgumentParser(prog="zapfish")
+    p = argparse.ArgumentParser(prog="zebralink")
     sub = p.add_subparsers(dest="command", required=True)
     sub.add_parser("prepare", help="Download + verify the public ZAPBench subset")
     sub.add_parser("verify")
@@ -108,7 +108,7 @@ def main():
         verified = verify()
         from PIL import Image
 
-        from .actions import ZapfishActions
+        from .actions import ZebralinkActions
         from .display import market_frame
         from .market import CoinbaseMarket, FixtureMarket
         from .neural.controller import FishController
@@ -151,7 +151,7 @@ def main():
         ledger.put("provenance_sha256", signature)
         (out / "provenance.json").write_text(json.dumps(provenance, indent=2) + "\n")
         guard = Guard(settings, ledger, out / "STOP")
-        provider = ZapfishActions(guard, broker)
+        provider = ZebralinkActions(guard, broker)
         action = provider.get_actions()[0]
         count = 0
         while not a.steps or count < a.steps:

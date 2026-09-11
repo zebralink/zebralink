@@ -1,11 +1,11 @@
 import numpy as np
 import pytest
 
-from zapfish.config import Settings
-from zapfish.neural import model
-from zapfish.neural.controller import Decoder, FishController
-from zapfish.neural.rule import advance
-from zapfish.reinforcement import reinforcement
+from zebralink.config import Settings
+from zebralink.neural import model
+from zebralink.neural.controller import Decoder, FishController
+from zebralink.neural.rule import advance
+from zebralink.reinforcement import reinforcement
 
 
 class FakeBrain:
@@ -57,12 +57,12 @@ def synthetic_model(tmp_path, M=160, T=800, seed=1):
         X[t] = np.clip(A @ X[t - 1] + rng.normal(0, 0.05, M), -0.5, 2.0)
     xyz = rng.normal(0, 100, (M, 3)).astype(np.float32)
     # small fake conditions so anatomy.assign has something to split on
-    import zapfish.neural.common as c
+    import zebralink.neural.common as c
     old = (c.CONDITION_OFFSETS, model.CONDITION_OFFSETS)
     offs = tuple(int(x) for x in np.linspace(0, T, 10))
     c.CONDITION_OFFSETS = offs; model.CONDITION_OFFSETS = offs
     try:
-        from zapfish.neural import anatomy
+        from zebralink.neural import anatomy
         pops, uv, _ = anatomy.assign(X, xyz, n_visual=8, n_motor_side=4, n_gate=2, n_reward=3, n_aversive=1)
         out = tmp_path / "model.npz"
         rep = model.fit(X, pops, uv, np.arange(M), np.arange(M) + 1, ridge=1.0, out=out)

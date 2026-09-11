@@ -1,4 +1,4 @@
-# ZAPFISH — the whole site
+# ZEBRALINK — the whole site
 
 One folder, one server, three pages, one navigation bar:
 
@@ -14,8 +14,8 @@ Serve: `python -m http.server 8140 --bind 127.0.0.1` from this folder → http:/
 
 Shared: `vendor/` (three.js r170 + addons), `assets/`, `data/` (brain positions,
 activity, web model, prediction traces, HUD raster). Source projects that fed this
-build: `../zapfish-observatory`, `../zapfish-tasks`, `../zapfish` (page) and
-`../zapfish/engine` (Python trading engine). `tools/unify.py` re-applies the nav and
+build: `../zebralink-observatory`, `../zebralink-tasks`, `../zebralink` (page) and
+`../zebralink/engine` (Python trading engine). `tools/unify.py` re-applies the nav and
 cross-links after copying fresh page files in.
 
 Deploy: the folder is static; zip it with Python (not Compress-Archive) for Netlify or

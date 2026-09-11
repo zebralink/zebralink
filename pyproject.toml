@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "zapfish"
+name = "zebralink"
 version = "0.1.0"
 description = "A zebrafish whole-brain activity model (ZAPBench) driving a guarded paper/Coinbase spot trading loop. Execution layer forked from STONKFLY (MIT)."
 requires-python = ">=3.11"
@@ -15,10 +15,10 @@ agentkit = ["coinbase-agentkit==0.7.4"]
 test = ["pytest"]
 
 [project.scripts]
-zapfish = "zapfish.cli:main"
+zebralink = "zebralink.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["zapfish*"]
+include = ["zebralink*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -26,11 +26,11 @@ Measured headlessly with a per-step trace of ball position versus paddle positio
 
 ```sh
 python -m pytest -q
-python -m zapfish verify
-python -m zapfish run --fixture --fast --steps 6 --out runs/check-fixture
-python -m zapfish run --fast --steps 2 --out runs/check-public
+python -m zebralink verify
+python -m zebralink run --fixture --fast --steps 6 --out runs/check-fixture
+python -m zebralink run --fast --steps 2 --out runs/check-public
 ```
 
-Browser: serve `site/`, open `tasks.html?task=tabletennis`, and read `window.__trace` (ball x, paddle x, ball z, control, gate per model step) or call `window.__ZAP.W.hold(x)` to park the ball. `window.__ZAP.P.frozen = true` freezes the rule.
+Browser: serve `site/`, open `tasks.html?task=tabletennis`, and read `window.__trace` (ball x, paddle x, ball z, control, gate per model step) or call `window.__ZEBRA.W.hold(x)` to park the ball. `window.__ZEBRA.P.frozen = true` freezes the rule.
 
 Before claiming learned performance, implement the held-out replay and controls described in [the model](model.md). This repository provides a functioning experimental loop and a scoreboard, not that empirical result.

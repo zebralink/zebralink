@@ -1,4 +1,4 @@
-// ZAPFISH everyday tasks — world 3: walking the dog.
+// ZEBRALINK everyday tasks — world 3: walking the dog.
 // Right−left readout pulls the leash sideways; the gate is a firm pull (dog slows, obeys).
 // Reward: dog on the path for 5 s. Aversive: dog in the pond, or dragged off the path after a squirrel.
 export function Dog(ctx) {

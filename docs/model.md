@@ -4,11 +4,11 @@ This is a statistical whole-brain activity model driving fixed readouts. It is n
 
 ## Data
 
-[ZAPBench](https://google-research.github.io/zapbench/) release 20240930: one larval zebrafish, whole-brain light-sheet calcium imaging, **71,721 segmented neurons × 7,879 frames** at roughly one volume per second, with nine labelled stimulus conditions (gain, dots, flash, taxis, turning, position, open loop, rotation, dark; boundaries from the ZAPBench `constants.py`). We download 16 spatial blocks of 512 neurons (8,192 cells) for all frames, plus the segmentation centroids, as raw zarr chunks over HTTPS. `zapfish/neural/sources.lock.json` pins every file's SHA-256; `prepare` and `verify` check them.
+[ZAPBench](https://google-research.github.io/zapbench/) release 20240930: one larval zebrafish, whole-brain light-sheet calcium imaging, **71,721 segmented neurons × 7,879 frames** at roughly one volume per second, with nine labelled stimulus conditions (gain, dots, flash, taxis, turning, position, open loop, rotation, dark; boundaries from the ZAPBench `constants.py`). We download 16 spatial blocks of 512 neurons (8,192 cells) for all frames, plus the segmentation centroids, as raw zarr chunks over HTTPS. `zebralink/neural/sources.lock.json` pins every file's SHA-256; `prepare` and `verify` check them.
 
 ## Cell selection and populations
 
-From the 8,192 downloaded cells, `train` keeps the 128 highest-variance cells in each block (2,048). Populations are then assigned from the data and the centroids, before any trading (`zapfish/neural/anatomy.py`):
+From the 8,192 downloaded cells, `train` keeps the 128 highest-variance cells in each block (2,048). Populations are then assigned from the data and the centroids, before any trading (`zebralink/neural/anatomy.py`):
 
 | Population | Rule | Size |
 | --- | --- | --- |

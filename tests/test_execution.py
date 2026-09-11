@@ -6,13 +6,13 @@ import time
 import pytest
 from pydantic import ValidationError
 
-from zapfish.actions import ZapfishActions
-from zapfish.broker import CoinbaseBroker, PaperBroker, UnresolvedOrder
-from zapfish.config import D, Settings
-from zapfish.ledger import Ledger
-from zapfish.market import Quote
-from zapfish.reinforcement import reinforcement
-from zapfish.risk import Guard, Veto
+from zebralink.actions import ZebralinkActions
+from zebralink.broker import CoinbaseBroker, PaperBroker, UnresolvedOrder
+from zebralink.config import D, Settings
+from zebralink.ledger import Ledger
+from zebralink.market import Quote
+from zebralink.reinforcement import reinforcement
+from zebralink.risk import Guard, Veto
 
 
 def quote(**changes):
@@ -102,7 +102,7 @@ def test_stop_loss_and_external_stop(env):
 
 def test_agentkit_paper_accounting_and_cooldown(env):
     s, l, g = env
-    provider = ZapfishActions(g, PaperBroker(s, l))
+    provider = ZebralinkActions(g, PaperBroker(s, l))
     provider.quotes = {"BTC-USDC": quote()}
     a = provider.get_actions()[0]
     r = a.invoke({"product": "BTC-USDC", "side": "BUY"})
@@ -230,7 +230,7 @@ def live_double(env):
     sdk = SDK()
     broker = CoinbaseBroker(s, l, sdk, "test-portfolio")
     broker.preflight()
-    provider = ZapfishActions(g, broker)
+    provider = ZebralinkActions(g, broker)
     provider.quotes = {"BTC-USDC": quote()}
     return sdk, broker, provider
 

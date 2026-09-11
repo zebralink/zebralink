@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>ZAPFISH — everyday tasks</title>
+<title>ZEBRALINK — everyday tasks</title>
 <meta name="description" content="A real zebrafish brain model does everyday things. 545 recorded neurons, live, in your browser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,7 +69,7 @@
 </head>
 <body>
 <header>
-  <div class="brand"><nav class="zn"><a href="index.html" class="zn-b">ZAPFISH</a><a href="index.html">Observatory</a><a href="tasks.html" class="on">Tasks</a><a href="trading.html">Trading</a></nav></div>
+  <div class="brand"><nav class="zn"><a href="index.html" class="zn-b">ZEBRALINK</a><a href="index.html">Observatory</a><a href="tasks.html" class="on">Tasks</a><a href="trading.html">Trading</a></nav></div>
   <div class="tabs" id="tabs"><a href="?task=tabletennis" data-task="tabletennis">Table tennis</a><a href="?task=bike" data-task="bike">Bike</a><a href="?task=dog" data-task="dog">Dog</a></div>
 </header>
 <main>
@@ -382,7 +382,7 @@ function brainTick() {
 
 /* ============================ LOOP ============================ */
 const W = TASK === 'bike' ? Bike() : TASK === 'dog' ? Dog({ THREE, S, cam, G, pulse, flash, fishClone, mDark, COMMON_FOOT }) : TableTennis();
-document.getElementById('foot').innerHTML = W.foot; document.getElementById('ctlTitle').textContent = W.ctlTitle; document.title = `ZAPFISH — ${W.name}`;
+document.getElementById('foot').innerHTML = W.foot; document.getElementById('ctlTitle').textContent = W.ctlTitle; document.title = `ZEBRALINK — ${W.name}`;
 function resize() {
   for (const [r, c, k] of [[R, glc, cam], [BR, bc, Bcam], [FR, fc, Fcam]]) { const w = c.clientWidth, h = c.clientHeight; if (!w || !h) continue; r.setSize(w, h, false); k.aspect = w / h; k.updateProjectionMatrix(); }
   if (bGroup) bGroup.rotation.z = bc.clientWidth < bc.clientHeight ? Math.PI / 2 : 0;
@@ -405,7 +405,7 @@ new GLTFLoader().load('assets/zebrafish.glb', g => {
   W.build(); const fv = W.buildFish(FS); Fcam.position.set(...fv.cam); Fcam.lookAt(...fv.look);
   loadBrain().then(loadBrainPoints).then(() => { document.getElementById('loading').classList.add('off'); resize(); ready = true; });
 });
-window.__ZAP = { get B() { return B; }, G, P, W, readout, get last() { return lastRead; } };
+window.__ZEBRA = { get B() { return B; }, G, P, W, readout, get last() { return lastRead; } };
 </script>
 </body>
 </html>

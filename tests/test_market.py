@@ -3,8 +3,8 @@ from datetime import datetime, timezone
 import numpy as np
 import pytest
 
-from zapfish.display import market_frame
-from zapfish.market import CoinbaseMarket, utc_timestamp
+from zebralink.display import market_frame
+from zebralink.market import CoinbaseMarket, utc_timestamp
 
 
 class PublicSDK:

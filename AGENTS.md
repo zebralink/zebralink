@@ -1,4 +1,4 @@
-# ZAPFISH
+# ZEBRALINK
 
 - Preserve the verified ZAPBench subset and the declared population method. No scripted trades or returns presented as neural output, no LLM policy, no hidden profit-based action selection, no auto-aim in the tasks.
 - Separate market observations, sensory adapters, model dynamics, plasticity, fixed decoding and execution limits. The risk guard may reject an order; it must never choose a replacement trade.

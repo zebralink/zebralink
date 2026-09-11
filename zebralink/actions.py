@@ -35,12 +35,12 @@ class Proposal(BaseModel):
     side: Literal["BUY", "SELL"]
 
 
-class ZapfishActions(ActionProvider):
+class ZebralinkActions(ActionProvider):
     def __init__(self, guard, broker):
         self.guard = guard
         self.broker = broker
         self.quotes = {}
-        super().__init__("zapfish", [])
+        super().__init__("zebralink", [])
 
     def supports_network(self, network):
         return getattr(network, "network_id", None) == "coinbase-advanced"
@@ -48,7 +48,7 @@ class ZapfishActions(ActionProvider):
     def get_actions(self, wallet_provider=None):
         return [
             Action(
-                name="zapfish_spot_order",
+                name="zebralink_spot_order",
                 description="Submit a budget-checked, price-bounded Coinbase Advanced spot FOK order from a neural proposal.",
                 args_schema=Proposal,
                 invoke=self.invoke,

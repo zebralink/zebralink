@@ -5,7 +5,7 @@ import json
 import os
 from pathlib import Path
 
-DATA = Path(os.environ.get("ZAPFISH_DATA", "data")).resolve() / "zapbench"
+DATA = Path(os.environ.get("ZEBRALINK_DATA", "data")).resolve() / "zapbench"
 MODEL = DATA / "model.npz"
 
 BUCKET = "https://storage.googleapis.com/zapbench-release/volumes/20240930"

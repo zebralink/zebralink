@@ -74,7 +74,7 @@ class CoinbaseBroker:
 
     @classmethod
     def from_env(cls, settings, ledger):
-        if os.environ.get("ZAPFISH_LIVE") != "I_ACCEPT_REAL_TRADES":
+        if os.environ.get("ZEBRALINK_LIVE") != "I_ACCEPT_REAL_TRADES":
             raise RuntimeError("Live opt-in missing")
         from coinbase.rest import RESTClient
 
