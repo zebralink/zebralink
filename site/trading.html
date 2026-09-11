@@ -114,6 +114,8 @@
   .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
   .chip{font-family:var(--display);font-size:12px;letter-spacing:.14em;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg2);color:#dfe6ff}
   a.chip{text-decoration:none}
+  button.chip.ca{cursor:pointer;font:inherit}
+  button.chip.ca b{font-family:var(--mono)}
   .chip b{color:var(--cyan);font-weight:400}
   .chip.pink b{color:var(--pink)}
   footer{padding:40px 0 calc(40px + var(--sab));border-top:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.7}
@@ -151,7 +153,7 @@
         <div class="stat"><div class="n cyan">71,721</div><div class="l">Neurons recorded</div></div>
         <div class="stat"><div class="n">7,879</div><div class="l">Whole-brain frames</div></div>
         <div class="stat"><div class="n gold">1</div><div class="l">Real zebrafish</div></div>
-        <div class="stat"><div class="n pink">$ZEBRA</div><div class="l">The first vertebrate onchain</div></div>
+        <div class="stat"><div class="n pink">$ZEBRA</div><div class="l">Live on Pons · paired with GOOGL</div></div>
       </div>
     </div>
   </section>
@@ -220,7 +222,7 @@
       <div class="chips">
         <div class="chip">DATA <b>ZAPBENCH · GOOGLE RESEARCH / JANELIA</b></div>
         <div class="chip">WIRING <b>FIRE&amp;WIRE · ACCESS PENDING</b></div>
-        <div class="chip pink">CA <b>TBA</b></div>
+        <button class="chip pink ca" type="button" data-ca="0x94b5d6857c39f8a5c77c6062bcce79d628f7a124" title="Click to copy the contract address" onclick="navigator.clipboard&&navigator.clipboard.writeText(this.dataset.ca).then(()=>{const b=this.querySelector('b');const o=b.textContent;b.textContent='COPIED';setTimeout(()=>b.textContent=o,1200)})">$ZEBRA · CA <b>0x94b5…a124</b></button><div class="chip">PONS <b>PAIRED WITH GOOGL</b></div>
         <a class="chip pink" href="https://x.com/ZebraFishlink" target="_blank" rel="noopener">X <b>@ZebraFishlink</b></a><a class="chip" href="https://github.com/zebralink/zebralink" target="_blank" rel="noopener">CODE <b>github.com/zebralink/zebralink</b></a>
       </div>
     </div>
@@ -230,6 +232,7 @@
     <div class="wrap">
       <p><span style="font-family:var(--display);color:#fff">ZEBRALINK</span> · the first vertebrate brain to launch a currency.</p>
       <p>Activity data: ZAPBench (zapbench-release, volumes/20240930/traces), used under its open release terms. Zebrafish rendered from a generated low-poly reference. STONKFLY is an independent open-source project by nftechie; this page borrows its idea and its honesty rules, not its code or trades.</p>
+      <p>$ZEBRA contract: <code style="font-family:var(--mono);color:#fff">0x94b5d6857c39f8a5c77c6062bcce79d628f7a124</code> · launched on Pons, paired with GOOGL.</p>
       <p>Code and docs: <a href="https://github.com/zebralink/zebralink">github.com/zebralink/zebralink</a> · Updates: <a href="https://x.com/ZebraFishlink">x.com/ZebraFishlink</a></p>
       <p class="dim">Nothing here is financial advice. Paper mode is the default. Real orders stay gated until there is a legal basis to place them.</p>
     </div>
