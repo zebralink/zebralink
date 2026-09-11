@@ -1,0 +1,8 @@
+# Sources and attribution
+
+- The execution layer (`market`, `display`, `risk`, `ledger`, `broker`, `actions`, `reinforcement`, the run loop) and the baseline-centred plasticity rule are adapted from [STONKFLY](https://github.com/nftechie/stonkfly), copyright © 2026 nftechie and DOOMFLY contributors, under the MIT License preserved in `LICENSE`. ZAPFISH replaces the fly connectome with a fitted zebrafish activity model, adds the data pipeline, the population assignment, the browser build and the tasks.
+- [ZAPBench](https://google-research.github.io/zapbench/) data (release 20240930): Google Research and HHMI Janelia Research Campus and upstream contributors, distributed under the release's open terms. Downloaded separately from `gs://zapbench-release`; see `zapfish/neural/sources.lock.json` for URLs and checksums. Cite the dataset and its paper when publishing results. Our cell selection, populations and fitted model are derived interpretations, not an official dataset product. Condition boundaries are from the ZAPBench repository (Apache-2.0).
+- The plasticity rule adapts Huang, Luo et al. 2024 (Nature). No papers or figures are redistributed.
+- [Coinbase Advanced Python SDK](https://github.com/coinbase/coinbase-advanced-py) (Apache-2.0) and optionally [Coinbase AgentKit](https://github.com/coinbase/agentkit) (Apache-2.0) are installed dependencies. This project is not an official Coinbase product or endorsement.
+- [three.js](https://threejs.org) r170 (MIT) is vendored in `site/vendor/`.
+- `assets/zapfish.jpg` and the images in `site/assets/` are generated project artwork; the zebrafish model in `site/assets/zebrafish.glb` was built from a generated reference image. Fish Fire&Wire is a Janelia project; nothing from it is included.

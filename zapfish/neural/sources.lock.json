@@ -1,0 +1,1030 @@
+{
+  "traces/c_0_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/0",
+    "sha256": "d1a4baef56593297ba4431b68b9c99897790f5084e5604c8592df5d8fab81808"
+  },
+  "traces/c_0_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/9",
+    "sha256": "21fe70da90ec2c3109832f2ee7524151474bd1b8c46837221dabbeb37c82c1fd"
+  },
+  "traces/c_0_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/18",
+    "sha256": "673d4d4b8c6a4bf5e772bd14c60a6a4c25b3a4d97affd453387c769a01781390"
+  },
+  "traces/c_0_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/27",
+    "sha256": "644432c571584cc0189fded08b88585aac304c9c92bedc03564e2186de52c636"
+  },
+  "traces/c_0_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/36",
+    "sha256": "ad48ee6923118d81eca104a29cd84ff7dc2795376bdb2667a27c3b6f2a330124"
+  },
+  "traces/c_0_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/45",
+    "sha256": "b42a2fe7d27dfa455209a9e182086f3363e146baf0693a23099b4ccd3c3c14e9"
+  },
+  "traces/c_0_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/54",
+    "sha256": "a6019e0d6ab21826e91e0f2ef706b5758774a5a5b1fe6d9136e769c6583c90cc"
+  },
+  "traces/c_0_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/63",
+    "sha256": "c01f1e7cbe8c3f8d6167493386f1f851d7aa1d3c44f376be9473c254ad4df013"
+  },
+  "traces/c_0_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/72",
+    "sha256": "1f37138a482b8aa17fa8c737d9aff89f480dd6290e76d07ba601c8cef76ae281"
+  },
+  "traces/c_0_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/81",
+    "sha256": "e85e0bc6ffbdae44c41e92fdd241264e7ce00fbef49d5a276ab684f8b88c232b"
+  },
+  "traces/c_0_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/90",
+    "sha256": "2092db419437857d0c162871247428b0fcdd0a11dc42f946a19886be9f3e542e"
+  },
+  "traces/c_0_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/99",
+    "sha256": "7f13d7cf49c12ea8480764f7ed95dbce2e9d86bfd5ab589464b01f2c42637505"
+  },
+  "traces/c_0_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/108",
+    "sha256": "736db862c5f34a3ede73aac58451b912e6ff01b5628b62c2824f9dcded5d36cf"
+  },
+  "traces/c_0_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/117",
+    "sha256": "3b0f10938bcdcbebb01662ed13a6a8807ac214caae44a7cd20cd7c42535dffbe"
+  },
+  "traces/c_0_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/126",
+    "sha256": "47c4581bbd0c25d06762864c874636998ad7461cc66b3ddde1574508b0d73ba8"
+  },
+  "traces/c_0_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/0/135",
+    "sha256": "a761043ca5d6c5f7aa9b2e85d0d9cf146070a45a1ae4b7b28e551187622ca972"
+  },
+  "traces/c_1_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/0",
+    "sha256": "b1de413f434ca7ce2798edbf91597d278c338cd1c9fb14bb8d9aec634c3d1a98"
+  },
+  "traces/c_1_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/9",
+    "sha256": "809f0910a132f53fd565b4c0d6483cde078562658bf7c7d84a7a6fc82c1d5661"
+  },
+  "traces/c_1_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/18",
+    "sha256": "6c4dc3be064560a335841368254e9c4c5bfec66cdad4e7b413c25724591b5cff"
+  },
+  "traces/c_1_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/27",
+    "sha256": "8b39f60f10cae15faecf1fb4aa0cfc3108fac087bffa956f6a29ca93b9d3b39e"
+  },
+  "traces/c_1_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/36",
+    "sha256": "8a291cb9ad700077095c923bee1ab1a320ccc8fbc35e413d4a3c73d6669ff02f"
+  },
+  "traces/c_1_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/45",
+    "sha256": "c8fe1d2953165506a544926ecddf14851a485b36f88d2ec47eba03939174f0c6"
+  },
+  "traces/c_1_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/54",
+    "sha256": "a876e68c02264d988c65d8977dee23f0329fc5e148177534b26dad501b20d118"
+  },
+  "traces/c_1_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/63",
+    "sha256": "eec2a9113718021b0210eb232d2305e226ec079c6ca36f7ab8f4c9ef931d1d2b"
+  },
+  "traces/c_1_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/72",
+    "sha256": "251d5749f126e49274d66b164b2cea73e3be675916a70e960c9f83fc0bcc0582"
+  },
+  "traces/c_1_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/81",
+    "sha256": "1a848588c6cee06d4f0f6eeb57b5807c855b2c6d135d87f969c2788c8e00f6c1"
+  },
+  "traces/c_1_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/90",
+    "sha256": "6bd9450f5289cad4246fcd344431af560e9104efdce03027e4c20daed01bb445"
+  },
+  "traces/c_1_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/99",
+    "sha256": "9f2c5f398014ff0b9c827346d930f8f5c9f72996ea8dac907615e37d8ffb09da"
+  },
+  "traces/c_1_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/108",
+    "sha256": "6515fe13cf0cfe9cccf6330a6fa156f6d9205b00447a5bedb7920a3e0d66aa55"
+  },
+  "traces/c_1_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/117",
+    "sha256": "f969fc59b3a5dabecc89a18ab54fb638b5d68654602bfc142b96cf5dc47193e2"
+  },
+  "traces/c_1_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/126",
+    "sha256": "dff5d5cbf7ee24bc634728f032f4ed6231bd52b0cea5ad90b5ff8153fd44bb9f"
+  },
+  "traces/c_1_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/1/135",
+    "sha256": "5d27790b1a57129288a00eaea830978efc26863839452f1949189a72924aafbf"
+  },
+  "traces/c_2_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/0",
+    "sha256": "57af52b4f2a12906021450ea360ef87721bdbfadfe04fc621b5477cbb7f85774"
+  },
+  "traces/c_2_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/9",
+    "sha256": "5d9e86eb83c36d3553ae8e13b891e3aa002fc5f2dc52d58149870eb0c57a7e9e"
+  },
+  "traces/c_2_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/18",
+    "sha256": "a240aeb3d84d4d218b8b0db0a59df20c4933eedfe995decf204c18d23fdf3bfc"
+  },
+  "traces/c_2_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/27",
+    "sha256": "a0b576268c43ce392c724c12adc630267446279c321c0a2af41a7de491cd7d00"
+  },
+  "traces/c_2_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/36",
+    "sha256": "42a7094be40d606bf8000affc065989950faead85f3073e47c2e45b309b5391f"
+  },
+  "traces/c_2_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/45",
+    "sha256": "c397c83047af198dcdb73f587f02f6221ac7c24b19320cc6c0181f69a0516e47"
+  },
+  "traces/c_2_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/54",
+    "sha256": "41649c6af6a62e9eae2f3a661151f475b6525ab7200556b558313f3d9d329d99"
+  },
+  "traces/c_2_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/63",
+    "sha256": "cf89e05afea2f404ff1352efbb99a3750f6cdf149ff091b3ecdfdfc9d3c046ea"
+  },
+  "traces/c_2_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/72",
+    "sha256": "87e367db05ebbf07adc6fc8c30aab46998a0c1af6b9d7bd378f4170ec862eb9b"
+  },
+  "traces/c_2_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/81",
+    "sha256": "b3039d23c70803a101b3737b8861664c81d3faa117a6b6e195f20a59179584f1"
+  },
+  "traces/c_2_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/90",
+    "sha256": "dbc2e7e595efda4ac54de68aa80bf164191f2bb7ebf090f43bc68e027d0f7977"
+  },
+  "traces/c_2_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/99",
+    "sha256": "5a52721f1bca99f94c0b1763420b9abeb26690d538f9d47193eaa534f97a4a92"
+  },
+  "traces/c_2_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/108",
+    "sha256": "364560b05255d5acb94d14bbecd2cd82ba9cecde85b4c993d071842e53f041db"
+  },
+  "traces/c_2_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/117",
+    "sha256": "d6a7a85003be908bf9fe7694c495290f2f9c101147d7f7d63a685445f5ad34b9"
+  },
+  "traces/c_2_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/126",
+    "sha256": "86ad4593852fd640996c2d936c9af3e6a4cc3819167fda46507b6c4debae55b5"
+  },
+  "traces/c_2_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/2/135",
+    "sha256": "1b22fc080f6498c90113cd50db26c349a7fcdd821344fbb41da9defd99527a7e"
+  },
+  "traces/c_3_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/0",
+    "sha256": "4e0cbd6efaf59d24ea185d65c057dc8b313e3dea6bdf6f5f23b38f5075ef4333"
+  },
+  "traces/c_3_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/9",
+    "sha256": "1b3d3a93973ba1df1b261df5d73e8b5827d847a0c44a3255ff78d82274c5b58b"
+  },
+  "traces/c_3_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/18",
+    "sha256": "d40201d4c462bca161482db2c76235f079cb8b8b1b9d5011e37941ec272378a2"
+  },
+  "traces/c_3_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/27",
+    "sha256": "6c238759a901b374bc58b25d26e12dbeca3e936ee05b7e5c04c0d50d8a2fd4cc"
+  },
+  "traces/c_3_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/36",
+    "sha256": "7f7a433aa284dd0a8c0e9f1dce093ddb21fd81877bbe14863f3f72c5204704fe"
+  },
+  "traces/c_3_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/45",
+    "sha256": "d8de608a2dd95a38d0fdba31cfe51f2d84604b088d91f5b692f3c5f93bc892db"
+  },
+  "traces/c_3_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/54",
+    "sha256": "664e490b09e2c8d53dfb2c6ec6e2db393e3e16a5056012515d19a0b4776a2cc9"
+  },
+  "traces/c_3_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/63",
+    "sha256": "911acfd30122f6d5be6dc509709afc87a614e9763c119eeb169b3dcb96000c9f"
+  },
+  "traces/c_3_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/72",
+    "sha256": "ee1accfea7b89b6d08397a7f8d77e0a7385e1ec72ec5c5684e8bab70c5f22c9d"
+  },
+  "traces/c_3_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/81",
+    "sha256": "2343f71b8621a848084679d6ca07d192afdc6564f233b10f7727ec26dfe0b567"
+  },
+  "traces/c_3_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/90",
+    "sha256": "cba649a058a60b5f7d770419f3a77e9c38ce0158064a07291179346be060f184"
+  },
+  "traces/c_3_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/99",
+    "sha256": "c9a2e2cca17c62dec670d526b6364f2291b8061e1080ace9839663ba949dce5f"
+  },
+  "traces/c_3_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/108",
+    "sha256": "2881d64420c711e0c045ee739cb86c1a3c847266da1df08a261d10a8e86ae39e"
+  },
+  "traces/c_3_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/117",
+    "sha256": "987fdc3715c93e48189cc1af1e138a8950d301a92f8779b92048c945de45b27e"
+  },
+  "traces/c_3_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/126",
+    "sha256": "0e4f0db4332599e3aec8bf9c160e64754d308659f786b938f9c1beffbd3c199b"
+  },
+  "traces/c_3_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/3/135",
+    "sha256": "6288e98068c1d7749ab3c02f7ac9c78f56f2b2ea82bc6492d3c865dca0c5b53e"
+  },
+  "traces/c_4_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/0",
+    "sha256": "a34665ce9c936ea0b6ef351bbb439669aabf60cc510e22227fe0c46928704f0f"
+  },
+  "traces/c_4_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/9",
+    "sha256": "f7ab481ae58ea54063a7edcc15cd732d16d86ab4c1965d64822712b915c0f2e1"
+  },
+  "traces/c_4_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/18",
+    "sha256": "823665cdbac60842771b4375e6ead2a0b417c661d8c95a986f87e34162f7a9f2"
+  },
+  "traces/c_4_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/27",
+    "sha256": "efbe1a3f42c6357580884054414affef7dd77a1218fb9f63673079a75dee7e32"
+  },
+  "traces/c_4_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/36",
+    "sha256": "93924f2325ec3bc48b040132a72e19d47b55b047ce7688ebc607baf6efca3458"
+  },
+  "traces/c_4_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/45",
+    "sha256": "8eb2832df2f9ed6445d57e028531f98788a79953298ba48b91a579b81b335c06"
+  },
+  "traces/c_4_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/54",
+    "sha256": "292b2c8d10a49ed51475ca79760b260db363564a3d0cb7221d4f3bde4bbb02de"
+  },
+  "traces/c_4_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/63",
+    "sha256": "4539d802fd27060571d88ab88e81cb2e87a0768dceae23f2af56f822b24cfac3"
+  },
+  "traces/c_4_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/72",
+    "sha256": "56312a261b95dc8eeefe0bd531cb7a7d2d5aa931ea56f3b301da175238be2440"
+  },
+  "traces/c_4_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/81",
+    "sha256": "46d09beb8c465e73b6eb5072c17a84acda71db74a6b9ba06921f39fd34e0dd7a"
+  },
+  "traces/c_4_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/90",
+    "sha256": "91a1ad6c3c086fc9b9e1c9d2055a5abb72f1e4d67df5e11a7826c1acf21a9425"
+  },
+  "traces/c_4_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/99",
+    "sha256": "bd03e28b13803b6e52ab8743005be1572282075516fb17b89747cb0d3559cf7c"
+  },
+  "traces/c_4_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/108",
+    "sha256": "3650660a6435fd0ae5c0a5a25fb9de314e5fa17acf8a28d14decef81a25e99c4"
+  },
+  "traces/c_4_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/117",
+    "sha256": "84e2b2038864b8f7c02951cc4eeb8545cb1988a9ffa01b2571f29e875c534477"
+  },
+  "traces/c_4_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/126",
+    "sha256": "dbe83df9a2781f91611a78f65db95e75e7cb83fb4ed0960c37edc5d9ce5c4792"
+  },
+  "traces/c_4_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/4/135",
+    "sha256": "c2c9da693628aa9724b6f5d3cdbce957106b81d5ba1f4b8988819ad0d115d58e"
+  },
+  "traces/c_5_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/0",
+    "sha256": "f72314e3bf494444fdbd4b735a17a15b4f916d1e8ad3d459ab0dc8b0f13e7e1f"
+  },
+  "traces/c_5_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/9",
+    "sha256": "a4fb0848f04d5bc220bda413f8ece8bb7863ff7b0420ebf9aec12fda3310b7e4"
+  },
+  "traces/c_5_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/18",
+    "sha256": "4d02f107d5dc85db58d741eb717cd3436535a9afc2e8223518a98e1c7aee1922"
+  },
+  "traces/c_5_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/27",
+    "sha256": "3533de3e3823cc8bb9f83fdba72921780f831c972c2330995089785085dedc4d"
+  },
+  "traces/c_5_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/36",
+    "sha256": "dee02fe8cf33fe2203b43beb1182465344284d304e757429d397cd2df99d236c"
+  },
+  "traces/c_5_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/45",
+    "sha256": "1d8404261332e5ad87f1ef3cd0bbf312bd798ba18b1998924ac5d0b9fd324a0c"
+  },
+  "traces/c_5_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/54",
+    "sha256": "e030d10bf064c4943b54b41e6c6217a2886f65d465a8e64be3ea849c9fc8baf4"
+  },
+  "traces/c_5_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/63",
+    "sha256": "f164e41166ba63d810382b587d9834a6a52dbf1bc04c6164e4fa6cd5d324df40"
+  },
+  "traces/c_5_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/72",
+    "sha256": "0d34df7d7397353abbdcb429301cc0c104a5d912dcecb2c68f1c8e0be42420ca"
+  },
+  "traces/c_5_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/81",
+    "sha256": "58c878921e137113a4cbc6a1716aef290925582733c3f6fa68f01aa824f611e2"
+  },
+  "traces/c_5_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/90",
+    "sha256": "72367cd74990f7b87a2ba1eaa51fa2dcd89cc6198d45daf37709ff113bc5b159"
+  },
+  "traces/c_5_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/99",
+    "sha256": "ab516200fb076e9d3854dfe29d3281748265df3829069eca945122bc9cd7f253"
+  },
+  "traces/c_5_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/108",
+    "sha256": "0f1c9ca2207c4ceee67d7ffcb1ba64abf8bdc18daf53f8902690bee952fbac70"
+  },
+  "traces/c_5_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/117",
+    "sha256": "47a399ba5702eaeeeeb06682d103d811dae41349a2941fbdc8af979cee6c2756"
+  },
+  "traces/c_5_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/126",
+    "sha256": "3f5c50b062b343dd844574f287b0e9a7a720af7e61ff5cc5a64d2c13ba24c199"
+  },
+  "traces/c_5_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/5/135",
+    "sha256": "340636831eeb3c4a16c393bec75bfaa37a27d3c135195cde647116397da97932"
+  },
+  "traces/c_6_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/0",
+    "sha256": "37b8ce2ba12f5df60cd019bbd2e7e06ce1e6f535c72777254a6938ad06b2362a"
+  },
+  "traces/c_6_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/9",
+    "sha256": "6a61c1aaffb6f02d2389676e806d8e1c5eb232284e56f5552fee5694323b47a2"
+  },
+  "traces/c_6_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/18",
+    "sha256": "8de3bff5390ef928f0531a1b8d2d2d1394d13b1fd8a740bdb467d1c392aa6543"
+  },
+  "traces/c_6_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/27",
+    "sha256": "b47a3914d9867376d25f5ab7174730a865ea55857e2f38233e4d6c2e7c14b86b"
+  },
+  "traces/c_6_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/36",
+    "sha256": "c9223df5492e172ecb7e7c93dfaca8cb1ba1b8c2d1ce6b308d06a3d068513e93"
+  },
+  "traces/c_6_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/45",
+    "sha256": "2b7877e24876d39954cb07f3dc5a1ce1861a9b3709c6b2d22cba291c589238af"
+  },
+  "traces/c_6_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/54",
+    "sha256": "5e91045e5a89832eb9dd2db99a2ea78dbe74d4aca0519cd477c98b4e3e5e50ef"
+  },
+  "traces/c_6_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/63",
+    "sha256": "0244c9f92dd54d549278ee3b1c69a59418f26b24042bd4c389216ad471ba1333"
+  },
+  "traces/c_6_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/72",
+    "sha256": "f87a882e6445ed79ae10327b04f566c12cf6c14e87d6958ca7798fde92c74fcd"
+  },
+  "traces/c_6_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/81",
+    "sha256": "a3197fabacae24df2222dd6b7d7f232e957821810318a827bbd5696fe2bdbb15"
+  },
+  "traces/c_6_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/90",
+    "sha256": "3164f9d8ba0a513f76134b04f1ed54e51af14abc7e7bea12567e5953fac7a4e8"
+  },
+  "traces/c_6_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/99",
+    "sha256": "706af82714847059b249ff5bb38344fda98c43b6fd3e22525366d3d5887a5153"
+  },
+  "traces/c_6_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/108",
+    "sha256": "493e00f11d1db85c602a3d05171f0b0ce6c46ad3f18e48d1a2719174f787d522"
+  },
+  "traces/c_6_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/117",
+    "sha256": "fc87ddbda434541664a63e140319e127e952a0d8fef20f8e2c37457726763485"
+  },
+  "traces/c_6_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/126",
+    "sha256": "476cd180076d19d6e77b48b4d9f51622b067537467d62dca2141f5ec5b4fce84"
+  },
+  "traces/c_6_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/6/135",
+    "sha256": "ca27c8d5249fb3ce8ff82d29751ac883cb16b099be42c5c2f85935c4e2fec5f9"
+  },
+  "traces/c_7_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/0",
+    "sha256": "a62fe68cab11344e6af9d736a93f4893673c7ff20cf5b81cde402d24d4b647fc"
+  },
+  "traces/c_7_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/9",
+    "sha256": "fff72d0ecf9cfe768cfc7becd5414ef31e14bc0c605aa235c05b994deaed241a"
+  },
+  "traces/c_7_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/18",
+    "sha256": "b41c733a39148374ec54525bc976991b26a775006525c6c2f49acdeee983faae"
+  },
+  "traces/c_7_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/27",
+    "sha256": "1a9e5b910dbca663ad5f184486425a8e9566c2aea5719e6bac1ff35762e1eb93"
+  },
+  "traces/c_7_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/36",
+    "sha256": "bcff1e7d225ed8d44a2f7ae39fd02368c24781e0bf296748a0f02ae25ea15dac"
+  },
+  "traces/c_7_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/45",
+    "sha256": "28d80ead7585976c7a5016f3e050fa857571425fe82e1e481fbf1cc4efcba81e"
+  },
+  "traces/c_7_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/54",
+    "sha256": "6533c55737d501971b038b2c9253d8ff433453bcb2f1f0eaf81dabb6fba58c21"
+  },
+  "traces/c_7_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/63",
+    "sha256": "628e473842faeba4b743fc3dbb9267a66c292cd8efc79e9dfae27bca4a7f0a64"
+  },
+  "traces/c_7_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/72",
+    "sha256": "e2be3e1d1d94d930855629abc9b1819adbcdde47ac5a615226cb9c956772dc2e"
+  },
+  "traces/c_7_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/81",
+    "sha256": "6259c12c9e3bcbfa25cca83950583a3ffcfb01387ee8c272114f7892c55c99b5"
+  },
+  "traces/c_7_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/90",
+    "sha256": "f856f1d3bf64c20f9b1faeff29942947c26d503e0980f95ecbbcd1849fc6d542"
+  },
+  "traces/c_7_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/99",
+    "sha256": "f88d0062ec4809cc29fe03f56299e5f3fcfe6fe85008566b673821febce9a093"
+  },
+  "traces/c_7_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/108",
+    "sha256": "9b973184faf7eafacf04670d7047c49a9ea084ab07d2ca2092ed01bf592046eb"
+  },
+  "traces/c_7_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/117",
+    "sha256": "d4dd02ded3abcd7d4a4e9b3a16559b5580de5a776c19da78fa8e4290c9439f4f"
+  },
+  "traces/c_7_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/126",
+    "sha256": "294740562fb489513f565b9619876fc7531b189621d2b2336f030025e4a3b005"
+  },
+  "traces/c_7_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/7/135",
+    "sha256": "417caa41fe5970d69167fb8cae769408d2ec52186c69a5dd25b6e413ccc54c26"
+  },
+  "traces/c_8_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/0",
+    "sha256": "75b718392251239776101c62e68e6b9ed17ebf97586c55e295c08f65ad28c6e4"
+  },
+  "traces/c_8_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/9",
+    "sha256": "288267c303c7e9fe1dc74d13140ae853696f509601471c87245e64487787fb9a"
+  },
+  "traces/c_8_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/18",
+    "sha256": "5be7abf58d50c1842ad6333406dfd3062e3c181473022e7cbc67b65ed7417772"
+  },
+  "traces/c_8_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/27",
+    "sha256": "e627dc981db5d6fcbe78deaa7280ff30bd50249ef77b5c0cad8700369d8cd95e"
+  },
+  "traces/c_8_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/36",
+    "sha256": "c45a1703d0d365478f0d5d3163607a877d73e4a5a744a086f5bbe7d1371419ac"
+  },
+  "traces/c_8_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/45",
+    "sha256": "8f958640b62dcc8e159d72b2dc9366c8d7eaf7f54a68846b739a490dadb2407c"
+  },
+  "traces/c_8_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/54",
+    "sha256": "c9635d2d24b25a3889f79df3b01560af753d564e7c21c0f791e298fb29ceeb9c"
+  },
+  "traces/c_8_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/63",
+    "sha256": "fadb64f33753fe1a0bacdfb5bdc163f8f752d91067653041c22d2f13a5a3ef32"
+  },
+  "traces/c_8_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/72",
+    "sha256": "a338bbe8dde55501c88093ad3e5ca5bbdb26836da74956dc9da25c3d81508ad4"
+  },
+  "traces/c_8_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/81",
+    "sha256": "f99e5cebc35ec189751d1833a8c6e5a1e4d3740f95b08db14076ad6bdb83defe"
+  },
+  "traces/c_8_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/90",
+    "sha256": "7879ba4723d777a5e10c7a9473b261d1138567ac8ea657862a903a2fa537c266"
+  },
+  "traces/c_8_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/99",
+    "sha256": "1b432ee16070bf3ecaa919edbc93bed8447a171957875b64b607f9c42a427131"
+  },
+  "traces/c_8_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/108",
+    "sha256": "a35b4b5dc72ad08bad00349cdfd5e21f43ed218ea3064810d73de1fd949ec64f"
+  },
+  "traces/c_8_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/117",
+    "sha256": "cfc251d850b0b79eaff4878fd05e147aeb0c91c25e69417217574a7202b9cfda"
+  },
+  "traces/c_8_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/126",
+    "sha256": "48c6ee3069e3a2f7b7b3b38a0081f5aac101c2712a65993b758d1d5d6bdfab39"
+  },
+  "traces/c_8_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/8/135",
+    "sha256": "c5be43bc18c8f7ced99227e003a258be73ee79db491b965989e7ca4cae109abf"
+  },
+  "traces/c_9_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/0",
+    "sha256": "01b22c95140a70bead515d89d0f61eccc03271b7fb3e2e1e2383675f9c3e664c"
+  },
+  "traces/c_9_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/9",
+    "sha256": "e7a6b3ca4111a2af37492cdb30afb6e4e6171c3039c27fa0a51b5a45f14eba61"
+  },
+  "traces/c_9_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/18",
+    "sha256": "87ff46ae7f40e2f51b2e85a18f41be1ebf8cf3b291636e3b79973c40e68b011b"
+  },
+  "traces/c_9_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/27",
+    "sha256": "d81d7cf197488dbe43d28362efd365410212d0815fc1a83aee5fcf3ff55fbee2"
+  },
+  "traces/c_9_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/36",
+    "sha256": "c61b7614a2125d07c4f0efc22090b71e2842ee3355756fc09b4c587ad4231a67"
+  },
+  "traces/c_9_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/45",
+    "sha256": "87f4f65cebf1bed92fa9176919667e171ff79a750c132e8a395994f7f25c7674"
+  },
+  "traces/c_9_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/54",
+    "sha256": "54be3e0d7754d619e6f1a89a1261d01f818720e1e603c603ce8bdf15d6241661"
+  },
+  "traces/c_9_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/63",
+    "sha256": "0b7e6a7524c787abff59d2616454a6859bc0ff4a6e5a9d859e42d9982598ea80"
+  },
+  "traces/c_9_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/72",
+    "sha256": "5cef5617f1c40056165200afeda18280b63413356d689c15c8cc7bf6c92b6e8e"
+  },
+  "traces/c_9_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/81",
+    "sha256": "89040f6dc1e3597a2deca5776bc11401f70f0527a14c4bcc7228460a0f57e1f1"
+  },
+  "traces/c_9_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/90",
+    "sha256": "09db99757337c749f5499b97fcc1d85fb4c18874eae2fe848e9fb4e798b3c2b3"
+  },
+  "traces/c_9_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/99",
+    "sha256": "37ec8e03195f496fe82848849d7bff0ec2a263e506a90b5dec511fc731f396e6"
+  },
+  "traces/c_9_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/108",
+    "sha256": "cf96f5c69a7c5246318ea0197c2378b395173d91df8414e80a3a7193dba82012"
+  },
+  "traces/c_9_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/117",
+    "sha256": "7b539b8aedaf12381a3d61c4861504f1b328e61ad5a3e85c9e19c5a204c4d095"
+  },
+  "traces/c_9_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/126",
+    "sha256": "e0c66607e2a732099d6d6900d03bae30c1f90684f7993564ce76762db9003f34"
+  },
+  "traces/c_9_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/9/135",
+    "sha256": "f06ee6f453d716771bc79264c7737ed4d6cfe1c927997bf13c2c006f362ebd17"
+  },
+  "traces/c_10_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/0",
+    "sha256": "b7d2b02aae11293602085feab11b4f669bfc0d99076f47a6bad8d76db6689446"
+  },
+  "traces/c_10_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/9",
+    "sha256": "ce33a7a4a7ef7ec6936d9b8f6608821fef9432a60ffe98714a8b3d3ec432a996"
+  },
+  "traces/c_10_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/18",
+    "sha256": "9701a5e3ca81f21dad30700a330de7e1c969d294ed8e29b8a975aa1a4efaa7eb"
+  },
+  "traces/c_10_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/27",
+    "sha256": "77f00cebae42235ad56325678fa41f011ef667cf785a19cf2cb689b971338507"
+  },
+  "traces/c_10_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/36",
+    "sha256": "3520f17a769b220251df82f671f262274c8354716ca1dc06e053a7e77c02526f"
+  },
+  "traces/c_10_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/45",
+    "sha256": "62b7e9898c1d177867df90c11377be72391cdb3395f65a44ea2fbd0f19af4154"
+  },
+  "traces/c_10_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/54",
+    "sha256": "6352486bafde89dc5a522214c817882bed3422447e8de1cef054981ef91ba45a"
+  },
+  "traces/c_10_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/63",
+    "sha256": "635ad5d2a34c2b13c88c9ce90aadcceb6653e57958cab4e315d0931805171394"
+  },
+  "traces/c_10_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/72",
+    "sha256": "869997bb0a8f26b04753790b4ea8ea6b7399a61699cf4e6fdfdc4305be1f640a"
+  },
+  "traces/c_10_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/81",
+    "sha256": "34937f33877ed6a060e77dd8a63a2fdf41b6e49ea664bc13fd04c629c3f3dfb4"
+  },
+  "traces/c_10_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/90",
+    "sha256": "1fd377547a74e8dad71c3b154bcb0d40205e448571114a8b8f5c09d07e635cf7"
+  },
+  "traces/c_10_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/99",
+    "sha256": "23673c68d27950e77a47027c85730583e9d0e01072f093e179c61c5869e7fe0e"
+  },
+  "traces/c_10_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/108",
+    "sha256": "d4f52efe5b025a7e52cd54d2cdc30a84b7ce8163f22f5a14104702e70b120bc2"
+  },
+  "traces/c_10_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/117",
+    "sha256": "264f8a184553ce9508b67976ad706c7d8c1be9292a2f1989830af7e65d917e01"
+  },
+  "traces/c_10_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/126",
+    "sha256": "02c46b3bf88b59acb5a669060f379bd0c7fa12290ac135e0462402ce8b857c57"
+  },
+  "traces/c_10_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/10/135",
+    "sha256": "23dc97caf583dd6d148dc64eeb105c7ddd74562d72614538d8378330bc1610d2"
+  },
+  "traces/c_11_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/0",
+    "sha256": "c54d0d0b8a6ba7935bed55f5e543dcd223b2d87fa3f925a3f105a59baa8a0b4d"
+  },
+  "traces/c_11_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/9",
+    "sha256": "f587cb8df9cf11bd1344a57c04136b4b433ed4dcc9b60afa4d0e8cc9ffa1b941"
+  },
+  "traces/c_11_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/18",
+    "sha256": "5d3e0ec2d504f6d01b4aa37ec998c184f1a64d4f4dae9e4dce147a3b5724979c"
+  },
+  "traces/c_11_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/27",
+    "sha256": "be8e74a532e1bd8dc65d0ec92d2acb7422da549b5a018995ffd94014d65c2485"
+  },
+  "traces/c_11_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/36",
+    "sha256": "b3a6016988de08d71014823cfac20b5f942b5dd4c5bb7f05ae3d9d88e97855c5"
+  },
+  "traces/c_11_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/45",
+    "sha256": "19836c7cf64de33863db731448e4c1dd82a84e9f8856f71481c35a62fb2ede2c"
+  },
+  "traces/c_11_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/54",
+    "sha256": "cdab6f0e8d19c170e9786d0b1311e2af8b29961e8fda256ed7d72f65f7ca8931"
+  },
+  "traces/c_11_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/63",
+    "sha256": "d4b97fc17d019108c5cdf43869ebe357816501556cbbad87ed9763861b34e54c"
+  },
+  "traces/c_11_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/72",
+    "sha256": "eb76ff5121c29c3f80025890efef9da6fca391908924d5dbab2a0a0e60ac3ff6"
+  },
+  "traces/c_11_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/81",
+    "sha256": "7eceeb21fea45deeda3b25324aa75b8b1a5a269dd95f13295db7276e71d05a7e"
+  },
+  "traces/c_11_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/90",
+    "sha256": "977a54f387a0b823cbf306e05e48dbecbc01f06655aa21fb47aaff56e69cb176"
+  },
+  "traces/c_11_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/99",
+    "sha256": "a9ee5a8355b969661fa7f92d25a53c40d331ee026a0cde8b41306012cc74789b"
+  },
+  "traces/c_11_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/108",
+    "sha256": "dd1ca5a0d1db876966d201ad49dac85fc135188bc4a068719a65f6863eef4e8d"
+  },
+  "traces/c_11_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/117",
+    "sha256": "d52578f58f876718da1950153cb2b5bfeabd4e9b88456c8f86b188683a33fdbc"
+  },
+  "traces/c_11_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/126",
+    "sha256": "26d890237232f25083862b4ed90f227e7acdd5e92a6fbf073788fe2b0289a1d2"
+  },
+  "traces/c_11_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/11/135",
+    "sha256": "be55c2c5909138306ecb47a2fc1272b3fc3819350e9eb3aea067934ba116dcd9"
+  },
+  "traces/c_12_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/0",
+    "sha256": "7e19f0638ade85650b7fa93eb5ebdf54cb85effd621950aae8740089c2aeec84"
+  },
+  "traces/c_12_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/9",
+    "sha256": "22eceb66bccb5220539d6af2598a9a06452cd14ca6aaef4a1f85d948b926a7c3"
+  },
+  "traces/c_12_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/18",
+    "sha256": "7e3c19fc323154b904e88102b76b6bad2a503356f509e17c097535386262be8d"
+  },
+  "traces/c_12_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/27",
+    "sha256": "6638447e62332f889f805cfcf6e6c3ba7cac3bd1b388cb00e0df9f77950ffe4c"
+  },
+  "traces/c_12_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/36",
+    "sha256": "52964ea1d09e6ee2cbbc93aac17b2c0a53e8f7f325cf4a5451c7a7da03fe07b7"
+  },
+  "traces/c_12_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/45",
+    "sha256": "87a22f2ef9a550aeffb7ab53c8aa3eb4ad76cd6e2b529386163ed1e728d9223d"
+  },
+  "traces/c_12_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/54",
+    "sha256": "d0fe8df7187a3a78baeb2be25f2af27b6bfb2f68080d12be54d80da05db04ddd"
+  },
+  "traces/c_12_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/63",
+    "sha256": "7ffbebeabe8650d9dacbb950d4509fd9c049cc91f0ebaede1a71016a9dc157a2"
+  },
+  "traces/c_12_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/72",
+    "sha256": "7ce83f117a2c5f548536255de374d80a93d79b59d7ad851f4b3450eae95440ac"
+  },
+  "traces/c_12_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/81",
+    "sha256": "cb0dae031a30bdc218e6b33cf9613173f1d07418513b461309713bdc23889d9a"
+  },
+  "traces/c_12_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/90",
+    "sha256": "bbf4c2d78e427505607175840cdedb7ba13421c3223e02e5008f66cda0438f29"
+  },
+  "traces/c_12_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/99",
+    "sha256": "f47d82c7483e2858fab03cb4ad7f44dad65fe246f7bb9e222d133279c6fc9327"
+  },
+  "traces/c_12_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/108",
+    "sha256": "acb26214ce7546bbab336f0804a741b652a5aa5de249372f8863a027f58c6df2"
+  },
+  "traces/c_12_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/117",
+    "sha256": "65fd90341adb743ce1969f698adc1d29d998ca7c0de85854165e274afad477f4"
+  },
+  "traces/c_12_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/126",
+    "sha256": "8d9e3c6798196e1a77260b53338c55cccb4fd74fc4c49474caeaf3c10f90e716"
+  },
+  "traces/c_12_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/12/135",
+    "sha256": "26533d95b04d4d472be6e865843e203aab49fbbb9251d4565330e3d5ba074d6a"
+  },
+  "traces/c_13_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/0",
+    "sha256": "01f8e7cc3ffd064b902b3b85099565f323431b015bde5bdc8c69b2b4e5af40ab"
+  },
+  "traces/c_13_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/9",
+    "sha256": "4ac6fb0cb9b444754129fa3dc7249d343728559fe8e784f0ac22a50301f04662"
+  },
+  "traces/c_13_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/18",
+    "sha256": "14f94e4a36eb6d47456dcad27105397d45b7621c0df778ff90219e091946f0b8"
+  },
+  "traces/c_13_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/27",
+    "sha256": "8ae20623e81bcae3dde1d5bae97344ef8e8b2f853387048369f043271447b743"
+  },
+  "traces/c_13_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/36",
+    "sha256": "3f2edeec5a65a23226b63a38cf97169d7b9047592742b6271e9d19aa0e05954b"
+  },
+  "traces/c_13_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/45",
+    "sha256": "a6b4895dc2af96bb546d620041bbbdc08e722ee79766bbc3cc0bf08fc0ea6542"
+  },
+  "traces/c_13_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/54",
+    "sha256": "0703a0254a9b4a8064d08124b4081b67a09cee47c29a37057374fcc465144c8d"
+  },
+  "traces/c_13_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/63",
+    "sha256": "e7a103ee91b82de53c020ca365a0b6dbaa44eec474b95a7f062b491b208ab298"
+  },
+  "traces/c_13_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/72",
+    "sha256": "00eb1f65943aa2fe8d05daa2c6cc9752943e9245ae054c3abe6ce6955bbee41f"
+  },
+  "traces/c_13_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/81",
+    "sha256": "9fd168101f241b8c76cc79e44a0001158c2e5be017f2cb0e08c137535a81ad7a"
+  },
+  "traces/c_13_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/90",
+    "sha256": "9234c845e6b23b107ca0659456d44f106837a936259cde8d9c8ccbc022ac179e"
+  },
+  "traces/c_13_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/99",
+    "sha256": "0d82cecf9e5fadf10de2ddb17187e6430a37ab5c321b3be2bbbb196296c0a702"
+  },
+  "traces/c_13_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/108",
+    "sha256": "b5cfe78a9dc471907e553e63ed7a2f6568015591b95f8c30d1f0cf53c88e7be4"
+  },
+  "traces/c_13_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/117",
+    "sha256": "6cacd1add3ad4049a4a6145b364453e8c63a4237681c3797f90f67ade9d17bd7"
+  },
+  "traces/c_13_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/126",
+    "sha256": "4818d67dc9873deb00ccdac81a3d89b97826f5e17ba1e6934c148398b8c463e8"
+  },
+  "traces/c_13_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/13/135",
+    "sha256": "b484edb31feba12164b312acd973170b51bfe1e21223426c6479adfef0ecde06"
+  },
+  "traces/c_14_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/0",
+    "sha256": "c32fe4769745a7e5f830be08b4d572b58fd3d95377abd34d11ee8cac64255ca0"
+  },
+  "traces/c_14_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/9",
+    "sha256": "5f33993290ac60d2d21e205cfd7aa0558378ea2e4cac604593ae5bd15a926be2"
+  },
+  "traces/c_14_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/18",
+    "sha256": "010bdb65f1c516d1d297298c5ec48d675abf34f4e59a408172eb95a0997bc31e"
+  },
+  "traces/c_14_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/27",
+    "sha256": "c47b2bc6806cadd820a7bafa85558ccc34cc522c715c60f6b6799119d2b1f5c7"
+  },
+  "traces/c_14_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/36",
+    "sha256": "4cd489007f9e454e4f8752262975dcef479d6f5fa8b2d485c03c6ba0ab1d0aaa"
+  },
+  "traces/c_14_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/45",
+    "sha256": "215235a72a6de498d74947d7385f131d9b961e6b99f7636267d70b845f9ce52a"
+  },
+  "traces/c_14_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/54",
+    "sha256": "ff176b606636aa2e79abdc6e0b729f88d38ca29e329387e166a9dc51e57f33c7"
+  },
+  "traces/c_14_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/63",
+    "sha256": "cb9b9f3f4a40ae118763fa4bdaa51823be7fe2c7c80fb0edb7bdd4c4d151a9f6"
+  },
+  "traces/c_14_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/72",
+    "sha256": "ab6ae74e15a37d5f070912e91f71b0586a08bff6e253c3475991ba0165a663db"
+  },
+  "traces/c_14_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/81",
+    "sha256": "9fc1580f10ea43da72b43e055e960c0f8b0b7be61431b4936602d46f8bff3697"
+  },
+  "traces/c_14_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/90",
+    "sha256": "4bcb598bf905f52c4ee3126c862ac605a1b4c18b183001b3a3b67e68ca8369cc"
+  },
+  "traces/c_14_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/99",
+    "sha256": "cf16b9559fea8eb9701c5e92f8ddea4c8aa20acfd12284d5911b604f4982aa8b"
+  },
+  "traces/c_14_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/108",
+    "sha256": "6f7db4024b9906de4714a6edd2f773c34058c0e8b9dadf0e6305cf9b72505e62"
+  },
+  "traces/c_14_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/117",
+    "sha256": "89d5a48c8fb591b298aff5f0ab4669b73138231654bd765ae08da3a88113348a"
+  },
+  "traces/c_14_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/126",
+    "sha256": "dc69ab9851522e65a91228e9547a1b564ac5898272b70ca06bef994b2d7ecba3"
+  },
+  "traces/c_14_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/14/135",
+    "sha256": "5199d3e3e8ca589dfaa59afcebc77ec2f9168088d0ab1ffd004e87cc4c2205e3"
+  },
+  "traces/c_15_0.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/0",
+    "sha256": "7441499e9ce56a2f76b36a3a8a3a2dfa778bd291a9253e78c6c4a8af9d06469f"
+  },
+  "traces/c_15_9.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/9",
+    "sha256": "416001902be7d807a5a020b7f2c8b5b9195a79884e2ba2b784a3649fe9303c8a"
+  },
+  "traces/c_15_18.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/18",
+    "sha256": "62a15895708573c393ef4d5f3800f231fcdcb594160559d12960539c2ce9cf73"
+  },
+  "traces/c_15_27.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/27",
+    "sha256": "811f43e5955fb99f929a17afbd42d422795dae7dae6c57105927712603687cf7"
+  },
+  "traces/c_15_36.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/36",
+    "sha256": "6f2b864bb8fe7908a4786d39cefeef21766bd269b7e29d168b68fe10c7244686"
+  },
+  "traces/c_15_45.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/45",
+    "sha256": "4ffe01d2ece2537ae7eb4eed2dd973e8174afbda531f879a6ab977e2c1b14636"
+  },
+  "traces/c_15_54.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/54",
+    "sha256": "82b50168a240ed48e7b5a07d53bd524e0610b558d590e1e63e319c64aadfa29d"
+  },
+  "traces/c_15_63.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/63",
+    "sha256": "e01566faa9079be3e94ea2a1a36463cc539e929e1a292fd4e08468dc35213546"
+  },
+  "traces/c_15_72.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/72",
+    "sha256": "d99d9ee68cc2ecd4d6a8b604fbef780f8e8a294089af301f806cb1b3f4fc1add"
+  },
+  "traces/c_15_81.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/81",
+    "sha256": "0ee19dff8510cfcfed500798243a7fe7b41989e87e438c5d4213ccc27b95ce4e"
+  },
+  "traces/c_15_90.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/90",
+    "sha256": "671d13eaee0fce9371ec8ab722a569a43ab8bb6b31938bf632b88ab5761a8294"
+  },
+  "traces/c_15_99.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/99",
+    "sha256": "0e5cc4b7cc01be5e464319f2b5a8674024d8db1d973575e9d4598bcc56f645a6"
+  },
+  "traces/c_15_108.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/108",
+    "sha256": "7fb8bf59401e7385e2320e49edfecd35f77bb8b710ebabcc6191103087700598"
+  },
+  "traces/c_15_117.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/117",
+    "sha256": "e720bef8d6eb9731538e60b00f3b4335d18d5a8c360eb8637df58d2536260a8c"
+  },
+  "traces/c_15_126.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/126",
+    "sha256": "f9c2ae901d9cf47533428d509f2e6e67f5a3cfc7a1b482c1f617c2ba95a45bef"
+  },
+  "traces/c_15_135.bin": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/traces/c/15/135",
+    "sha256": "273818e8ea0cddb24250091c09973c21da4c3fa5b1d47857ec79c76b4e915f44"
+  },
+  "centroids.json": {
+    "url": "https://storage.googleapis.com/zapbench-release/volumes/20240930/segmentation/dataframe_centroids.json",
+    "sha256": "12ffd6a4f083db6cff53ef1e6815519ae6cfb6dd17757828b2962ccf84d2afca"
+  }
+}

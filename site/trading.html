@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ZAPFISH — trading desk</title>
+<meta name="description" content="A vertebrate brain launched a memecoin. Whole-brain activity from one real zebrafish, replayed to drive a fixed trading readout. $ZAP.">
+<meta property="og:title" content="ZAPFISH — the first vertebrate brain onchain">
+<meta property="og:description" content="71,721 neurons. One real zebrafish. A fixed readout that proposes buy, sell or hold. Paper mode by default.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07071a; --bg2:#0b0b22; --panel:rgba(5,5,18,.86); --line:rgba(255,255,255,.08);
+    --text:#e6e9ff; --muted:#8a90b8; --cyan:#52e3e3; --pink:#ff5c8a; --blue:#2f6bff; --gold:#e9c66a;
+    --display:'Silkscreen','JetBrains Mono',ui-monospace,monospace;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+    --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  a{color:var(--cyan)}
+  ::selection{background:var(--pink);color:#fff}
+
+  /* ---------- HERO ---------- */
+  #hero{position:relative;height:100vh;height:100dvh;min-height:560px;overflow:hidden;background:var(--bg)}
+  #gl{position:absolute;inset:0;width:100%;height:100%;display:block;image-rendering:pixelated}
+  #hero .vignette{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(3,3,12,.75) 100%)}
+  .hud-title{position:absolute;left:calc(20px + var(--sal));top:calc(22px + var(--sat));font-family:var(--display);font-weight:700;
+    font-size:clamp(28px,6vw,54px);letter-spacing:.02em;line-height:1;color:#fff;text-shadow:0 0 18px rgba(82,227,227,.25)}
+  .hud-title .cur{color:var(--pink);animation:blink 1.1s steps(1) infinite}
+  .hud-title .ticks{position:absolute;left:0;top:-14px;width:36px;height:2px;background:var(--pink)}
+  .hud-title .ticks:after{content:"";position:absolute;left:44px;top:0;width:12px;height:2px;background:var(--cyan)}
+  @keyframes blink{50%{opacity:0}}
+
+  .hud-panel{position:absolute;left:calc(16px + var(--sal));bottom:calc(18px + var(--sab));width:min(560px,calc(100vw - 32px - var(--sal) - var(--sar)));
+    background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:4px;padding:12px 14px 10px;
+    font-family:var(--display);color:#cfd6ff;backdrop-filter:blur(2px)}
+  .hud-panel .r1{display:flex;justify-content:space-between;align-items:baseline;font-size:clamp(12px,2.6vw,17px);letter-spacing:.06em}
+  .hud-panel .r1 .tag{color:#dfe6ff}
+  .hud-panel .r1 .t{color:#8f97c4}
+  .hud-panel .r2{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:end;margin-top:6px}
+  .hud-panel .big{font-size:clamp(34px,9vw,62px);line-height:.95;color:#fff;letter-spacing:-.02em;min-width:5ch}
+  .hud-panel .lbl{font-size:clamp(11px,2.3vw,15px);color:#9aa2cc;letter-spacing:.08em;margin-top:6px}
+  #raster{width:100%;height:auto;display:block;image-rendering:pixelated;border:1px solid rgba(255,255,255,.06);background:#050512}
+  .hud-panel .r3{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-size:clamp(11px,2.4vw,15px);color:#b9c1ea;letter-spacing:.06em}
+  .hud-status{position:absolute;right:calc(18px + var(--sar));top:calc(26px + var(--sat));font-family:var(--display);font-size:clamp(10px,2.2vw,13px);
+    letter-spacing:.1em;color:#9aa2cc;text-align:right;line-height:1.5}
+  .hud-status b{color:var(--cyan);font-weight:400}
+
+  .zn{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  .zn a{color:#cfd6e2;text-decoration:none;padding:7px 11px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(0,0,0,.35);backdrop-filter:blur(4px)}
+  .zn a.on{background:#fff;color:#000;border-color:#fff}
+  .zn a.zn-b{border:0;background:transparent;color:#fff;font-weight:600;padding-left:0;letter-spacing:.2em}
+  @media (max-width:640px){.zn{gap:4px}.zn a{padding:6px 8px;font-size:10px}.zn a.zn-b{display:none}}
+
+  .hud-nav{position:absolute;right:calc(18px + var(--sar));top:calc(22px + var(--sat))}
+  @media (max-width:640px){.hud-nav{right:auto;left:calc(20px + var(--sal));top:calc(78px + var(--sat))}}
+  .panel{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:30px}
+  .panel div{background:var(--bg2);padding:16px 18px}
+  .panel .n{font-family:var(--display);font-size:20px;color:#fff}
+  .panel .n.c{color:var(--cyan)}.panel .n.m{color:var(--pink)}
+  .panel .l{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  @media (min-width:700px){.panel{grid-template-columns:repeat(4,1fr)}}
+  .scrollcue{position:absolute;right:calc(18px + var(--sar));bottom:calc(20px + var(--sab));font-family:var(--display);font-size:11px;letter-spacing:.2em;
+    color:#7d85b3;writing-mode:vertical-rl;animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{50%{transform:translateY(6px);opacity:.5}}
+  @media (max-width:640px){.scrollcue{display:none}.hud-status{display:none}}
+
+  /* ---------- PAGE ---------- */
+  main{position:relative;z-index:1}
+  .wrap{width:min(1080px,calc(100% - 40px));margin:0 auto}
+  section{padding:72px 0;border-top:1px solid var(--line)}
+  .eyebrow{font-family:var(--display);font-size:12px;letter-spacing:.22em;color:var(--cyan);margin:0 0 18px}
+  h1,h2{font-family:var(--display);font-weight:700;letter-spacing:-.01em;line-height:1.05;margin:0}
+  h2{font-size:clamp(28px,5.4vw,52px)}
+  .lead{font-size:clamp(15px,2.4vw,19px);line-height:1.65;color:#c9cfee;max-width:62ch;margin:22px 0 0}
+  .lead b{color:#fff;font-weight:600}
+  .muted{color:var(--muted)}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:40px}
+  .stat{background:var(--bg2);padding:22px 20px}
+  .stat .n{font-family:var(--display);font-size:clamp(26px,5vw,40px);color:#fff;line-height:1}
+  .stat .l{font-size:12px;letter-spacing:.14em;color:var(--muted);margin-top:10px;text-transform:uppercase}
+  .stat .n.pink{color:var(--pink)}.stat .n.cyan{color:var(--cyan)}.stat .n.gold{color:var(--gold)}
+  @media (min-width:720px){.stats{grid-template-columns:repeat(4,1fr)}}
+
+  table{width:100%;border-collapse:collapse;margin-top:34px;font-size:clamp(13px,2.2vw,16px)}
+  th,td{text-align:left;padding:14px 12px;border-top:1px solid var(--line);vertical-align:top;line-height:1.45}
+  th{font-family:var(--display);font-size:12px;letter-spacing:.18em;color:var(--muted);font-weight:400;border-top:0}
+  td:first-child{color:var(--muted)}
+  td:last-child{color:#fff}
+  .tablewrap{overflow-x:auto}
+
+  .steps{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:36px}
+  .step{background:var(--bg2);padding:26px 22px}
+  .step .k{font-family:var(--display);font-size:12px;letter-spacing:.2em;color:var(--pink)}
+  .step h3{font-family:var(--display);font-size:20px;margin:12px 0 10px;color:#fff;font-weight:700}
+  .step p{margin:0;color:#c1c7e6;line-height:1.6;font-size:15px}
+  @media (min-width:720px){.steps{grid-template-columns:repeat(3,1fr)}}
+
+  .cols{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:36px}
+  .col{background:var(--bg2);padding:26px 22px}
+  .col h3{font-family:var(--display);font-size:14px;letter-spacing:.18em;margin:0 0 16px;font-weight:400}
+  .col.yes h3{color:var(--cyan)}.col.no h3{color:var(--pink)}
+  .col ul{margin:0;padding:0;list-style:none}
+  .col li{padding:10px 0;border-top:1px solid var(--line);color:#c9cfee;line-height:1.55;font-size:15px}
+  .col li:first-child{border-top:0}
+  @media (min-width:720px){.cols{grid-template-columns:1fr 1fr}}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .chip{font-family:var(--display);font-size:12px;letter-spacing:.14em;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg2);color:#dfe6ff}
+  .chip b{color:var(--cyan);font-weight:400}
+  .chip.pink b{color:var(--pink)}
+  footer{padding:40px 0 calc(40px + var(--sab));border-top:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.7}
+  footer p{margin:0 0 8px}
+  .dim{opacity:.7}
+</style>
+</head>
+<body>
+
+<div id="hero">
+  <canvas id="gl"></canvas>
+  <div class="vignette"></div>
+  <div class="hud-title"><span class="ticks"></span>ZAPFISH<span class="cur">_</span></div>
+  <div class="hud-nav"><nav class="zn"><a href="index.html" class="zn-b">ZAPFISH</a><a href="index.html">Observatory</a><a href="tasks.html">Tasks</a><a href="trading.html" class="on">Trading</a></nav></div>
+
+  <div class="hud-panel" id="panel">
+    <div class="r1"><span class="tag">NEURAL REPLAY</span><span class="t" id="hudT">0.00 S</span></div>
+    <div class="r2">
+      <div><div class="big" id="hudBig">—</div><div class="lbl">CELLS ACTIVE</div></div>
+      <canvas id="raster" width="320" height="112"></canvas>
+    </div>
+    <div class="r3"><span>71721 NEURONS</span><span>96-CELL ΔF/F RASTER</span><span class="dim">ZAPBENCH · ×8</span></div>
+  </div>
+  <div class="scrollcue">SCROLL</div>
+</div>
+
+<main>
+  <section id="claim">
+    <div class="wrap">
+      <p class="eyebrow">01 — THE CLAIM</p>
+      <h2>A vertebrate brain launched a memecoin.</h2>
+      <p class="lead"><b>71,721 neurons.</b> Whole-brain activity recorded from one real larval zebrafish, replayed through a fixed readout that proposes <b>buy</b>, <b>sell</b> or <b>hold</b>. No language model picks trades. No script pretends to be neurons. A risk guard can say no; it can never say “trade this instead.”</p>
+      <p class="lead muted">This is Experiment 01 of the <a href="index.html">ZAPFISH Observatory</a>. The same brain also <a href="tasks.html">plays table tennis, rides a bike and walks a dog</a>. The fruit fly was an invertebrate with a wiring diagram. This is a vertebrate with a wiring diagram <i>and</i> a recording of its brain, from the same animal, sensory input to muscle output.</p>
+      <div class="stats">
+        <div class="stat"><div class="n cyan">71,721</div><div class="l">Neurons recorded</div></div>
+        <div class="stat"><div class="n">7,879</div><div class="l">Whole-brain frames</div></div>
+        <div class="stat"><div class="n gold">1</div><div class="l">Real zebrafish</div></div>
+        <div class="stat"><div class="n pink">$ZAP</div><div class="l">The first vertebrate onchain</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fly">
+    <div class="wrap">
+      <p class="eyebrow">02 — FLY → FISH</p>
+      <h2>The next brain up.</h2>
+      <p class="lead">STONKFLY put a fruit-fly connectome on a trading account. ZAPFISH climbs one rung of the tree of life: from an insect to the first complete vertebrate connectome, with recorded activity to match.</p>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>FRUIT FLY</th><th>ZEBRAFISH</th></tr></thead>
+        <tbody>
+          <tr><td>Lineage</td><td>Invertebrate</td><td>Vertebrate</td></tr>
+          <tr><td>Wiring</td><td>Brain + nerve cord</td><td>Brain, sensory structures and motor outputs</td></tr>
+          <tr><td>Evidence</td><td>Connectome only</td><td>Wiring <i>plus</i> recorded activity from the same fish</td></tr>
+          <tr><td>Neurons</td><td>166,700</td><td>~140,000 mapped · 71,721 recorded</td></tr>
+          <tr><td>Resolution</td><td>Single synapse</td><td>Single synapse, sensory input traceable to muscle</td></tr>
+          <tr><td>Story</td><td>Strong science</td><td>Stronger evolutionary story</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <p class="eyebrow">03 — HOW IT WORKS</p>
+      <h2>See. Fire. Trade.</h2>
+      <div class="steps">
+        <div class="step"><div class="k">STEP 1</div><h3>SEE</h3><p>Public price candles are rendered into a small chart. The model gets the <b>pixels</b>, not the numbers. No indicators, no balances, no P&amp;L on screen.</p></div>
+        <div class="step"><div class="k">STEP 2</div><h3>FIRE</h3><p>A whole-brain predictive model trained on the ZAPBench recordings of one zebrafish responds to that input, cell by cell. The raster in the hero is real data from that fish.</p></div>
+        <div class="step"><div class="k">STEP 3</div><h3>TRADE</h3><p>A fixed readout maps activity in a named set of motor-side cells to buy, sell or hold. A guard checks limits and can only reject. <b>Paper mode by default.</b></p></div>
+      </div>
+      <div class="panel">
+        <div><div class="n">BTC-USDC</div><div class="l">Public feed · tick 2 · paper</div></div>
+        <div><div class="n c">77,303.22</div><div class="l">Observed bid</div></div>
+        <div><div class="n m">SELL</div><div class="l">Proposal · R−L −0.150</div></div>
+        <div><div class="n">VETO</div><div class="l">Guard · no inventory</div></div>
+      </div>
+      <p class="lead muted" style="font-size:14px">Latest paper observation from the ZAPFISH engine (56,909 of 64,748 plastic edges had moved after two observations). The readout carries a persistent sell-side bias that the guard vetoes for lack of inventory. As STONKFLY warns of its fly: a persistent turning-like bias becomes a persistent order bias. Do not read it as market insight.</p>
+      <p class="lead muted" style="font-size:14px">Engine: a fork of the open-source STONKFLY loop (market → sensory proxy → neural model → fixed decoder → execution limits), with the fly graph swapped for the fish. Same rules: no pruning, no hidden profit-based action selection, no LLM policy.</p>
+    </div>
+  </section>
+
+  <section id="honest">
+    <div class="wrap">
+      <p class="eyebrow">04 — WHAT WE CLAIM</p>
+      <h2>Loud about the limits.</h2>
+      <div class="cols">
+        <div class="col yes"><h3>WE CLAIM</h3>
+          <ul>
+            <li>The activity you see is from a <b>real zebrafish</b>: ZAPBench, public release, 71,721 neurons × 7,879 frames. Every row in the hero raster maps to a neuron ID in that dataset.</li>
+            <li>The readout is fixed and readable. Selected cell IDs are logged. Nothing overrides the proposal with a different action.</li>
+            <li>The code is open and the paper-trade run is resumable and auditable.</li>
+          </ul>
+        </div>
+        <div class="col no"><h3>WE DO NOT CLAIM</h3>
+          <ul>
+            <li>Control of the complete <b>Fish Fire&amp;Wire</b> connectome. Janelia is still proofreading it; early snapshots are by application. Until access is granted, ZAPFISH runs on the public activity recordings, not the full wiring.</li>
+            <li>Profitable learning. A rising market makes any buyer look smart. No held-out replay has shown an edge.</li>
+            <li>Modeled pain, pleasure or consciousness. Profit and loss are engineered inputs, not feelings.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="chips">
+        <div class="chip">DATA <b>ZAPBENCH · GOOGLE RESEARCH / JANELIA</b></div>
+        <div class="chip">WIRING <b>FIRE&amp;WIRE · ACCESS PENDING</b></div>
+        <div class="chip pink">CA <b>TBA</b></div>
+        <div class="chip pink">X <b>TBA</b></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p><span style="font-family:var(--display);color:#fff">ZAPFISH</span> · the first vertebrate brain to launch a currency.</p>
+      <p>Activity data: ZAPBench (zapbench-release, volumes/20240930/traces), used under its open release terms. Zebrafish rendered from a generated low-poly reference. STONKFLY is an independent open-source project by nftechie; this page borrows its idea and its honesty rules, not its code or trades.</p>
+      <p class="dim">Nothing here is financial advice. Paper mode is the default. Real orders stay gated until there is a legal basis to place them.</p>
+    </div>
+  </footer>
+</main>
+
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/addons/" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPixelatedPass } from 'three/addons/postprocessing/RenderPixelatedPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+/* ------------------------------------------------------------------ */
+/*  Tunables (also reachable as window.__ZAP for QA)                    */
+/* ------------------------------------------------------------------ */
+const CFG = {
+  fish: { url: './assets/zebrafish.glb', len: 1.7, pos: [-0.5, 0.86, 0.2], rotY: Math.PI, tailAxisFlip: false },
+  pixel: { desktop: 3, mobile: 2 },
+  replayFps: 8,
+};
+
+/* ------------------------------------------------------------------ */
+/*  Renderer / scene                                                    */
+/* ------------------------------------------------------------------ */
+const canvas = document.getElementById('gl');
+const isMobile = matchMedia('(max-width:640px)').matches || ('ontouchstart' in window && innerWidth < 900);
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
+renderer.setPixelRatio(1);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x07071a);
+scene.fog = new THREE.Fog(0x07071a, 6, 14);
+
+const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 40);
+const camHome = new THREE.Vector3();
+const camLook = new THREE.Vector3(0.35, 0.95, -0.25);
+
+/* ---- lights ---- */
+scene.add(new THREE.HemisphereLight(0x2a2c5a, 0x08081a, 0.32));
+const key = new THREE.DirectionalLight(0xffd9e6, 0.45); key.position.set(-2.5, 4, 2.5); scene.add(key);
+const screenLight = new THREE.PointLight(0x4ea8ff, 6, 4.5, 1.7); screenLight.position.set(1.15, 1.35, 0.1); scene.add(screenLight);
+const rim = new THREE.PointLight(0xff5c8a, 2.2, 4, 1.8); rim.position.set(-2.4, 1.5, -0.8); scene.add(rim);
+const cyanFill = new THREE.PointLight(0x2f6bff, 0.6, 3.2, 2); cyanFill.position.set(0.3, 0.6, 1.6); scene.add(cyanFill);
+
+/* ---- materials ---- */
+const mDark = (c, r = 0.85) => new THREE.MeshStandardMaterial({ color: c, roughness: r, metalness: 0.05 });
+const mGlow = (c) => new THREE.MeshBasicMaterial({ color: c });
+
+/* ---- floor + walls (room) ---- */
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), mDark(0x0a0a1e, 0.95));
+floor.rotation.x = -Math.PI / 2; scene.add(floor);
+
+function wallRow(count, from, to, z, alongX) {
+  const g = new THREE.Group();
+  let x = from;
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < count && x < to; i++) {
+    const w = 0.35 + rnd() * 0.55, h = 2.4 + rnd() * 3.2, d = 0.25 + rnd() * 0.25;
+    const shade = new THREE.Color().setHSL(0.66 + rnd() * 0.05, 0.45, 0.045 + rnd() * 0.05);
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mDark(shade, 1.0));
+    if (alongX) m.position.set(x + w / 2, h / 2, z - d / 2); else m.position.set(z + d / 2, h / 2, x + w / 2);
+    g.add(m);
+    x += w + 0.04 + rnd() * 0.08;
+  }
+  return g;
+}
+scene.add(wallRow(40, -9, 9, -2.4, true));   // back wall
+scene.add(wallRow(30, -6, 3, -4.2, false));  // left wall
+scene.add(wallRow(30, -6, 3, 4.6, false));   // right wall
+
+/* ---- data rain on the walls ---- */
+const RAIN_N = isMobile ? 520 : 900;
+const rainGeo = new THREE.PlaneGeometry(0.045, 0.09);
+const rainMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.85, side: THREE.DoubleSide });
+const rain = new THREE.InstancedMesh(rainGeo, rainMat, RAIN_N);
+const rainState = [];
+const palette = [0x52e3e3, 0x52e3e3, 0x2f6bff, 0xff5c8a, 0x9ad4ff, 0xff9ac0];
+{
+  const dummy = new THREE.Object3D(); const col = new THREE.Color();
+  for (let i = 0; i < RAIN_N; i++) {
+    const wall = Math.random();
+    let x, y, z, ry = 0;
+    if (wall < 0.55) { x = -9 + Math.random() * 18; z = -2.1; }
+    else if (wall < 0.8) { x = -4.05; z = -6 + Math.random() * 9; ry = Math.PI / 2; }
+    else { x = 4.45; z = -6 + Math.random() * 9; ry = Math.PI / 2; }
+    y = Math.random() * 5.5;
+    rainState.push({ x, y, z, ry, vy: 0.25 + Math.random() * 0.9, len: 1 + Math.floor(Math.random() * 3) });
+    dummy.position.set(x, y, z); dummy.rotation.set(0, ry, 0); dummy.scale.set(1, rainState[i].len, 1); dummy.updateMatrix();
+    rain.setMatrixAt(i, dummy.matrix);
+    col.setHex(palette[Math.floor(Math.random() * palette.length)]);
+    rain.setColorAt(i, col);
+  }
+  rain.instanceColor.needsUpdate = true;
+}
+scene.add(rain);
+
+/* ---- desk ---- */
+const desk = new THREE.Group();
+const deskTop = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.12, 2.1), mDark(0x1b1a38, 0.8)); deskTop.position.set(0.2, 0.78, -0.1); desk.add(deskTop);
+const legMat = mDark(0x14132c);
+for (const [lx, lz] of [[-1.95, -1.0], [2.35, -1.0], [-1.95, 0.8], [2.35, 0.8]]) {
+  const leg = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.74, 0.16), legMat); leg.position.set(lx, 0.37, lz); desk.add(leg);
+}
+// neon edges (like the reference's cyan/pink desk lines)
+const edgeC = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.025, 0.025), mGlow(0x52e3e3)); edgeC.position.set(0.2, 0.845, 0.95); desk.add(edgeC);
+const edgeP = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.025, 2.1), mGlow(0xff5c8a)); edgeP.position.set(-2.1, 0.845, -0.1); desk.add(edgeP);
+const edgeB = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.025, 0.025), mGlow(0x2f6bff)); edgeB.position.set(0.2, 0.845, -1.15); desk.add(edgeB);
+scene.add(desk);
+
+/* ---- monitor with a live chart texture ---- */
+const scr = document.createElement('canvas'); scr.width = 512; scr.height = 288;
+const sctx = scr.getContext('2d');
+const scrTex = new THREE.CanvasTexture(scr); scrTex.colorSpace = THREE.SRGBColorSpace; scrTex.magFilter = THREE.NearestFilter; scrTex.minFilter = THREE.LinearFilter;
+const monitor = new THREE.Group();
+const bezel = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.12, 0.07), mDark(0x0d0d22, 0.6)); monitor.add(bezel);
+const screen = new THREE.Mesh(new THREE.PlaneGeometry(1.78, 1.0), new THREE.MeshBasicMaterial({ map: scrTex })); screen.position.z = 0.037; monitor.add(screen);
+const bezelGlow = new THREE.Mesh(new THREE.BoxGeometry(1.92, 0.02, 0.02), mGlow(0x52e3e3)); bezelGlow.position.set(0, -0.57, 0.02); monitor.add(bezelGlow);
+const stand = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.3, 0.12), mDark(0x12122a)); stand.position.set(0, -0.7, -0.05); monitor.add(stand);
+const foot = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.03, 0.35), mDark(0x12122a)); foot.position.set(0, -0.84, -0.02); monitor.add(foot);
+monitor.position.set(1.35, 1.7, -0.55); monitor.rotation.y = 0.42;
+scene.add(monitor);
+
+/* ---- keyboard / mouse / mug ---- */
+const kb = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.035, 0.36), mDark(0x15152e, 0.7)); kb.position.set(0.55, 0.86, 0.35); kb.rotation.y = 0.18; scene.add(kb);
+const kbGlow = new THREE.Mesh(new THREE.BoxGeometry(0.98, 0.006, 0.3), mGlow(0x0f3f52)); kbGlow.position.set(0.55, 0.879, 0.35); kbGlow.rotation.y = 0.18; scene.add(kbGlow);
+const mouse = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.05, 0.24), mDark(0x2a2a4a, 0.55)); mouse.position.set(1.45, 0.865, 0.55); mouse.rotation.y = -0.2; scene.add(mouse);
+const mouseDot = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.012, 0.03), mGlow(0xff5c8a)); mouseDot.position.set(1.45, 0.895, 0.5); scene.add(mouseDot);
+const mug = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.1, 0.24, 8), mDark(0x3a2440, 0.6)); mug.position.set(2.05, 0.96, 0.55); scene.add(mug);
+const handle = new THREE.Mesh(new THREE.TorusGeometry(0.07, 0.02, 5, 8), mDark(0x3a2440, 0.6)); handle.position.set(2.17, 0.98, 0.55); scene.add(handle);
+// mouse cable to the monitor
+{
+  const pts = [new THREE.Vector3(1.45, 0.87, 0.65), new THREE.Vector3(1.9, 0.86, 0.6), new THREE.Vector3(2.2, 0.86, 0.0), new THREE.Vector3(1.6, 0.86, -0.5)];
+  const curve = new THREE.CatmullRomCurve3(pts);
+  scene.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 24, 0.012, 4, false), mGlow(0x1a1a44)));
+}
+
+/* ---- chart drawing (decorative concept chart, not a trading result) ---- */
+const candles = [];
+let px = 100;
+for (let i = 0; i < 64; i++) pushCandle();
+function pushCandle() {
+  const o = px, c = px + (Math.random() - 0.48) * 3.2;
+  const h = Math.max(o, c) + Math.random() * 1.4, l = Math.min(o, c) - Math.random() * 1.4;
+  candles.push({ o, c, h, l }); px = c; if (candles.length > 64) candles.shift();
+}
+function drawScreen() {
+  const W = scr.width, H = scr.height;
+  sctx.fillStyle = '#0a0d1c'; sctx.fillRect(0, 0, W, H);
+  // header
+  sctx.fillStyle = '#121933'; sctx.fillRect(0, 0, W, 34);
+  sctx.fillStyle = '#4ea8ff'; sctx.fillRect(14, 10, 14, 14);
+  sctx.fillStyle = '#dfe6ff'; sctx.font = 'bold 15px monospace'; sctx.fillText('ZAPFISH TERMINAL', 36, 22);
+  sctx.fillStyle = '#7c86b8'; sctx.font = '11px monospace'; sctx.fillText('SPOT   PERPS   FISH', 220, 22);
+  sctx.fillStyle = '#2f6bff'; sctx.fillRect(W - 92, 8, 80, 18); sctx.fillStyle = '#fff'; sctx.font = 'bold 10px monospace'; sctx.fillText('LIVE · PAPER', W - 86, 21);
+  // side panel
+  sctx.fillStyle = '#0e1226'; sctx.fillRect(W - 140, 34, 140, H - 34);
+  sctx.fillStyle = '#0b3a2b'; sctx.fillRect(W - 128, 48, 56, 18); sctx.fillStyle = '#42d98a'; sctx.font = 'bold 10px monospace'; sctx.fillText('BUY', W - 112, 61);
+  sctx.fillStyle = '#3a0f1e'; sctx.fillRect(W - 66, 48, 56, 18); sctx.fillStyle = '#ff5c8a'; sctx.fillText('SELL', W - 52, 61);
+  for (let i = 0; i < 8; i++) { sctx.fillStyle = i % 2 ? '#141a33' : '#10152b'; sctx.fillRect(W - 128, 78 + i * 18, 118, 14); sctx.fillStyle = i < 4 ? '#42d98a' : '#ff5c8a'; sctx.fillRect(W - 126, 80 + i * 18, 30 + Math.random() * 60, 10); }
+  sctx.fillStyle = '#2f6bff'; sctx.fillRect(W - 128, 232, 118, 26); sctx.fillStyle = '#fff'; sctx.font = 'bold 11px monospace'; sctx.fillText('FISH DECIDES', W - 108, 249);
+  // grid
+  sctx.strokeStyle = '#161d3a'; sctx.lineWidth = 1;
+  for (let y = 50; y < H; y += 24) { sctx.beginPath(); sctx.moveTo(0, y); sctx.lineTo(W - 140, y); sctx.stroke(); }
+  // candles
+  const lo = Math.min(...candles.map(c => c.l)), hi = Math.max(...candles.map(c => c.h));
+  const cw = (W - 150) / candles.length;
+  candles.forEach((c, i) => {
+    const x = 8 + i * cw, y = v => 44 + (1 - (v - lo) / (hi - lo + 1e-6)) * 150;
+    const up = c.c >= c.o; sctx.fillStyle = up ? '#42d98a' : '#ff5c8a';
+    sctx.fillRect(x + cw * 0.45, y(c.h), 1, y(c.l) - y(c.h));
+    sctx.fillRect(x + cw * 0.15, Math.min(y(c.o), y(c.c)), cw * 0.6, Math.max(1, Math.abs(y(c.o) - y(c.c))));
+  });
+  // volume
+  candles.forEach((c, i) => { sctx.fillStyle = c.c >= c.o ? '#1f5f45' : '#5f1f35'; sctx.fillRect(8 + i * cw + cw * 0.15, 258 - Math.random() * 40, cw * 0.6, 28); });
+  sctx.fillStyle = '#0a0d1c'; sctx.fillRect(0, 258, W - 140, 30);
+  sctx.fillStyle = '#7c86b8'; sctx.font = '10px monospace'; sctx.fillText('ZAP-USDC  ·  the fish sees pixels, not prices', 10, 275);
+  scrTex.needsUpdate = true;
+}
+drawScreen();
+setInterval(() => { pushCandle(); drawScreen(); }, 1400);
+
+/* ---- fish (generated low-poly zebrafish, GLB) ---- */
+const fishRoot = new THREE.Group();
+scene.add(fishRoot);
+let fishMesh = null;
+const swayU = { value: 0 };
+new GLTFLoader().load(CFG.fish.url, (g) => {
+  const obj = g.scene;
+  const box = new THREE.Box3().setFromObject(obj);
+  const size = box.getSize(new THREE.Vector3());
+  const longest = Math.max(size.x, size.y, size.z);
+  const s = CFG.fish.len / longest;
+  obj.scale.setScalar(s);
+  box.setFromObject(obj);
+  const c = box.getCenter(new THREE.Vector3());
+  obj.position.sub(c);
+  obj.position.y += size.y * s * 0.5;
+  obj.traverse(m => {
+    if (!m.isMesh) return;
+    fishMesh = m; m.frustumCulled = false;
+    const mat = m.material; mat.roughness = 0.6; mat.metalness = 0.0;
+    if (mat.map) { mat.map.magFilter = THREE.NearestFilter; mat.map.colorSpace = THREE.SRGBColorSpace; }
+    // tail sway in the vertex shader: bends the rear half sideways
+    mat.onBeforeCompile = (sh) => {
+      sh.uniforms.uTime = swayU;
+      sh.vertexShader = sh.vertexShader
+        .replace('#include <common>', '#include <common>\nuniform float uTime;')
+        .replace('#include <begin_vertex>', `#include <begin_vertex>
+          float axis = ${CFG.fish.tailAxisFlip ? '-position.x' : 'position.x'};
+          float w = smoothstep(-0.05, 0.55, axis);
+          transformed.z += sin(uTime * 6.5 - axis * 7.0) * 0.045 * w * w;`);
+    };
+  });
+  fishRoot.add(obj);
+  fishRoot.position.set(...CFG.fish.pos);
+  fishRoot.rotation.y = CFG.fish.rotY;
+}, undefined, (e) => console.warn('fish load failed', e));
+
+/* ---- composer ---- */
+const composer = new THREE.WebGLRenderer ? new EffectComposer(renderer) : null;
+let pixPass;
+function buildPasses() {
+  composer.passes.length = 0;
+  const px = isMobile ? CFG.pixel.mobile : CFG.pixel.desktop;
+  pixPass = new RenderPixelatedPass(px, scene, camera, { normalEdgeStrength: 0.25, depthEdgeStrength: 0.35 });
+  composer.addPass(pixPass);
+  composer.addPass(new OutputPass());
+}
+buildPasses();
+
+function resize() {
+  const w = canvas.clientWidth || innerWidth, h = canvas.clientHeight || innerHeight;
+  renderer.setSize(w, h, false);
+  composer.setSize(w, h);
+  camera.aspect = w / h;
+  const portrait = w / h < 0.9;
+  camera.fov = portrait ? 66 : 40;
+  camHome.set(portrait ? 0.15 : -1.35, portrait ? 2.0 : 1.95, portrait ? 4.6 : 3.4);
+  camLook.set(portrait ? 0.3 : 0.35, portrait ? 0.6 : 0.95, -0.25);
+  camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+
+/* ---- pointer parallax ---- */
+const ptr = { x: 0, y: 0, tx: 0, ty: 0 };
+addEventListener('pointermove', e => { ptr.tx = (e.clientX / innerWidth - 0.5) * 2; ptr.ty = (e.clientY / innerHeight - 0.5) * 2; }, { passive: true });
+addEventListener('deviceorientation', e => { if (e.gamma == null) return; ptr.tx = THREE.MathUtils.clamp(e.gamma / 30, -1, 1); ptr.ty = THREE.MathUtils.clamp((e.beta - 45) / 40, -1, 1); }, { passive: true });
+
+/* ------------------------------------------------------------------ */
+/*  HUD: neural replay from real ZAPBench traces                        */
+/* ------------------------------------------------------------------ */
+const rc = document.getElementById('raster'), rctx = rc.getContext('2d');
+const hudT = document.getElementById('hudT'), hudBig = document.getElementById('hudBig');
+const RW = rc.width, RH = rc.height, TOP = 14; // top strip = population activity
+let RA = null, T = 0, N = 96, frame = 0, acc = 0;
+const startT = performance.now();
+const NEURONS_TOTAL = 71721;
+function synthetic() { // only if the data file cannot be loaded (file:// etc.)
+  T = 512; N = 96; RA = new Uint8Array(T * N);
+  for (let t = 0; t < T; t++) for (let n = 0; n < N; n++) RA[t * N + n] = Math.random() < 0.12 ? 150 + Math.random() * 105 : Math.random() * 60;
+  document.querySelector('.hud-panel .r3 .dim').textContent = 'SYNTHETIC · DATA OFFLINE';
+}
+fetch('./data/raster.json').then(r => r.json()).then(j => {
+  T = j.meta.T; N = j.meta.N;
+  const bin = atob(j.b64); RA = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) RA[i] = bin.charCodeAt(i);
+  window.__ZAP_NEURON_IDS = j.meta.neuron_ids;
+}).catch(synthetic);
+
+const colHi = [82, 227, 227], colMid = [47, 107, 255], colLo = [255, 92, 138];
+const img = rctx.createImageData(RW, RH);
+function drawRaster() {
+  if (!RA) return;
+  const d = img.data; d.fill(0);
+  // background
+  for (let i = 0; i < RW * RH; i++) { d[i * 4] = 5; d[i * 4 + 1] = 5; d[i * 4 + 2] = 18; d[i * 4 + 3] = 255; }
+  const rowsH = RH - TOP - 2; const cellH = rowsH / N;
+  let active = 0;
+  for (let x = 0; x < RW; x++) {
+    const t = ((frame - (RW - 1 - x)) % T + T) % T;
+    let sum = 0;
+    for (let n = 0; n < N; n++) {
+      const v = RA[t * N + n] / 255; sum += v;
+      if (v < 0.42) continue;
+      const y = TOP + 2 + Math.floor(n * cellH);
+      const k = (v - 0.42) / 0.58;
+      const c = k > 0.6 ? colHi : (k > 0.25 ? colMid : colLo);
+      const a = 0.45 + k * 0.55;
+      const i = (y * RW + x) * 4;
+      d[i] = c[0] * a; d[i + 1] = c[1] * a; d[i + 2] = c[2] * a; d[i + 3] = 255;
+      if (x === RW - 1) active++;
+    }
+    // population strip
+    const m = sum / N; const hgt = Math.max(1, Math.round(m * TOP * 1.6));
+    for (let y = TOP - hgt; y < TOP; y++) { if (y < 0) continue; const i = (y * RW + x) * 4; d[i] = 70; d[i + 1] = 160; d[i + 2] = 255; d[i + 3] = 255; }
+  }
+  rctx.putImageData(img, 0, 0);
+  const est = Math.round(active / N * NEURONS_TOTAL);
+  hudBig.textContent = est >= 1000 ? (est / 1000).toFixed(1) + 'K' : String(est);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Loop                                                                */
+/* ------------------------------------------------------------------ */
+const clock = new THREE.Clock();
+const dummy = new THREE.Object3D();
+let lastRaster = 0;
+function tick() {
+  requestAnimationFrame(tick);
+  const dt = Math.min(clock.getDelta(), 0.05), t = clock.elapsedTime;
+  // rain
+  for (let i = 0; i < RAIN_N; i++) {
+    const r = rainState[i]; r.y -= r.vy * dt; if (r.y < -0.2) r.y = 5.6;
+    dummy.position.set(r.x, r.y, r.z); dummy.rotation.set(0, r.ry, 0); dummy.scale.set(1, r.len, 1); dummy.updateMatrix(); rain.setMatrixAt(i, dummy.matrix);
+  }
+  rain.instanceMatrix.needsUpdate = true;
+  // fish idle
+  swayU.value = t;
+  fishRoot.position.y = CFG.fish.pos[1] + Math.sin(t * 1.6) * 0.025;
+  fishRoot.rotation.z = Math.sin(t * 1.1) * 0.03;
+  fishRoot.rotation.y = CFG.fish.rotY + Math.sin(t * 0.7) * 0.04;
+  // screen flicker
+  screenLight.intensity = 5.4 + Math.sin(t * 9) * 0.35 + Math.random() * 0.3;
+  // camera
+  ptr.x += (ptr.tx - ptr.x) * 0.05; ptr.y += (ptr.ty - ptr.y) * 0.05;
+  camera.position.set(camHome.x + ptr.x * 0.25 + Math.sin(t * 0.25) * 0.05, camHome.y - ptr.y * 0.12 + Math.sin(t * 0.33) * 0.03, camHome.z);
+  camera.lookAt(camLook);
+  composer.render();
+  // HUD
+  acc += dt * CFG.replayFps;
+  if (acc >= 1) { frame = (frame + Math.floor(acc)) % (T || 1); acc -= Math.floor(acc); }
+  if (t - lastRaster > 1 / 12) { drawRaster(); lastRaster = t; }
+  hudT.textContent = ((performance.now() - startT) / 1000).toFixed(2) + ' S';
+}
+tick();
+
+window.__ZAP = { CFG, fishRoot, camera, camHome, camLook, scene, renderer, get frame() { return frame; }, setFish(o) { Object.assign(CFG.fish, o); fishRoot.position.set(...CFG.fish.pos); fishRoot.rotation.y = CFG.fish.rotY; } };
+</script>
+</body>
+</html>

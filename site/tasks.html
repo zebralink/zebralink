@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ZAPFISH — everyday tasks</title>
+<meta name="description" content="A real zebrafish brain model does everyday things. 545 recorded neurons, live, in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#000;--panel:#050507;--line:rgba(255,255,255,.1);--text:#f2f4f8;--muted:#8d95a5;--cyan:#3fd3f0;--mag:#c84cef;--gold:#ffb347;
+    --sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px)}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);height:100%;overflow:hidden}
+  body{display:flex;flex-direction:column}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(10px + var(--sat)) 14px 10px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;letter-spacing:.14em}
+
+  .zn{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  .zn a{color:#cfd6e2;text-decoration:none;padding:7px 11px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(0,0,0,.35);backdrop-filter:blur(4px)}
+  .zn a.on{background:#fff;color:#000;border-color:#fff}
+  .zn a.zn-b{border:0;background:transparent;color:#fff;font-weight:600;padding-left:0;letter-spacing:.2em}
+  @media (max-width:640px){.zn{gap:4px}.zn a{padding:6px 8px;font-size:10px}.zn a.zn-b{display:none}}
+  header{flex-wrap:wrap}
+  header .tabs{display:flex;gap:6px;flex-wrap:wrap}
+  @media (max-width:640px){header{padding-bottom:6px}header .tabs a{padding:6px 9px;font-size:10px}}
+  html,body{overflow-x:hidden}
+  header .tabs{display:flex;gap:6px}
+  header .tabs a{font:inherit;letter-spacing:.14em;text-transform:uppercase;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:#cfd6e2;text-decoration:none}
+  header .tabs a.on{background:#fff;color:#000;border-color:#fff}
+  header .tabs a.soon{opacity:.45;pointer-events:none}
+  header .brand{color:#fff}
+  header .brand span{color:var(--muted)}
+  @media (max-width:640px){header .brand span{display:none}}
+  main{flex:1;display:grid;grid-template-columns:62fr 38fr;grid-template-rows:1fr 1fr;gap:1px;background:var(--line);min-height:0}
+  .pane{position:relative;background:var(--panel);overflow:hidden;min-height:0}
+  #world{grid-row:1 / span 2}
+  canvas{display:block;width:100%;height:100%}
+  .tag{position:absolute;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:#fff;pointer-events:none}
+  .tag.tl{left:12px;top:10px}.tag.tr{right:12px;top:10px;color:#cfd6e2}
+  .tag.bl{left:12px;bottom:10px}.tag.br{right:12px;bottom:10px;color:var(--muted)}
+  #mode{pointer-events:auto;cursor:pointer}
+  .timer{position:absolute;left:12px;bottom:10px;background:rgba(0,0,0,.6);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-family:var(--mono);font-size:26px;color:#fff}
+  .timer small{font-size:11px;color:var(--muted);margin-left:8px;letter-spacing:.06em}
+  .stamp{position:absolute;left:12px;top:40px;background:#000;border:1px solid var(--line);padding:6px 12px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--gold);opacity:0;transition:opacity .15s}
+  .stamp.on{opacity:1}
+  .score{position:absolute;right:12px;top:36px;text-align:right;font-family:var(--mono);font-size:12px;line-height:1.7;color:#cfd6e2}
+  .score b{color:#fff;font-weight:500}.score .m{color:var(--mag)}
+  #sees{position:absolute;right:12px;bottom:34px;width:220px;height:124px;border:1px solid var(--line);background:#000}
+  #hits{position:absolute;right:12px;bottom:10px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:#cfd6e2}
+  #hits b{color:var(--cyan);font-weight:500}
+  .readout{position:absolute;left:12px;bottom:10px;right:12px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:#cfd6e2;display:flex;gap:14px;flex-wrap:wrap}
+  .readout b{color:#fff;font-weight:500}
+  .meter{position:absolute;left:12px;right:12px;bottom:34px;height:6px;background:rgba(255,255,255,.08);border-radius:3px}
+  .meter i{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--mag);transform:translateX(-50%)}
+  .meter b{position:absolute;top:-2px;width:10px;height:10px;border-radius:50%;background:var(--cyan);transform:translate(-50%,0);left:50%}
+  .loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--muted);background:#000;z-index:2}
+  .loading.off{display:none}
+  footer{border-top:1px solid var(--line);padding:8px 14px calc(8px + var(--sab));font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--muted);line-height:1.5}
+  footer b{color:#cfd6e2;font-weight:500}
+  @media (max-width:760px){
+    main{grid-template-columns:1fr 1fr;grid-template-rows:58fr 42fr}
+    #world{grid-row:1;grid-column:1 / span 2}
+    .timer{font-size:20px}.score{font-size:11px}#sees{width:150px;height:84px}
+    #brainPane .tag.tr{display:none}
+    footer{font-size:10px;max-height:96px;overflow:auto}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><nav class="zn"><a href="index.html" class="zn-b">ZAPFISH</a><a href="index.html">Observatory</a><a href="tasks.html" class="on">Tasks</a><a href="trading.html">Trading</a></nav></div>
+  <div class="tabs" id="tabs"><a href="?task=tabletennis" data-task="tabletennis">Table tennis</a><a href="?task=bike" data-task="bike">Bike</a><a href="?task=dog" data-task="dog">Dog</a></div>
+</header>
+<main>
+  <div class="pane" id="world">
+    <canvas id="gl"></canvas>
+    <div class="tag tl" id="mode">—</div>
+    <div class="stamp" id="stamp"></div>
+    <div class="tag tr" id="speed"></div>
+    <div class="score" id="score"></div>
+    <canvas id="sees" width="320" height="180"></canvas>
+    <div class="tag br" id="hits">what the fish sees · receptors hit <b id="hitN">0</b>/256</div>
+    <div class="timer"><span id="clock">0:00</span><small id="elapsed">0.0s elapsed</small></div>
+    <div class="loading" id="loading">LOADING BRAIN · 71,721 CELLS</div>
+  </div>
+  <div class="pane" id="brainPane">
+    <canvas id="brain"></canvas>
+    <div class="tag tl">Fish brain</div>
+    <div class="tag tr">ZAPBench 20240930</div>
+    <div class="readout"><span>receptors hit <b id="rHit">0</b></span><span>light <b id="rVis">—</b></span><span>left <b id="rL">—</b></span><span>right <b id="rR">—</b></span><span>gate <b id="rG">—</b></span><span>edges moved <b id="rE">0</b></span></div>
+  </div>
+  <div class="pane" id="fishPane">
+    <canvas id="fish"></canvas>
+    <div class="tag tl" id="ctlTitle">—</div>
+    <div class="meter"><i></i><b id="needle"></b></div>
+    <div class="tag br" id="ctl">R−L 0.000</div>
+  </div>
+</main>
+<footer id="foot"></footer>
+
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/addons/" } }</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { Dog } from './dog.js';
+
+const TASK = new URLSearchParams(location.search).get('task') || 'tabletennis';
+document.querySelectorAll('#tabs a[data-task]').forEach(a => a.classList.toggle('on', a.dataset.task === TASK));
+const COMMON_FOOT = ` The scene is rendered at 320×180 and sampled at the positions of 256 light-responsive cells of a linear whole-brain model fitted to one real zebrafish (ZAPBench, one-step R² 0.94). 128 right minus 128 left turning-responsive hindbrain cells are the steering signal; 16 gate cells are the action signal. Success pulses 15 reward cells, failure pulses 2 aversive cells, and the same anti-Hebbian rule as the trading engine changes the light→readout edges. Each light cell is placed on the screen by the side of the readout it drives in the fitted model (a disclosed display adapter, the way the fly's retina map is) and sees a 9×9-pixel patch. Each readout side is z-scored against its own recorded mean and spread (the left group is twice as variable as the right in the recording), then the difference is centred on its own 30-second running average, so the recording's resting left bias does not pin the controls. Nothing is scripted. Model steps at 16 Hz, a compressed clock relative to the ~1 Hz recording.`;
+
+/* ============================ BRAIN MODEL ============================ */
+const P = { frozen: false, stepHz: 16, inputGain: 0.6, pulseAmp: 0.5, pulseSteps: 2, thr: 0.02, gateLevel: 0.10, eta: 0.001, frameSeconds: 0.9,
+  tracePre: 1.0, traceDan: 1.0, memDecay: 1800, wFilter: 0.05, minFrac: 0.1, maxFrac: 2.0 };
+let B = null;
+function f16to32(u16) {
+  const out = new Float32Array(u16.length);
+  for (let i = 0; i < u16.length; i++) {
+    const h = u16[i], s = (h & 0x8000) ? -1 : 1, e = (h >> 10) & 0x1f, m = h & 0x3ff;
+    out[i] = e === 0 ? s * Math.pow(2, -14) * (m / 1024) : e === 31 ? (m ? NaN : s * Infinity) : s * Math.pow(2, e - 15) * (1 + m / 1024);
+  }
+  return out;
+}
+async function loadBrain() {
+  const [meta, buf] = await Promise.all([fetch('data/model.json').then(r => r.json()), fetch('data/model.bin').then(r => r.arrayBuffer())]);
+  const M = meta.M, L = meta.lags, u16 = new Uint16Array(buf);
+  const A = f16to32(u16.subarray(0, M * L * M)), b = f16to32(u16.subarray(M * L * M, M * L * M + M));
+  const lo = f16to32(u16.subarray(M * L * M + M, M * L * M + 2 * M)), hi = f16to32(u16.subarray(M * L * M + 2 * M, M * L * M + 3 * M));
+  const pops = {}; for (const k in meta.populations) { const [a, z] = meta.populations[k]; pops[k] = Array.from({ length: z - a }, (_, i) => a + i); }
+  const er = [], ec = [], ecomp = [], ebase = [];
+  const rows = [...pops.right.map(r => [r, 0]), ...pops.left.map(r => [r, 1])];
+  for (const [r, comp] of rows) for (const c of pops.visual) { const v = A[r * L * M + c]; if (Math.abs(v) > 1e-4) { er.push(r); ec.push(c); ecomp.push(comp); ebase.push(v); } }
+  const E = er.length;
+  B = { M, L, A, b, lo, hi, mean: Float32Array.from(meta.mean), gs: meta.group_stats, pops, uv: meta.uv, gidx: meta.global_index,
+    h: new Float32Array(L * M), x: new Float32Array(M), er, ec, ecomp, ebase: Float32Array.from(ebase), E,
+    u: new Float32Array(E), w: new Float32Array(E), yPre: new Float32Array(E), yDan: new Float32Array(pops.reward.length + pops.aversive.length), steps: 0, changed: 0 };
+}
+function brainStep(drive) {
+  const { M, L, A, b, h, x } = B;
+  for (let e = 0; e < B.E; e++) A[B.er[e] * L * M + B.ec[e]] = B.ebase[e] * (1 + B.w[e]);
+  for (let i = 0; i < M; i++) { let s = b[i] + drive[i]; const row = i * L * M; for (let j = 0; j < L * M; j++) s += A[row + j] * h[j]; x[i] = Math.min(B.hi[i], Math.max(B.lo[i], s)); }
+  h.copyWithin(M, 0, (L - 1) * M); h.set(x, 0); B.steps++; ruleAdvance();
+}
+function ruleAdvance() {
+  const dt = P.frameSeconds, ak = Math.exp(-dt / P.tracePre), ad = Math.exp(-dt / P.traceDan), sak = Math.sqrt(ak), sad = Math.sqrt(ad);
+  const dan = B.pops.reward.concat(B.pops.aversive), nR = B.pops.reward.length; const danHz = [0, 0], dMid = [0, 0];
+  for (let d = 0; d < dan.length; d++) { const hz = Math.max(B.x[dan[d]], 0) * 20, mid = B.yDan[d] * sad + hz * (1 - sad); B.yDan[d] = B.yDan[d] * ad + hz * (1 - ad); const c = d < nR ? 0 : 1, n = c === 0 ? nR : dan.length - nR; danHz[c] += hz / n; dMid[c] += mid / n; }
+  if (P.frozen) return;
+  const tu = P.memDecay, tw = P.wFilter, eu = Math.exp(-dt / tu), ew = Math.exp(-dt / tw), c = tu / (tu - tw) * (eu - ew), ku = tu * -Math.expm1(-dt / tu), kw = tu * (-Math.expm1(-dt / tw) - c), lo = P.minFrac - 1, hi = P.maxFrac - 1; let changed = 0;
+  for (let e = 0; e < B.E; e++) { const preHz = Math.max(B.x[B.ec[e]], 0) * 20, kmid = B.yPre[e] * sak + preHz * (1 - sak); B.yPre[e] = B.yPre[e] * ak + preHz * (1 - ak); const comp = B.ecomp[e], drive = P.eta * (preHz * dMid[comp] - danHz[comp] * kmid), oldU = B.u[e]; B.u[e] = Math.min(hi, Math.max(lo, oldU * eu + drive * ku)); B.w[e] = Math.min(hi, Math.max(lo, B.w[e] * ew + oldU * c + drive * kw)); if (Math.abs(B.w[e]) > 1e-9) changed++; }
+  B.changed = changed;
+}
+function groupMean(idx, centred) { let s = 0; for (const i of idx) s += B.x[i] - (centred ? B.mean[i] : 0); return s / idx.length; }
+function readout() { const gs = B.gs; const left = (groupMean(B.pops.left, false) - gs.left[0]) / gs.left[1], right = (groupMean(B.pops.right, false) - gs.right[0]) / gs.right[1]; let g = -1; for (const i of B.pops.gate) g = Math.max(g, B.x[i] - B.mean[i]); return { left, right, diff: right - left, gate: g }; }
+
+/* ============================ RENDERERS / SHARED ============================ */
+const glc = document.getElementById('gl');
+const R = new THREE.WebGLRenderer({ canvas: glc, antialias: true }); R.setPixelRatio(Math.min(devicePixelRatio, 2)); R.outputColorSpace = THREE.SRGBColorSpace; R.shadowMap.enabled = true;
+const S = new THREE.Scene(); const cam = new THREE.PerspectiveCamera(42, 1, 0.1, 120);
+const rt = new THREE.WebGLRenderTarget(320, 180, { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter }); const rtPix = new Uint8Array(320 * 180 * 4);
+const seesC = document.getElementById('sees'), seesCtx = seesC.getContext('2d'), seesImg = seesCtx.createImageData(320, 180);
+const seesTmp = document.createElement('canvas'); seesTmp.width = 320; seesTmp.height = 180; const seesTmpCtx = seesTmp.getContext('2d');
+const stampEl = document.getElementById('stamp'); let stampT = 0;
+function flash(t, secs = 0.6) { stampEl.textContent = t; stampEl.classList.add('on'); stampT = secs; }
+const G = { diffBase: 0, ctl: 0, gateWas: false, pulse: 'none', pulseLeft: 0, elapsed: 0 };
+function pulse(kind) { G.pulse = kind; G.pulseLeft = P.pulseSteps; }
+const mDark = (c, r = 0.9) => new THREE.MeshStandardMaterial({ color: c, roughness: r });
+let fishGltf = null;
+function fishClone(len) {
+  const o = fishGltf.scene.clone(true); const box = new THREE.Box3().setFromObject(o); const size = box.getSize(new THREE.Vector3()); const s = len / Math.max(size.x, size.y, size.z); o.scale.setScalar(s);
+  box.setFromObject(o); const c = box.getCenter(new THREE.Vector3()); o.position.sub(c); o.traverse(m => { if (m.isMesh) { m.frustumCulled = false; m.castShadow = true; } });
+  const g = new THREE.Group(); g.add(o); return g;
+}
+
+/* ============================ WORLD: TABLE TENNIS ============================ */
+function TableTennis() {
+  const TL = 2.74, TW = 1.525, TH = 0.76; const st = { vx: 0, vy: 0, vz: 0, serving: true, serveT: 0.8, returns: 0, misses: 0, nets: 0, rally: 0, best: 0, speed: 2.4, swing: 0, ptFish: 0, ptMachine: 0, gFish: 0, gMachine: 0, machX: 0, swingCd: 0, padTarget: 0, netHit: false, deadT: 0, hold: null };
+  let ball, paddle, pad, ring, fPaddle, fishRig, machine, eye;
+  return {
+    name: 'table tennis', ctlTitle: 'Paddle · swing', gain: 0.7,
+    foot: '<b>Table tennis.</b> A match: games to 11 against a ball machine that tracks slowly and has a 0.36 m reach, so an off-centre return can beat it. Right−left moves the paddle, the gate cells hold it forward, a point or a return is a reward, a miss is aversive. Physics runs at 240 Hz.' + COMMON_FOOT,
+    build() {
+      S.background = new THREE.Color(0x07080c); S.fog = new THREE.Fog(0x07080c, 8, 18); cam.position.set(0, 2.15, 3.6); cam.lookAt(0, 0.55, -0.25);
+      S.add(new THREE.HemisphereLight(0x8fa3c8, 0x101014, 0.7)); const sun = new THREE.DirectionalLight(0xffffff, 1.6); sun.position.set(2, 5, 2); sun.castShadow = true; S.add(sun);
+      const lamp = new THREE.PointLight(0x3fd3f0, 8, 8, 1.8); lamp.position.set(0, 2.6, 0); S.add(lamp);
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), mDark(0x141419, 0.95)); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; S.add(floor);
+      const wall = new THREE.Mesh(new THREE.PlaneGeometry(30, 8), mDark(0x0f1118, 1)); wall.position.set(0, 4, -6); S.add(wall);
+      const table = new THREE.Mesh(new THREE.BoxGeometry(TW, 0.04, TL), mDark(0x0f3a3a, 0.6)); table.position.set(0, TH, 0); table.receiveShadow = true; table.castShadow = true; S.add(table);
+      const lineMat = new THREE.MeshBasicMaterial({ color: 0xdfe6ee });
+      for (const [w, d, x, z] of [[TW, 0.02, 0, TL / 2 - 0.01], [TW, 0.02, 0, -TL / 2 + 0.01], [0.02, TL, TW / 2 - 0.01, 0], [0.02, TL, -TW / 2 + 0.01, 0], [0.012, TL, 0, 0]]) { const m = new THREE.Mesh(new THREE.BoxGeometry(w, 0.005, d), lineMat); m.position.set(x, TH + 0.023, z); S.add(m); }
+      const net = new THREE.Mesh(new THREE.BoxGeometry(TW + 0.3, 0.15, 0.01), new THREE.MeshStandardMaterial({ color: 0xb8c0cc, transparent: true, opacity: 0.55 })); net.position.set(0, TH + 0.095, 0); S.add(net);
+      for (const [x, z] of [[-0.6, TL / 2 - 0.2], [0.6, TL / 2 - 0.2], [-0.6, -TL / 2 + 0.2], [0.6, -TL / 2 + 0.2]]) { const leg = new THREE.Mesh(new THREE.BoxGeometry(0.06, TH, 0.06), mDark(0x1c1f28)); leg.position.set(x, TH / 2, z); S.add(leg); }
+      machine = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.3), mDark(0x23262f, 0.5)); machine.position.set(0, TH + 0.17, -TL / 2 - 0.2); S.add(machine);
+      eye = new THREE.Mesh(new THREE.CircleGeometry(0.06, 16), new THREE.MeshBasicMaterial({ color: 0xc84cef })); eye.position.set(0, TH + 0.2, -TL / 2 - 0.045); S.add(eye);
+      ball = new THREE.Mesh(new THREE.SphereGeometry(0.035, 16, 12), new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 0.9 })); ball.castShadow = true; S.add(ball); ball.add(new THREE.PointLight(0xffffff, 1.2, 1.2));
+      paddle = new THREE.Group(); pad = new THREE.Mesh(new THREE.CylinderGeometry(0.085, 0.085, 0.012, 24), mDark(0xc8283c, 0.7)); pad.rotation.x = Math.PI / 2; pad.castShadow = true; paddle.add(pad);
+      const grip = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.016, 0.1, 10), mDark(0x9a7b4f)); grip.position.set(0, -0.13, 0); paddle.add(grip); paddle.position.set(0, TH + 0.16, TL / 2 + 0.12); S.add(paddle);
+      ring = new THREE.Mesh(new THREE.RingGeometry(0.07, 0.09, 24), new THREE.MeshBasicMaterial({ color: 0x3fd3f0, transparent: true, opacity: 0.5, side: THREE.DoubleSide })); ring.rotation.x = -Math.PI / 2; ring.position.set(0, TH + 0.03, TL / 2 + 0.12); S.add(ring);
+    },
+    buildFish(FS) {
+      fishRig = fishClone(1.7); fishRig.rotation.y = Math.PI * 0.85; FS.add(fishRig);
+      fPaddle = paddle.clone(); fPaddle.scale.setScalar(2.2); fPaddle.position.set(0.85, -0.05, 0.25); fPaddle.rotation.set(0.2, -0.6, 0); FS.add(fPaddle);
+      return { cam: [0.2, 0.7, 2.6], look: [0, 0.1, 0] };
+    },
+    hold(x) { st.hold = x; if (x == null) return; st.serving = false; ball.position.set(x, TH + 0.2, 0.6); st.vx = st.vy = st.vz = 0; },
+    lob(toX, dirZ) { // aim a single bounce on the receiver's side, 0.5 m before the end line
+      const bz = dirZ > 0 ? TL / 2 - 0.5 : -(TL / 2 - 0.5); const t = Math.abs(bz - ball.position.z) / st.speed; st.vz = dirZ * st.speed; st.vx = (toX - ball.position.x) / t; st.vy = (TH + 0.055 - ball.position.y + 4.9 * t * t) / t; },
+    endPoint() { st.rally = 0; st.speed = 2.4; st.serving = true; st.serveT = 1.1; ball.position.set(0, -1, 0); if (st.ptFish >= 11 || st.ptMachine >= 11) { if (st.ptFish > st.ptMachine) { st.gFish++; flash('GAME · FISH', 1.5); } else { st.gMachine++; flash('GAME · MACHINE', 1.5); } st.ptFish = 0; st.ptMachine = 0; } },
+    serve() { st.netHit = false; st.deadT = 0; ball.position.set((Math.random() - 0.5) * 0.4, TH + 0.3, -TL / 2 + 0.05); this.lob((Math.random() - 0.5) * (TW - 0.3), 1); st.serving = false; },
+    step(dt) {
+      if (st.hold != null) { ball.position.set(st.hold, TH + 0.2, 0.6); }
+      else if (st.serving) { st.serveT -= dt; if (st.serveT <= 0) this.serve(); }
+      else {
+        st.vy += -9.8 * dt; ball.position.x += st.vx * dt; ball.position.y += st.vy * dt; ball.position.z += st.vz * dt;
+        if (ball.position.y < TH + 0.055 && Math.abs(ball.position.x) < TW / 2 && Math.abs(ball.position.z) < TL / 2 && st.vy < 0) { ball.position.y = TH + 0.055; st.vy = -st.vy * 0.82; }
+        if (Math.abs(ball.position.z) < 0.03 && ball.position.y < TH + 0.17 && !st.netHit) { st.vz *= -0.35; st.vx *= 0.5; st.netHit = true; st.deadT = 0; }
+        if (st.netHit) { st.deadT += dt; if (st.deadT > 1.2) { st.netHit = false; st.nets++; st.serving = true; st.serveT = 0.8; ball.position.set(0, -1, 0); flash('NET'); } }
+        const pz = paddle.position.z, dz = ball.position.z - pz;
+        if (st.vz > 0 && dz > -0.16 && dz < 0.08 && Math.abs(ball.position.x - paddle.position.x) < 0.16 && ball.position.y > TH && ball.position.y < TH + 0.75 && st.swing > 0) {
+          const aim = Math.max(-0.7, Math.min(0.7, (ball.position.x - paddle.position.x) * 5 + (Math.random() - 0.5) * 0.3)); this.lob(aim, -1);
+          st.returns++; st.rally++; st.best = Math.max(st.best, st.rally); st.speed = Math.min(4.5, 2.4 + st.rally * 0.2); pulse('reward'); flash('RETURN');
+        }
+        // the machine tracks the ball slowly; a return outside its reach is a point for the fish
+        if (!window.__nomach) { st.machX += Math.max(-0.55 * dt, Math.min(0.55 * dt, ball.position.x - st.machX)); machine.position.x = st.machX; eye.position.x = st.machX; }
+        if (st.vz < 0 && ball.position.z < -TL / 2 + 0.05) {
+          if (Math.abs(ball.position.x - st.machX) > 0.36) { st.ptFish++; flash('POINT · FISH', 0.9); pulse('reward'); this.endPoint(); }
+          else { ball.position.z = -TL / 2 + 0.05; ball.position.y = Math.max(ball.position.y, TH + 0.25); this.lob((Math.random() - 0.5) * (TW - 0.3), 1); }
+        }
+        if (!st.serving && (ball.position.z > pz + 0.35 || ball.position.y < 0.1)) { st.misses++; st.ptMachine++; pulse('aversive'); flash('MISS · MACHINE'); this.endPoint(); }
+      }
+      const dx = st.padTarget - paddle.position.x; paddle.position.x = Math.max(-TW / 2 - 0.15, Math.min(TW / 2 + 0.15, paddle.position.x + Math.max(-3.2 * dt, Math.min(3.2 * dt, dx)))); ring.position.x = paddle.position.x;
+      const fwd = st.swing > 0 ? 1 : 0; paddle.position.z += ((TL / 2 + 0.12 - fwd * 0.2) - paddle.position.z) * Math.min(1, dt * 14); pad.rotation.z += (-0.45 * fwd - pad.rotation.z) * Math.min(1, dt * 14);
+      if (fishRig) { fishRig.position.y = Math.sin(G.elapsed * 1.5) * 0.03; fishRig.rotation.y = Math.PI * 0.85 + G.ctl * 12; fPaddle.rotation.y = -0.6 - G.ctl * 25; fPaddle.position.z = 0.25 + (st.swing > 0 ? 0.35 : 0); fPaddle.rotation.z = st.swing > 0 ? -0.5 : 0; }
+    },
+    act(ctl, gateRise, gateOpen) { st.padTarget = Math.max(-0.8, Math.min(0.8, ctl * this.gain)); st.swing = gateOpen ? 0.25 : 0; if (gateRise) flash('SWING', 0.3); window.__trace = window.__trace || []; window.__trace.push([ball.position.x, paddle.position.x, ball.position.z, ctl, gateOpen ? 1 : 0]); if (window.__trace.length > 600) window.__trace.shift(); },
+    mode() { return (st.rally < 3 ? 'easy' : st.rally < 8 ? 'medium' : 'hard') + ' | table tennis · game to 11'; },
+    speed() { return (st.serving ? 0 : Math.hypot(st.vx, st.vy, st.vz)).toFixed(1) + ' m/s'; },
+    score() { return `FISH <b>${st.ptFish}</b> · MACHINE <b>${st.ptMachine}</b> · games <b>${st.gFish}–${st.gMachine}</b><br>returns <b>${st.returns}</b> · misses <b>${st.misses}</b> · nets <b>${st.nets}</b> · rally <b>${st.rally}</b> · best <b>${st.best}</b>`; },
+  };
+}
+
+/* ============================ WORLD: RIDING A BIKE ============================ */
+function Bike() {
+  const st = { x: 0, z: 0, psi: 0, phi: 0, phiDot: 0, v: 4, delta: 0, target: 0, pedal: 0, dist: 0, lastReward: 0, falls: 0, kerbs: 0, down: 0, training: true };
+  const xc = z => 1.6 * Math.sin(z / 60) + 0.5 * Math.sin(z / 23);
+  const cars = [], HALF = 3.4; let bike, front, rider, fBike, fFront, fRider;
+  function makeBike(scale = 1) {
+    const g = new THREE.Group(); const tube = mDark(0x2a2f3a, 0.5), rubber = mDark(0x0d0e12, 0.9);
+    const wheel = () => { const w = new THREE.Group(); const t = new THREE.Mesh(new THREE.TorusGeometry(0.34, 0.045, 10, 28), rubber); t.rotation.y = Math.PI / 2; w.add(t); const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.06, 10), tube); hub.rotation.z = Math.PI / 2; w.add(hub); for (let i = 0; i < 8; i++) { const sp = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.6, 4), mDark(0x8a93a3, 0.4)); sp.rotation.x = i * Math.PI / 8; w.add(sp); } return w; };
+    const rear = wheel(); rear.position.set(0, 0.34, 0.55); g.add(rear);
+    const fr = new THREE.Group(); fr.position.set(0, 0.34, -0.55); const fw = wheel(); fr.add(fw);
+    const fork = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.7, 8), tube); fork.position.set(0, 0.35, 0.05); fork.rotation.x = -0.35; fr.add(fork);
+    const hb = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.62, 8), tube); hb.rotation.z = Math.PI / 2; hb.position.set(0, 0.72, -0.02); fr.add(hb);
+    g.add(fr);
+    const top = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.95, 8), tube); top.rotation.x = Math.PI / 2; top.position.set(0, 0.82, 0.05); g.add(top);
+    const down = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.95, 8), tube); down.position.set(0, 0.58, 0.02); down.rotation.x = -0.9; g.add(down);
+    const seatPost = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.5, 8), tube); seatPost.position.set(0, 0.62, 0.45); g.add(seatPost);
+    const saddle = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.05, 0.26), rubber); saddle.position.set(0, 0.9, 0.45); g.add(saddle);
+    const stays = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.5, 8), tube); stays.position.set(0, 0.45, 0.3); stays.rotation.x = 0.8; g.add(stays);
+    g.traverse(m => { if (m.isMesh) m.castShadow = true; }); g.scale.setScalar(scale);
+    return { g, front: fr };
+  }
+  return {
+    name: 'riding a bike', ctlTitle: 'Handlebars · pedal', gain: 0.12,
+    foot: '<b>Riding a bike.</b> A 4.8 km street. Right−left turns the handlebars (less lock at speed, like a real steerer), the gate pedals against drag and rolling resistance, every 20 m upright is a reward, a fall or a kerb is aversive. Easy = training wheels (lean capped at 12°); tap the mode label for hard. Lean is an inverted pendulum integrated at 240 Hz.' + COMMON_FOOT,
+    build() {
+      S.background = new THREE.Color(0x9db3cc); S.fog = new THREE.Fog(0x9db3cc, 45, 120);
+      S.add(new THREE.HemisphereLight(0xdfe9ff, 0x5f6b52, 1.15)); const sun = new THREE.DirectionalLight(0xfff3e0, 2.2); sun.position.set(-20, 30, 10); sun.castShadow = true; sun.shadow.camera.left = -30; sun.shadow.camera.right = 30; sun.shadow.camera.top = 30; sun.shadow.camera.bottom = -30; sun.shadow.mapSize.set(1024, 1024); S.add(sun);
+      const ground = new THREE.Mesh(new THREE.PlaneGeometry(400, 1200), mDark(0x4c7a44, 1)); ground.rotation.x = -Math.PI / 2; ground.position.z = -400; ground.receiveShadow = true; S.add(ground);
+      const N = 2000, step = 2.4; const road = new THREE.PlaneGeometry(1, 1, 1, N); const kerbL = road.clone(), kerbR = road.clone(), lineL = road.clone(), lineR = road.clone();
+      const set = (geo, w0, w1) => { const p = geo.attributes.position; for (let i = 0; i <= N; i++) { const z = -i * step, c = xc(z); p.setXYZ(i * 2, c + w0, 0, z); p.setXYZ(i * 2 + 1, c + w1, 0, z); } p.needsUpdate = true; geo.computeVertexNormals(); geo.computeBoundingSphere(); };
+      set(road, -HALF, HALF); set(kerbL, -HALF - 0.45, -HALF); set(kerbR, HALF, HALF + 0.45); set(lineL, -HALF + 0.05, -HALF + 0.22); set(lineR, HALF - 0.22, HALF - 0.05);
+      for (const [geo, mat, y] of [[road, mDark(0x4b4f59, 0.95), 0.005], [kerbL, mDark(0xb9bec8, 0.9), 0.06], [kerbR, mDark(0xb9bec8, 0.9), 0.06], [lineL, new THREE.MeshBasicMaterial({ color: 0xe9eef5 }), 0.012], [lineR, new THREE.MeshBasicMaterial({ color: 0xe9eef5 }), 0.012]]) { mat.side = THREE.DoubleSide; const m = new THREE.Mesh(geo, mat); m.position.y = y; m.receiveShadow = true; S.add(m); }
+      for (let z = 0; z > -N * step; z -= 6) { const d = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.01, 2.2), new THREE.MeshBasicMaterial({ color: 0xc9d3e0 })); d.position.set(xc(z - 1.1), 0.012, z - 1.1); d.rotation.y = -Math.atan2(xc(z - 2.2) - xc(z), 2.2); S.add(d); }
+      let seed = 3; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+      for (let z = -12; z > -N * step; z -= 26) {
+        const side = (Math.round(-z / 26) % 2) ? 1 : -1; const lx = xc(z) + side * (HALF + 1.2);
+        const post = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 4.2, 8), mDark(0x6b7280, 0.6)); post.position.set(lx, 2.1, z); post.castShadow = true; S.add(post);
+        const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.16, 10, 8), mDark(0xe8e2d0, 0.5)); bulb.position.set(lx - side * 0.5, 4.1, z); S.add(bulb);
+        const hx = xc(z) + side * (HALF + 11 + rnd() * 3), hw = 6 + rnd() * 5, hh = 3 + rnd() * 2;
+        const house = new THREE.Mesh(new THREE.BoxGeometry(hw, hh, 7), mDark([0xc9c2b4, 0xb8c4cf, 0xd8cdbf, 0xa9b3a1][Math.floor(rnd() * 4)], 0.95)); house.position.set(hx, hh / 2, z - 4); house.castShadow = true; house.receiveShadow = true; S.add(house);
+        for (let k = 0; k < 3; k++) { if (rnd() < 0.5) continue; const win = new THREE.Mesh(new THREE.PlaneGeometry(0.9, 1.1), mDark(0x2a3b52, 0.2)); win.position.set(hx - side * (hw / 2 + 0.01), 1.6 + Math.floor(rnd() * 2) * 1.8, z - 6 + k * 2); win.rotation.y = side > 0 ? -Math.PI / 2 : Math.PI / 2; S.add(win); }
+      }
+      const carCols = [0xc8283c, 0x2f6bff, 0xe9e9ef, 0x3fd3f0, 0x8a5cff];
+      for (let z = -30; z > -N * step; z -= 22 + rnd() * 30) {
+        const side = rnd() < 0.5 ? -1 : 1, cx = xc(z) + side * (HALF - 1.05); const car = new THREE.Group();
+        const body = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.6, 4.2), mDark(carCols[Math.floor(rnd() * carCols.length)], 0.45)); body.position.y = 0.55; car.add(body);
+        const cab = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.55, 2.2), mDark(0x1a1d26, 0.3)); cab.position.set(0, 1.1, -0.2); car.add(cab);
+        for (const [wx, wz] of [[-0.9, 1.4], [0.9, 1.4], [-0.9, -1.4], [0.9, -1.4]]) { const w = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.25, 12), mDark(0x0d0e12)); w.rotation.z = Math.PI / 2; w.position.set(wx, 0.32, wz); car.add(w); }
+        car.position.set(cx, 0, z); car.rotation.y = -Math.atan2(xc(z - 2) - xc(z), 2); car.traverse(m => { if (m.isMesh) m.castShadow = true; }); S.add(car); cars.push({ x: cx, z });
+      }
+      const b = makeBike(); bike = b.g; front = b.front; S.add(bike);
+      rider = fishClone(1.15); rider.children[0].position.y += 1.05; rider.children[0].rotation.y = -Math.PI / 2; S.add(rider);
+      document.getElementById('mode').addEventListener('click', () => { st.training = !st.training; flash(st.training ? 'TRAINING WHEELS ON' : 'TRAINING WHEELS OFF', 1.2); });
+    },
+    buildFish(FS) {
+      const b = makeBike(1); fBike = b.g; fFront = b.front; FS.add(fBike); fBike.position.set(0, -0.45, 0); fBike.rotation.y = -0.9;
+      fRider = fishClone(1.15); fRider.children[0].position.y += 1.05; fRider.children[0].rotation.y = -Math.PI / 2; fRider.position.copy(fBike.position); fRider.rotation.y = -0.9; FS.add(fRider);
+      return { cam: [2.3, 0.9, 3.2], look: [0, 0.3, 0] };
+    },
+    step(dt) {
+      if (st.down > 0) { st.down -= dt; if (st.down <= 0) { const near = cars.find(c => Math.abs(c.z - st.z) < 4); if (near) { st.z = near.z - 5; st.x = xc(st.z) - Math.sign(near.x - xc(near.z)) * 1.0; } else { const c = xc(st.z); st.x = c + Math.max(-HALF + 0.6, Math.min(HALF - 0.6, st.x - c)); } st.psi = Math.atan2(xc(st.z - 1) - xc(st.z), 1); st.phi = 0; st.phiDot = 0; st.delta = 0; st.target = 0; st.v = 3.5; } }
+      else {
+        st.delta += (st.target * (1 / (1 + st.v * 0.12)) - st.delta) * Math.min(1, dt * 8); // faster = less lock, like a real steerer
+        const drag = 0.15 + 0.012 * st.v * st.v; if (st.pedal > 0) { st.pedal -= dt; st.v = Math.min(9, st.v + (3.2 - drag) * dt); } else st.v = Math.max(3.2, st.v - drag * dt);
+        const g = 9.81, h = 1.0, Lw = 1.1;
+        let phiDD = (g / h) * Math.sin(st.phi) - (st.v * st.v / (h * Lw)) * Math.tan(st.delta) * Math.cos(st.phi);
+        if (st.training) phiDD -= 12 * st.phi + 3 * st.phiDot;
+        st.phiDot += phiDD * dt; st.phi += st.phiDot * dt;
+        if (st.training) st.phi = Math.max(-0.21, Math.min(0.21, st.phi));
+        st.psi += (st.v / Lw) * Math.tan(st.delta) * dt;
+        st.x += st.v * Math.sin(st.psi) * dt; st.z -= st.v * Math.cos(st.psi) * dt; st.dist += st.v * dt;
+        const off = st.x - xc(st.z);
+        if (!st.training && Math.abs(st.phi) > 0.61) { st.falls++; st.down = 1.2; pulse('aversive'); flash('FELL'); }
+        else if (Math.abs(off) > HALF + 0.3) { st.kerbs++; st.down = 0.8; pulse('aversive'); flash('KERB'); }
+        else if (cars.some(c => Math.abs(c.z - st.z) < 2.3 && Math.abs(c.x - st.x) < 1.1)) { st.kerbs++; st.down = 0.8; pulse('aversive'); flash('PARKED CAR'); }
+        else if (st.dist - st.lastReward >= 20) { st.lastReward = st.dist; pulse('reward'); flash('20 m UPRIGHT'); }
+      }
+      const lean = st.down > 0 ? Math.sin(st.down * 12) * 0.35 : st.phi;
+      bike.position.set(st.x, 0, st.z); bike.rotation.set(0, -st.psi, lean); rider.position.copy(bike.position); rider.rotation.copy(bike.rotation); front.rotation.y = st.delta;
+      bike.children[0].rotation.x -= st.v * dt / 0.34; front.children[0].rotation.x -= st.v * dt / 0.34;
+      const back = new THREE.Vector3(Math.sin(-st.psi) * -5.4, 2.3, Math.cos(-st.psi) * 5.4);
+      cam.position.lerp(new THREE.Vector3(st.x, 0, st.z).add(back), Math.min(1, dt * 8));
+      cam.lookAt(st.x - Math.sin(-st.psi) * 4, 0.7, st.z - Math.cos(-st.psi) * 4); cam.rotateZ(-lean * 0.12);
+      if (fBike) { fBike.rotation.z = lean * 0.8; fRider.rotation.z = lean * 0.8; fFront.rotation.y = st.delta; fBike.children[0].rotation.x -= st.v * dt / 0.34; fFront.children[0].rotation.x -= st.v * dt / 0.34; fRider.position.y = fBike.position.y + Math.sin(G.elapsed * 6) * 0.01 * (st.pedal > 0 ? 3 : 1); }
+    },
+    act(ctl, gateRise) { st.target = Math.max(-0.22, Math.min(0.22, ctl * this.gain)); if (gateRise) { st.pedal = 0.6; flash('PEDAL', 0.25); } },
+    mode() { return (st.training ? 'easy' : 'hard') + ' | riding a bike'; },
+    speed() { return (st.v * 3.6).toFixed(1) + ' km/h'; },
+    score() { return `distance <b>${st.dist >= 1000 ? (st.dist / 1000).toFixed(2) + ' km' : st.dist.toFixed(0) + ' m'}</b> · falls <b>${st.falls}</b> · rewards <b>${Math.floor(st.lastReward / 20)}</b><br>kerbs/cars <b>${st.kerbs}</b> · lean <b>${(st.phi * 57.3).toFixed(0)}°</b> · steer <b>${(st.delta * 57.3).toFixed(0)}°</b>`; },
+  };
+}
+
+/* ============================ BRAIN PANEL ============================ */
+const bc = document.getElementById('brain'), BR = new THREE.WebGLRenderer({ canvas: bc, antialias: false }); BR.setPixelRatio(Math.min(devicePixelRatio, 2));
+const BS = new THREE.Scene(), Bcam = new THREE.PerspectiveCamera(40, 1, 0.1, 100); Bcam.position.set(0, 0, 10.5);
+let bAct, bHit, bGroup, modelLocal = null;
+async function loadBrainPoints() {
+  const raw = new Int16Array(await (await fetch('data/brain.bin')).arrayBuffer()); const N = raw.length / 3; const pos = new Float32Array(N * 3); let cx = 0, cy = 0, cz = 0;
+  for (let i = 0; i < N; i++) { cx += raw[i * 3]; cy += raw[i * 3 + 1]; cz += raw[i * 3 + 2]; } cx /= N; cy /= N; cz /= N;
+  for (let i = 0; i < N; i++) { pos[i * 3] = (raw[i * 3 + 1] - cy) / 1000; pos[i * 3 + 1] = (raw[i * 3 + 2] - cz) / 1000; pos[i * 3 + 2] = (raw[i * 3] - cx) / 1000; }
+  const kind = new Float32Array(N); modelLocal = new Map(); const K = { visual: 1, left: 2, right: 3, gate: 4, reward: 5, aversive: 5 };
+  for (const k in B.pops) for (const i of B.pops[k]) { const g = B.gidx[i]; kind[g] = K[k]; modelLocal.set(g, i); }
+  bAct = new THREE.BufferAttribute(new Float32Array(N), 1); bHit = new THREE.BufferAttribute(new Float32Array(N), 1);
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setAttribute('kind', new THREE.BufferAttribute(kind, 1)); g.setAttribute('act', bAct); g.setAttribute('hit', bHit);
+  const mat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, uniforms: { uPx: { value: Math.min(devicePixelRatio, 2) } },
+    vertexShader: `attribute float kind; attribute float act; attribute float hit; varying float vK; varying float vA; varying float vH; uniform float uPx; void main(){ vK=kind; vA=act; vH=hit; vec4 mv=modelViewMatrix*vec4(position,1.0); float s=(kind>0.5? 4.0+act*7.0+hit*8.0 : 2.4)*uPx; gl_PointSize=s*(8.0/-mv.z); gl_Position=projectionMatrix*mv; }`,
+    fragmentShader: `varying float vK; varying float vA; varying float vH; void main(){ vec2 c=gl_PointCoord-0.5; float d=length(c); if(d>0.5) discard; float soft=smoothstep(0.5,0.15,d); vec3 col=vec3(0.16,0.46,0.58); float a=0.45;
+      if(vK>0.5&&vK<1.5){col=vec3(0.25,0.83,0.94); a=0.35+vA*0.8;} else if(vK>1.5&&vK<3.5){col=vec3(0.78,0.30,0.94); a=0.35+vA*0.9;} else if(vK>3.5&&vK<4.5){col=vec3(1.0); a=0.4+vA*0.8;} else if(vK>4.5){col=vec3(1.0,0.70,0.28); a=0.4+vA*0.9;}
+      col = mix(col, vec3(1.0), vH); a = max(a, vH);
+      gl_FragColor=vec4(col*a*soft, a*soft); }` });
+  bGroup = new THREE.Group(); bGroup.add(new THREE.Points(g, mat)); bGroup.rotation.x = 0.4; BS.add(bGroup);
+}
+function updateBrainPoints() { if (!bAct) return; const a = bAct.array, hh = bHit.array; for (const [g, i] of modelLocal) a[g] = Math.max(0, Math.min(1, (B.x[i] - B.mean[i]) / 0.6)); const vis = B.pops.visual; for (let k = 0; k < vis.length; k++) { const g = B.gidx[vis[k]]; const target = recLum[k] > 0.32 ? 1 : 0; hh[g] = Math.max(target, hh[g] * 0.75); } bAct.needsUpdate = true; bHit.needsUpdate = true; }
+
+/* ============================ FISH PANEL ============================ */
+const fc = document.getElementById('fish'), FR = new THREE.WebGLRenderer({ canvas: fc, antialias: true }); FR.setPixelRatio(Math.min(devicePixelRatio, 2)); FR.outputColorSpace = THREE.SRGBColorSpace;
+const FS = new THREE.Scene(); FS.background = new THREE.Color(0x000000); const Fcam = new THREE.PerspectiveCamera(36, 1, 0.1, 50);
+FS.add(new THREE.HemisphereLight(0x9fb4d8, 0x0a0a10, 0.9)); const fk = new THREE.DirectionalLight(0xfff0e0, 1.4); fk.position.set(1.5, 3, 2); FS.add(fk); const fp = new THREE.PointLight(0xc84cef, 3, 6, 1.8); fp.position.set(-1.6, 0.6, 0.5); FS.add(fp);
+
+/* ============================ BRAIN TICK ============================ */
+const drive = new Float32Array(545); let lastRead = { left: 0, right: 0, diff: 0, gate: 0 }; const recLum = new Float32Array(256), recPx = new Int16Array(512); let hitCount = 0;
+function brainTick() {
+  R.setRenderTarget(rt); R.render(S, cam); R.readRenderTargetPixels(rt, 0, 0, 320, 180, rtPix); R.setRenderTarget(null);
+  drive.fill(0); const vis = B.pops.visual; const lin = c => { c /= 255; return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
+  hitCount = 0; for (let k = 0; k < vis.length; k++) { const [u, v] = B.uv[k]; const cx = Math.round(u * 319), cy = Math.round(v * 179); recPx[k * 2] = cx; recPx[k * 2 + 1] = cy; let lum = 0; for (let dy = -4; dy <= 4; dy += 2) for (let dx = -4; dx <= 4; dx += 2) { const x = Math.min(319, Math.max(0, cx + dx)), y = Math.min(179, Math.max(0, cy + dy)); const o = (y * 320 + x) * 4; lum = Math.max(lum, 0.2126 * lin(rtPix[o]) + 0.7152 * lin(rtPix[o + 1]) + 0.0722 * lin(rtPix[o + 2])); } drive[vis[k]] = P.inputGain * (lum - 0.5); recLum[k] = lum; if (lum > 0.32) hitCount++; }
+  if (G.pulseLeft > 0 && G.pulse !== 'none') { for (const i of B.pops[G.pulse]) drive[i] += P.pulseAmp; G.pulseLeft--; if (!G.pulseLeft) G.pulse = 'none'; }
+  brainStep(drive); const r = readout(); lastRead = r;
+  if (B.steps <= 1) G.diffBase = r.diff; G.diffBase += (r.diff - G.diffBase) / (B.steps < 40 ? 10 : 240); G.ctl = r.diff - G.diffBase;
+  const gateOpen = r.gate > P.gateLevel; W.act(G.ctl, gateOpen && !G.gateWas, gateOpen); G.gateWas = gateOpen;
+  seesImg.data.set(rtPix); seesTmpCtx.putImageData(seesImg, 0, 0); seesCtx.save(); seesCtx.scale(1, -1); seesCtx.drawImage(seesTmp, 0, -seesC.height, seesC.width, seesC.height); seesCtx.restore();
+  // receptor overlay: every light cell at its sample point; lit when its patch is bright
+  for (let k = 0; k < 256; k++) { const x = recPx[k * 2] * seesC.width / 320, y = seesC.height - recPx[k * 2 + 1] * seesC.height / 180; const l = recLum[k]; const hit = l > 0.32;
+    seesCtx.beginPath(); seesCtx.arc(x, y, hit ? 3.2 : 1.4, 0, 6.283); seesCtx.fillStyle = hit ? 'rgba(63,211,240,0.95)' : 'rgba(63,211,240,0.28)'; seesCtx.fill();
+    if (hit) { seesCtx.beginPath(); seesCtx.arc(x, y, 6, 0, 6.283); seesCtx.strokeStyle = 'rgba(255,255,255,0.7)'; seesCtx.lineWidth = 1; seesCtx.stroke(); } }
+  document.getElementById('hitN').textContent = hitCount;
+  document.getElementById('rHit').textContent = hitCount; document.getElementById('rVis').textContent = groupMean(B.pops.visual, false).toFixed(2); document.getElementById('rL').textContent = r.left.toFixed(2) + 'σ'; document.getElementById('rR').textContent = r.right.toFixed(2) + 'σ'; document.getElementById('rG').textContent = r.gate.toFixed(2); document.getElementById('rE').textContent = B.changed;
+  document.getElementById('ctl').textContent = `R−L ${G.ctl >= 0 ? '+' : ''}${G.ctl.toFixed(3)} · ${gateOpen ? 'GATE OPEN' : 'gate shut'}`;
+  document.getElementById('needle').style.left = (50 + Math.max(-48, Math.min(48, G.ctl * 20))) + '%';
+  updateBrainPoints();
+}
+
+/* ============================ LOOP ============================ */
+const W = TASK === 'bike' ? Bike() : TASK === 'dog' ? Dog({ THREE, S, cam, G, pulse, flash, fishClone, mDark, COMMON_FOOT }) : TableTennis();
+document.getElementById('foot').innerHTML = W.foot; document.getElementById('ctlTitle').textContent = W.ctlTitle; document.title = `ZAPFISH — ${W.name}`;
+function resize() {
+  for (const [r, c, k] of [[R, glc, cam], [BR, bc, Bcam], [FR, fc, Fcam]]) { const w = c.clientWidth, h = c.clientHeight; if (!w || !h) continue; r.setSize(w, h, false); k.aspect = w / h; k.updateProjectionMatrix(); }
+  if (bGroup) bGroup.rotation.z = bc.clientWidth < bc.clientHeight ? Math.PI / 2 : 0;
+}
+addEventListener('resize', resize);
+const clock = new THREE.Clock(); let brainAcc = 0, ready = false;
+function loop() {
+  requestAnimationFrame(loop); const dt = Math.min(clock.getDelta(), 0.05); if (!ready) return;
+  G.elapsed += dt; { const h = 1 / 240; let n = window.__nosub ? 1 : Math.max(1, Math.round(dt / h)); const hs = dt / n; for (let i = 0; i < n; i++) W.step(hs); }
+  brainAcc += dt * P.stepHz; if (brainAcc >= 1) { brainTick(); brainAcc -= 1; }
+  if (stampT > 0) { stampT -= dt; if (stampT <= 0) stampEl.classList.remove('on'); }
+  document.getElementById('speed').textContent = W.speed(); document.getElementById('mode').textContent = W.mode(); document.getElementById('score').innerHTML = W.score() + `<br><span class="m">${G.pulse === 'reward' ? '● reward pulse' : G.pulse === 'aversive' ? '● aversive pulse' : '&nbsp;'}</span>`;
+  const m = Math.floor(G.elapsed / 60), s = Math.floor(G.elapsed % 60); document.getElementById('clock').textContent = `${m}:${String(s).padStart(2, '0')}`; document.getElementById('elapsed').textContent = G.elapsed.toFixed(1) + 's elapsed';
+  R.render(S, cam); if (bGroup) { bGroup.rotation.y += dt * 0.25; BR.render(BS, Bcam); } FR.render(FS, Fcam);
+}
+loop();
+new GLTFLoader().load('assets/zebrafish.glb', g => {
+  g.scene.traverse(m => { if (m.isMesh && m.material.map) { m.material.map.magFilter = THREE.NearestFilter; m.material.map.colorSpace = THREE.SRGBColorSpace; } });
+  fishGltf = g;
+  W.build(); const fv = W.buildFish(FS); Fcam.position.set(...fv.cam); Fcam.lookAt(...fv.look);
+  loadBrain().then(loadBrainPoints).then(() => { document.getElementById('loading').classList.add('off'); resize(); ready = true; });
+});
+window.__ZAP = { get B() { return B; }, G, P, W, readout, get last() { return lastRead; } };
+</script>
+</body>
+</html>

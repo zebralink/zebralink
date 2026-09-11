@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zapfish"
+version = "0.1.0"
+description = "A zebrafish whole-brain activity model (ZAPBench) driving a guarded paper/Coinbase spot trading loop. Execution layer forked from STONKFLY (MIT)."
+requires-python = ">=3.11"
+dependencies = ["numpy", "Pillow", "pydantic>=2", "python-dotenv"]
+
+[project.optional-dependencies]
+live = ["coinbase-advanced-py==1.8.4"]
+agentkit = ["coinbase-agentkit==0.7.4"]
+test = ["pytest"]
+
+[project.scripts]
+zapfish = "zapfish.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["zapfish*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ZAPFISH OBSERVATORY — watch a vertebrate brain think</title>
+<meta name="description" content="71,721 neurons. One larval zebrafish. Wired, recorded, predicted. Every dot on this page is a real recorded cell from Google's ZAPBench release.">
+<meta property="og:title" content="ZAPFISH OBSERVATORY — watch a vertebrate brain think">
+<meta property="og:description" content="71,721 recorded neurons of one larval zebrafish, replayed at their real positions. Wire → Fire → Predict → Decide.">
+<meta property="og:image" content="assets/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050508; --bg2:#0a0a12; --line:rgba(255,255,255,.08); --text:#e8eef5; --muted:#8d97a8;
+    --cyan:#3fd3f0; --cyan-deep:#2bafd0; --mag:#c84cef;
+    --serif:'Newsreader',Georgia,'Times New Roman',serif; --sans:'Inter',system-ui,-apple-system,Segoe UI,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--cyan);text-decoration:none}
+  ::selection{background:var(--mag);color:#fff}
+  .wrap{width:min(1120px,calc(100% - 40px));margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin:0 0 18px}
+  h1,h2{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;line-height:1.02;margin:0}
+  h2{font-size:clamp(34px,5.6vw,64px)}
+  .lead{font-size:clamp(16px,2.2vw,19px);line-height:1.6;color:#c6cfdb;max-width:60ch;margin:22px 0 0}
+  .lead b{color:#fff;font-weight:500}
+  .muted{color:var(--muted)}
+  section{padding:88px 0;border-top:1px solid var(--line)}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- hero ---------- */
+  #hero{position:relative;height:100vh;height:100dvh;min-height:600px;overflow:hidden;background:#000}
+  #hero picture,#hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%}
+  #hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 50%,rgba(5,5,8,.92) 100%)}
+  #hero .scrim2{position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 45%,transparent 50%,rgba(0,0,0,.6) 100%)}
+  #hero .copy{position:absolute;left:0;right:0;bottom:calc(52px + var(--sab));}
+  #hero h1{font-size:clamp(40px,7.2vw,92px);max-width:14ch;color:#fff}
+  #hero .sub{font-size:clamp(15px,2vw,19px);line-height:1.55;color:#c6cfdb;max-width:52ch;margin:20px 0 0}
+  #hero .sub b{color:#fff;font-weight:500}
+  .brand{position:absolute;top:calc(22px + var(--sat));left:0;right:0;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:#dfe8f3}
+  .brand span{color:var(--muted)}
+  .cue{position:absolute;right:20px;bottom:calc(24px + var(--sab));font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:#9aa6b8;writing-mode:vertical-rl;animation:cue 2.4s ease-in-out infinite}
+  @keyframes cue{50%{transform:translateY(6px);opacity:.5}}
+  @media (max-width:640px){.cue{display:none}.brand > span{display:none}}
+
+  /* ---------- stats strip ---------- */
+  .strip{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .strip div{background:var(--bg);padding:22px 20px}
+  .strip .n{font-family:var(--serif);font-size:clamp(28px,4.6vw,44px);color:#fff;line-height:1}
+  .strip .l{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+  @media (min-width:760px){.strip{grid-template-columns:repeat(4,1fr)}}
+
+  /* ---------- two-col with image ---------- */
+  .duo{display:grid;gap:36px;align-items:center;margin-top:8px}
+  .duo img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);display:block}
+  @media (min-width:860px){.duo{grid-template-columns:1fr 1fr;gap:56px}.duo.flip img{order:2}}
+  .status{display:inline-flex;gap:10px;align-items:center;margin-top:22px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:#dfe8f3;background:var(--bg2)}
+  .status i{font-style:normal;color:var(--mag)}
+
+  /* ---------- FIRE (live brain) ---------- */
+  #fire{padding-bottom:40px}
+  .stage{position:relative;margin-top:36px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#000}
+  #brain{display:block;width:100%;height:64vh;min-height:420px;max-height:760px;touch-action:none}
+  .hud{position:absolute;left:14px;top:14px;font-family:var(--mono);font-size:12px;line-height:1.7;color:#cfd8e6;background:rgba(0,0,0,.45);padding:10px 12px;border-radius:8px;border:1px solid var(--line);backdrop-filter:blur(4px)}
+  .hud b{color:var(--cyan);font-weight:500}
+  .hud .m{color:var(--mag)}
+  .hint{position:absolute;right:14px;bottom:12px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:#8d97a8}
+  .scrub{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .scrub button{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg2);color:#cfd8e6;cursor:pointer;transition:.2s}
+  .scrub button:hover{border-color:rgba(63,211,240,.5)}
+  .scrub button.on{background:var(--cyan);color:#001318;border-color:var(--cyan)}
+  .bar{height:3px;background:var(--line);border-radius:2px;margin-top:14px;position:relative;overflow:hidden}
+  .bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--cyan)}
+  .caption{font-size:14px;line-height:1.6;color:var(--muted);margin-top:16px;max-width:70ch}
+
+  /* ---------- PREDICT ---------- */
+  .chart{margin-top:36px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);padding:18px 18px 12px}
+  #trace{display:block;width:100%;height:280px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .tabs button{font-family:var(--mono);font-size:12px;letter-spacing:.1em;padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:transparent;color:#cfd8e6;cursor:pointer}
+  .tabs button.on{border-color:var(--cyan);color:var(--cyan)}
+  .legend{display:flex;gap:18px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+  .legend em{font-style:normal;display:inline-block;width:22px;height:2px;vertical-align:middle;margin-right:8px;background:var(--cyan)}
+  .legend em.m{background:repeating-linear-gradient(90deg,var(--mag) 0 5px,transparent 5px 9px)}
+
+  /* ---------- COGNITION ---------- */
+  .grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:36px}
+  .cell{background:var(--bg2);padding:22px 20px;cursor:pointer;transition:background .2s}
+  .cell:hover{background:#0f0f1c}
+  .cell .k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--cyan)}
+  .cell h3{font-family:var(--serif);font-weight:400;font-size:24px;margin:10px 0 8px;color:#fff;text-transform:capitalize}
+  .cell p{margin:0;font-size:14px;line-height:1.55;color:#b7c1cf}
+  @media (min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+  /* ---------- DECIDE ---------- */
+  #decide{padding:0;border-top:0}
+  .lab{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden;background:#000}
+  .lab img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+  .lab .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,8,.85) 0%,rgba(5,5,8,.15) 35%,rgba(5,5,8,.2) 60%,rgba(5,5,8,.94) 100%)}
+  .lab .wrap{position:relative;padding:120px 0 72px}
+  .panel{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:30px;max-width:920px}
+  .panel div{background:rgba(6,6,12,.82);padding:16px 18px;backdrop-filter:blur(6px)}
+  .panel .n{font-family:var(--mono);font-size:20px;color:#fff}
+  .panel .n.c{color:var(--cyan)}.panel .n.m{color:var(--mag)}
+  .panel .l{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  @media (min-width:700px){.panel{grid-template-columns:repeat(4,1fr)}}
+
+  .cols{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:36px}
+  .col{background:var(--bg2);padding:26px 22px}
+  .col h3{font-family:var(--mono);font-size:12px;letter-spacing:.2em;margin:0 0 14px;font-weight:500}
+  .col.yes h3{color:var(--cyan)}.col.no h3{color:var(--mag)}
+  .col ul{margin:0;padding:0;list-style:none}
+  .col li{padding:10px 0;border-top:1px solid var(--line);color:#c6cfdb;line-height:1.55;font-size:15px}
+  .col li:first-child{border-top:0}
+  @media (min-width:760px){.cols{grid-template-columns:1fr 1fr}}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .chip{font-family:var(--mono);font-size:11px;letter-spacing:.16em;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg2);color:#dfe8f3}
+  .chip b{color:var(--cyan);font-weight:500}.chip.m b{color:var(--mag)}
+
+  .zn{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  .zn a{color:#cfd6e2;text-decoration:none;padding:7px 11px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(0,0,0,.35);backdrop-filter:blur(4px)}
+  .zn a.on{background:#fff;color:#000;border-color:#fff}
+  .zn a.zn-b{border:0;background:transparent;color:#fff;font-weight:600;padding-left:0;letter-spacing:.2em}
+  @media (max-width:640px){.zn{gap:4px}.zn a{padding:6px 8px;font-size:10px}.zn a.zn-b{display:none}}
+
+  .cards{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:36px}
+  .card{background:var(--bg2);display:block;text-decoration:none;color:inherit}
+  .card img{width:100%;height:auto;display:block;border-bottom:1px solid var(--line)}
+  .card div{padding:16px 18px}
+  .card h3{font-family:var(--serif);font-weight:400;font-size:22px;margin:0 0 6px;color:#fff}
+  .card p{margin:0;font-size:14px;color:#b7c1cf;line-height:1.5}
+  .card .k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--cyan)}
+  @media (min-width:720px){.cards{grid-template-columns:repeat(3,1fr)}}
+  .cta{display:inline-block;margin-top:22px;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:12px 16px;border:1px solid var(--cyan);border-radius:10px;color:var(--cyan);text-decoration:none}
+  footer{padding:44px 0 calc(44px + var(--sab));border-top:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.7}
+  footer p{margin:0 0 8px}
+</style>
+</head>
+<body>
+
+<header id="hero">
+  <picture>
+    <source media="(max-width:640px)" srcset="assets/hero-mobile.jpg">
+    <img src="assets/hero.jpg" alt="A larval zebrafish brain, wiring on the left, activity on the right" fetchpriority="high">
+  </picture>
+  <div class="scrim"></div><div class="scrim2"></div>
+  <div class="wrap brand"><nav class="zn"><a href="index.html" class="zn-b">ZAPFISH</a><a href="index.html" class="on">Observatory</a><a href="tasks.html">Tasks</a><a href="trading.html">Trading</a></nav><span>DANIO RERIO · 71,721 NEURONS</span></div>
+  <div class="copy"><div class="wrap">
+    <p class="eyebrow">Wire → Fire → Predict → Decide</p>
+    <h1>Watch a vertebrate brain think.</h1>
+    <p class="sub"><b>71,721 neurons. One larval zebrafish.</b> Wired at Janelia, recorded for Google Research's ZAPBench, replayed here dot by dot at their real positions. Nothing on this page is drawn from imagination except the pictures.</p>
+  </div></div>
+  <div class="cue">SCROLL</div>
+</header>
+
+<div class="strip">
+  <div><div class="n">71,721</div><div class="l">Neurons recorded</div></div>
+  <div><div class="n">7,879</div><div class="l">Whole-brain frames</div></div>
+  <div><div class="n">9</div><div class="l">Stimulus conditions</div></div>
+  <div><div class="n">~140K</div><div class="l">Neurons in the draft wiring</div></div>
+</div>
+
+<main>
+  <section id="tasks">
+    <div class="wrap reveal">
+      <p class="eyebrow">01 — Everyday tasks · live</p>
+      <h2>A fish brain, holding things.</h2>
+      <p class="lead">Watch it play. 545 recorded cells, the same readout and the same learning rule can hold a paddle, a pair of handlebars or a leash. Each page runs the model live in your browser at 16 Hz; nothing is scripted, and the scoreboard is honest.</p>
+      <div class="cards">
+        <a class="card" href="tasks.html?task=tabletennis"><img src="assets/task-tabletennis.jpg" alt="Table tennis" loading="lazy"><div><div class="k">TASK 01</div><h3>Table tennis</h3><p>Right−left moves the paddle, the gate cells hold it forward. About one return in three.</p></div></a>
+        <a class="card" href="tasks.html?task=bike"><img src="assets/task-bike.jpg" alt="Riding a bike" loading="lazy"><div><div class="k">TASK 02</div><h3>Riding a bike</h3><p>Handlebars from the readout, pedalling from the gate. Training wheels on easy.</p></div></a>
+        <a class="card" href="tasks.html?task=dog"><img src="assets/task-dog.jpg" alt="Walking the dog" loading="lazy"><div><div class="k">TASK 03</div><h3>Walking the dog</h3><p>Leash pulls from the readout, a firm pull from the gate. Squirrels happen.</p></div></a>
+      </div>
+    </div>
+  </section>
+  <section id="decide">
+    <div class="lab">
+      <img src="assets/lab.jpg" alt="A zebrafish in a light-sheet chamber beside a monitor showing its brain and a price chart" loading="lazy">
+      <div class="scrim"></div>
+      <div class="wrap reveal">
+        <p class="eyebrow">02 — Decide · Experiment 01</p>
+        <h2>Can it trade?</h2>
+        <p class="lead">One downstream experiment, borrowed from STONKFLY's fruit fly. A price chart is rendered to pixels and shown to the model's light-responsive cells. A fixed readout compares the right and left hindbrain cells that responded to turning in the recording. Right above left proposes buy, left above right proposes sell, silence holds. A guard checks limits and can only say no. <b>Paper mode. No orders leave the machine.</b></p>
+        <div class="panel">
+          <div><div class="n">BTC-USDC</div><div class="l">Public feed · tick 2</div></div>
+          <div><div class="n c">77,303.22</div><div class="l">Observed bid</div></div>
+          <div><div class="n m">SELL</div><div class="l">Proposal · R−L −0.150</div></div>
+          <div><div class="n">VETO</div><div class="l">Guard · no inventory</div></div>
+        </div>
+        <a class="cta" href="trading.html">Open the trading desk →</a>
+        <p class="caption" style="max-width:920px">Latest paper observation from the ZAPFISH engine. The readout has shown a persistent sell-side bias on every run so far, which the guard vetoes because the account holds nothing to sell. As STONKFLY warns of its fly: a persistent turning-like bias becomes a persistent order bias. Do not read it as market insight. 56,909 of 64,748 plastic light→readout edges had moved after two observations.</p>
+      </div>
+    </div>
+    <div class="wrap reveal" style="padding:72px 0 88px">
+      <div class="cols">
+        <div class="col yes"><h3>WE CLAIM</h3>
+          <ul>
+            <li>The positions and activity on this page are from <b>one real zebrafish</b>, ZAPBench release 20240930. Every dot maps to a neuron ID in that dataset.</li>
+            <li>The prediction is a real fitted model with a declared method and a held-out test. Its numbers are reproducible from the public files.</li>
+            <li>The trading readout is fixed, logged and reviewable. Nothing overrides its proposal with a different action.</li>
+          </ul>
+        </div>
+        <div class="col no"><h3>WE DO NOT CLAIM</h3>
+          <ul>
+            <li>Use of the Fire&amp;Wire connectome. It is being proofread; access is by application.</li>
+            <li>Profitable learning. A rising market makes any buyer look smart; no held-out replay has shown an edge.</li>
+            <li>That the fish sees, wants, or feels anything here. Reward and loss are engineered inputs.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="chips">
+        <div class="chip">DATA <b>ZAPBENCH · GOOGLE RESEARCH / JANELIA</b></div>
+        <div class="chip">WIRING <b>FIRE&amp;WIRE · ACCESS PENDING</b></div>
+        <div class="chip m">$ZAP · CA <b>TBA</b></div>
+        <div class="chip m">X <b>TBA</b></div>
+      </div>
+    </div>
+  </section>
+  <section id="wire">
+    <div class="wrap reveal">
+      <p class="eyebrow">03 — Wire</p>
+      <h2>The first complete vertebrate wiring diagram.</h2>
+      <div class="duo">
+        <div>
+          <p class="lead">Fish Fire&amp;Wire is Janelia's whole-brain connectome of a larval zebrafish: roughly <b>140,000 neurons</b>, every synapse traced, sensory structures and motor outputs included. A draft was completed in 2026 and is still being proofread. Early snapshots are released by application, with attribution and publication conditions.</p>
+          <p class="lead muted">We do not have it yet. Until we do, nothing here claims to run on the wiring. The left half of the picture above is what that map will look like; the right half is what we can already show you.</p>
+          <div class="status">WIRING <i>ACCESS PENDING</i> · JANELIA PROOFREADING</div>
+        </div>
+        <img src="assets/wire.jpg" alt="Wiring half of the concept image" loading="lazy">
+      </div>
+    </div>
+  </section>
+  <section id="fire">
+    <div class="wrap reveal">
+      <p class="eyebrow">04 — Fire · live replay</p>
+      <h2>Every dot is a recorded cell.</h2>
+      <p class="lead">This is the ZAPBench fish. All <b>71,721</b> neuron positions come from the release's segmentation. <b>4,096</b> of them, spread across the brain, light up with their own recorded calcium signal as the fish moves through the nine stimulus conditions of the experiment. Drag to turn it.</p>
+      <div class="stage">
+        <canvas id="brain"></canvas>
+        <div class="hud">CONDITION <b id="hudCond">—</b><br>FRAME <b id="hudFrame">—</b> / 7879<br>ACTIVE <span class="m" id="hudActive">—</span> OF 4096</div>
+        <div class="hint">DRAG · ROTATE</div>
+      </div>
+      <div class="bar"><i id="bar"></i></div>
+      <div class="scrub" id="scrub"></div>
+      <p class="caption">Positions: <code>segmentation/dataframe_centroids.json</code>. Activity: <code>volumes/20240930/traces</code>, 64 evenly spaced frames per condition, each cell scaled to its own 5th–99.5th percentile. Replay runs faster than the roughly one-volume-per-second recording. Cells we did not download stay dim.</p>
+    </div>
+  </section>
+  <section id="predict">
+    <div class="wrap reveal">
+      <p class="eyebrow">05 — Predict</p>
+      <h2>Google made a benchmark to predict this brain.</h2>
+      <p class="lead">ZAPBench asks a simple question: given the recent past of every neuron, can a model forecast the next 32 frames? We fitted our own linear whole-brain model to the recording (2,048 cells, three frames of history, one-step R² of 0.92) and let it run open-loop on the condition it never saw during training.</p>
+      <div class="chart">
+        <div class="tabs" id="tabs"></div>
+        <canvas id="trace"></canvas>
+        <div class="legend"><span><em></em>RECORDED</span><span><em class="m"></em>PREDICTED · 32 FRAMES OPEN-LOOP</span><span id="traceMeta"></span></div>
+      </div>
+      <p class="caption">Our model, not a leaderboard entry. Trained on eight conditions, shown on the held-out "taxis" condition. Held-out means the model never saw these frames.</p>
+    </div>
+  </section>
+  <section id="cognition">
+    <div class="wrap reveal">
+      <p class="eyebrow">06 — Cognition</p>
+      <h2>Nine things the fish was shown.</h2>
+      <p class="lead">The recording is not idle activity. The fish sat in a virtual environment and saw nine kinds of stimulus in sequence, as labelled in the release. Pick one and the brain above jumps to it.</p>
+      <div class="grid" id="condGrid"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><span style="font-family:var(--serif);color:#fff;font-size:18px">ZAPFISH OBSERVATORY</span> · the first vertebrate brain, made legible.</p>
+    <p>Data: ZAPBench (zapbench-release, volumes/20240930), Google Research and Janelia, used under its open release terms. Fish Fire&amp;Wire is a Janelia project; we are not affiliated with Google, Janelia or STONKFLY. Concept images generated. Engine forked from STONKFLY (MIT).</p>
+    <p class="muted">Nothing here is financial advice. Paper mode is the default. Real orders stay gated until there is a legal basis to place them.</p>
+  </div>
+</footer>
+
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+<script type="module">
+import * as THREE from 'three';
+
+/* reveal on scroll */
+const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ---------------- FIRE: real point cloud ---------------- */
+const COND_TEXT = {
+  gain: 'Gain adaptation: the fish adjusts how hard it swims against a moving grating.',
+  dots: 'Moving dots: an optomotor drive across the visual field.',
+  flash: 'Full-field flashes: light on, light off, whole retina at once.',
+  taxis: 'Phototaxis: a brighter side to steer toward. Held out from our model.',
+  turning: 'Turning: stimuli that make the fish swing left or right.',
+  position: 'Position: the fish is shown where it is in its virtual world.',
+  'open loop': 'Open loop: the world stops responding to what the fish does.',
+  rotation: 'Rotation: the whole scene turns around the animal.',
+  dark: 'Dark: nothing shown. The baseline the flashes are measured against.',
+};
+const canvas = document.getElementById('brain');
+const hudCond = document.getElementById('hudCond'), hudFrame = document.getElementById('hudFrame'), hudActive = document.getElementById('hudActive'), bar = document.getElementById('bar');
+let meta, act, F = 0, C = 0, frame = 0, acc = 0, active = [], attr, points, group, renderer, camera, scene, condIdx = [];
+const FPS = 7;
+
+async function loadBrain() {
+  const [m, posBuf, actBuf] = await Promise.all([
+    fetch('data/meta.json').then(r => r.json()),
+    fetch('data/brain.bin').then(r => r.arrayBuffer()),
+    fetch('data/activity.bin').then(r => r.arrayBuffer()),
+  ]);
+  meta = m; F = m.frames; C = m.active_cells; act = new Uint8Array(actBuf); active = m.active_index;
+  const raw = new Int16Array(posBuf); const N = raw.length / 3;
+  const pos = new Float32Array(N * 3);
+  let cx = 0, cy = 0, cz = 0;
+  for (let i = 0; i < N; i++) { cx += raw[i * 3]; cy += raw[i * 3 + 1]; cz += raw[i * 3 + 2]; }
+  cx /= N; cy /= N; cz /= N;
+  const S = 1 / 1000; // 0.1um -> 100um units
+  for (let i = 0; i < N; i++) {
+    // display: X = rostro-caudal (y), Y = dorso-ventral (z), Z = lateral (x)
+    pos[i * 3] = (raw[i * 3 + 1] - cy) * S; pos[i * 3 + 1] = (raw[i * 3 + 2] - cz) * S; pos[i * 3 + 2] = (raw[i * 3] - cx) * S;
+  }
+  const rec = new Float32Array(N); for (const i of active) rec[i] = 1;
+  attr = new THREE.BufferAttribute(new Float32Array(N), 1);
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('rec', new THREE.BufferAttribute(rec, 1));
+  g.setAttribute('act', attr);
+  const mat = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    uniforms: { uPx: { value: 1 } },
+    vertexShader: `attribute float rec; attribute float act; varying float vA; varying float vR; uniform float uPx;
+      void main(){ vA = act; vR = rec; vec4 mv = modelViewMatrix * vec4(position,1.0);
+        float s = (rec > 0.5 ? 3.0 + act * 6.0 : 2.8) * uPx; gl_PointSize = s * (9.0 / -mv.z); gl_Position = projectionMatrix * mv; }`,
+    fragmentShader: `varying float vA; varying float vR;
+      void main(){ vec2 c = gl_PointCoord - 0.5; float d = length(c); if (d > 0.5) discard; float soft = smoothstep(0.5, 0.15, d);
+        vec3 dim = vec3(0.16, 0.50, 0.62); vec3 cyan = vec3(0.25, 0.83, 0.94); vec3 mag = vec3(0.78, 0.30, 0.94);
+        vec3 col = vR > 0.5 ? mix(cyan, mag, smoothstep(0.55, 1.0, vA)) : dim;
+        float a = vR > 0.5 ? 0.22 + vA * 0.85 : 0.55; gl_FragColor = vec4(col * a * soft, a * soft); }`,
+  });
+  points = new THREE.Points(g, mat);
+  group = new THREE.Group(); group.add(points); group.rotation.x = 0.35; scene.add(group);
+  buildScrub();
+  setFrame(0);
+}
+
+function decodeFrame(f) {
+  const a = attr.array; const half = C / 2; const base = f * half; let n = 0;
+  for (let i = 0; i < C; i++) {
+    const b = act[base + (i >> 1)]; const v = ((i & 1) ? (b >> 4) : (b & 15)) / 15;
+    a[active[i]] = v; if (v > 0.5) n++;
+  }
+  attr.needsUpdate = true; return n;
+}
+function setFrame(f) {
+  frame = ((f % F) + F) % F; const n = decodeFrame(frame);
+  const ci = meta.frame_condition[frame]; hudCond.textContent = meta.conditions[ci].toUpperCase();
+  hudFrame.textContent = meta.frame_index[frame]; hudActive.textContent = n;
+  bar.style.width = (100 * (frame + 1) / F) + '%';
+  condIdx.forEach((b, i) => b.classList.toggle('on', i === ci));
+}
+function buildScrub() {
+  const s = document.getElementById('scrub'), g = document.getElementById('condGrid');
+  meta.conditions.forEach((name, i) => {
+    const b = document.createElement('button'); b.textContent = name; b.onclick = () => setFrame(i * 64); s.appendChild(b); condIdx.push(b);
+    const c = document.createElement('div'); c.className = 'cell';
+    c.innerHTML = `<div class="k">CONDITION ${String(i + 1).padStart(2, '0')} · FRAMES ${meta.condition_offsets[i]}–${meta.condition_offsets[i + 1]}</div><h3>${name}</h3><p>${COND_TEXT[name] || ''}</p>`;
+    c.onclick = () => { setFrame(i * 64); document.getElementById('fire').scrollIntoView({ behavior: 'smooth' }); };
+    g.appendChild(c);
+  });
+}
+
+/* renderer */
+renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: 'high-performance' });
+renderer.setClearColor(0x000000, 1);
+scene = new THREE.Scene();
+camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+function resize() {
+  const w = canvas.clientWidth, h = canvas.clientHeight, dpr = Math.min(devicePixelRatio || 1, 2);
+  renderer.setPixelRatio(dpr); renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+  const portrait = w / h < 1;
+  camera.position.set(0, 0, portrait ? 13 : 9.6); camera.lookAt(0, 0, 0);
+  if (points) points.material.uniforms.uPx.value = dpr;
+  if (group) group.rotation.z = portrait ? Math.PI / 2 : 0; // long axis vertical on phones
+}
+addEventListener('resize', resize); resize();
+
+/* drag to rotate */
+let drag = null, rx = 0.35, ry = 0, vy = 0.12;
+canvas.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY, rx, ry }; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointermove', e => { if (!drag) return; ry = drag.ry + (e.clientX - drag.x) * 0.006; rx = drag.rx + (e.clientY - drag.y) * 0.006; });
+canvas.addEventListener('pointerup', () => drag = null); canvas.addEventListener('pointercancel', () => drag = null);
+
+const clock = new THREE.Clock();
+let visible = true;
+new IntersectionObserver(es => visible = es[0].isIntersecting, { threshold: 0.05 }).observe(canvas);
+function tick() {
+  requestAnimationFrame(tick);
+  const dt = Math.min(clock.getDelta(), 0.05);
+  if (!visible) return;
+  if (group) {
+    if (!drag) ry += vy * dt;
+    group.rotation.y = ry; group.rotation.x = rx;
+    acc += dt * FPS; if (acc >= 1) { setFrame(frame + Math.floor(acc)); acc -= Math.floor(acc); }
+  }
+  renderer.render(scene, camera);
+}
+tick();
+loadBrain().catch(e => { console.warn('brain data failed', e); hudCond.textContent = 'DATA OFFLINE'; });
+
+/* ---------------- PREDICT: recorded vs predicted ---------------- */
+const tc = document.getElementById('trace'), tctx = tc.getContext('2d'), tabs = document.getElementById('tabs'), traceMeta = document.getElementById('traceMeta');
+let pred = null, cell = 0;
+fetch('data/predict.json').then(r => r.json()).then(p => {
+  pred = p;
+  p.cells.forEach((c, i) => { const b = document.createElement('button'); b.textContent = `${c.role.toUpperCase()} · #${c.neuron_id}`; b.onclick = () => { cell = i; drawTrace(); }; tabs.appendChild(b); });
+  drawTrace();
+});
+function drawTrace() {
+  if (!pred) return;
+  const dpr = Math.min(devicePixelRatio || 1, 2), W = tc.clientWidth, H = tc.clientHeight;
+  tc.width = W * dpr; tc.height = H * dpr; tctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  tctx.clearRect(0, 0, W, H);
+  const c = pred.cells[cell]; const rec = c.recorded, pr = c.predicted; const ctxN = pred.context;
+  const all = rec.concat(pr); const lo = Math.min(...all), hi = Math.max(...all); const pad = 24;
+  const X = i => pad + i / (rec.length - 1) * (W - pad * 2), Y = v => H - pad - (v - lo) / (hi - lo + 1e-6) * (H - pad * 2);
+  tctx.strokeStyle = 'rgba(255,255,255,.08)'; tctx.lineWidth = 1;
+  for (let k = 0; k < 5; k++) { const y = pad + k * (H - pad * 2) / 4; tctx.beginPath(); tctx.moveTo(pad, y); tctx.lineTo(W - pad, y); tctx.stroke(); }
+  // now marker
+  const nx = X(ctxN - 1); tctx.strokeStyle = 'rgba(255,255,255,.5)'; tctx.beginPath(); tctx.moveTo(nx, pad - 6); tctx.lineTo(nx, H - pad + 6); tctx.stroke();
+  tctx.fillStyle = '#8d97a8'; tctx.font = '11px JetBrains Mono, monospace'; tctx.fillText('NOW', nx + 6, pad + 4);
+  tctx.fillText('ΔF/F', pad, pad - 8);
+  // recorded
+  tctx.strokeStyle = '#3fd3f0'; tctx.lineWidth = 2; tctx.beginPath(); rec.forEach((v, i) => i ? tctx.lineTo(X(i), Y(v)) : tctx.moveTo(X(i), Y(v))); tctx.stroke();
+  // predicted (dashed magenta) starting at NOW
+  tctx.strokeStyle = '#c84cef'; tctx.setLineDash([6, 5]); tctx.beginPath(); tctx.moveTo(X(ctxN - 1), Y(rec[ctxN - 1]));
+  pr.forEach((v, i) => tctx.lineTo(X(ctxN + i), Y(v))); tctx.stroke(); tctx.setLineDash([]);
+  [...tabs.children].forEach((b, i) => b.classList.toggle('on', i === cell));
+  traceMeta.textContent = `NEURON ${c.neuron_id} · ONE-STEP R² ${c.r2_one_step.toFixed(2)} · ${pred.condition.toUpperCase()} (HELD OUT)`;
+}
+addEventListener('resize', drawTrace);
+</script>
+</body>
+</html>
